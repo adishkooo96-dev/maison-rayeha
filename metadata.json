@@ -1,0 +1,6 @@
+{
+  "name": "Maison Rayeha Luxury Parfums",
+  "description": "A luxury, modern bilingual (Persian & English) e-commerce fragrance house with artisanal perfumes, bespoke scent families, and refined sensory aesthetics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Maison Rayeha Luxury Parfums",
+  "short_name": "Maison Rayeha",
+  "description": "Artisanal Haute Parfumerie marrying Persian alchemy with French distillation.",
+  "start_url": "/fa",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

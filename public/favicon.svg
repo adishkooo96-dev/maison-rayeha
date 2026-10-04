@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="12" fill="#121212"/>
+  <!-- Diamond / Flacon Stopper -->
+  <path d="M32 10L40 18H24L32 10Z" fill="#C5A880"/>
+  <rect x="29" y="18" width="6" height="4" fill="#C5A880"/>
+  <!-- Bottle Shoulders and Body -->
+  <path d="M22 22H42L46 30V50C46 52.2 44.2 54 42 54H22C19.8 54 18 52.2 18 50V30L22 22Z" stroke="#C5A880" stroke-width="2.5" fill="none"/>
+  <!-- Inner Extrait Glow -->
+  <path d="M23 32H41V48C41 49.1 40.1 50 39 50H25C23.9 50 23 49.1 23 48V32Z" fill="#C5A880" fill-opacity="0.25"/>
+  <!-- Center Monogram Emblem -->
+  <circle cx="32" cy="40" r="4.5" stroke="#C5A880" stroke-width="1.5" fill="none"/>
+  <path d="M32 37.5V42.5M29.5 40H34.5" stroke="#C5A880" stroke-width="1.2"/>
+</svg>

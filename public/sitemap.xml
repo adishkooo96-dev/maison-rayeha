@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ==============================================================================
+     Maison Rayeha Haute Parfumerie - XML Sitemap
+     TODO: Replace https://maisonrayeha.com with your production custom domain
+     ============================================================================== -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- 1. Homepages -->
+  <url>
+    <loc>https://maisonrayeha.com/fa</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa" />
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa" />
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- 2. Shop Catalog -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop" />
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop" />
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- 3. About / Brand Story -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/about</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/about" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/about" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 4. Contact & Concierge -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/contact</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/contact" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/contact" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 5. Collections -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/collections</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/collections" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/collections" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/collections" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/collections</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/collections" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/collections" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/collections" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 6. Scent Families -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/scent-families</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/scent-families" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/scent-families" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/scent-families" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/scent-families</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/scent-families" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/scent-families" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/scent-families" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 7. Product Pages (18 Creations) -->
+  <!-- Oud Nocturne -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/oud-nocturne</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/oud-nocturne" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/oud-nocturne" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/oud-nocturne" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/oud-nocturne</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/oud-nocturne" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/oud-nocturne" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/oud-nocturne" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Rose de Shiraz -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/rose-de-shiraz</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/rose-de-shiraz" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/rose-de-shiraz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/rose-de-shiraz" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/rose-de-shiraz</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/rose-de-shiraz" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/rose-de-shiraz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/rose-de-shiraz" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Santal Celeste -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/santal-celeste</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/santal-celeste" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/santal-celeste" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/santal-celeste" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/santal-celeste</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/santal-celeste" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/santal-celeste" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/santal-celeste" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Ambre Imperial -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/ambre-imperial</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/ambre-imperial" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/ambre-imperial" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/ambre-imperial" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/ambre-imperial</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/ambre-imperial" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/ambre-imperial" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/ambre-imperial" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Fleur de Safran -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/fleur-de-safran</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/fleur-de-safran" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/fleur-de-safran" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/fleur-de-safran" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/fleur-de-safran</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/fleur-de-safran" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/fleur-de-safran" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/fleur-de-safran" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Vetiver Mineral -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/vetiver-mineral</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/vetiver-mineral" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/vetiver-mineral" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/vetiver-mineral" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/vetiver-mineral</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/vetiver-mineral" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/vetiver-mineral" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/vetiver-mineral" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Cuir de Perse -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/cuir-de-perse</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/cuir-de-perse" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/cuir-de-perse" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/cuir-de-perse" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/cuir-de-perse</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/cuir-de-perse" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/cuir-de-perse" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/cuir-de-perse" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Citrus Ethere -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/citrus-ethere</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/citrus-ethere" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/citrus-ethere" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/citrus-ethere" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/citrus-ethere</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/citrus-ethere" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/citrus-ethere" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/citrus-ethere" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Jasmin d'Ispahan -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/jasmin-dispahan</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/jasmin-dispahan" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/jasmin-dispahan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/jasmin-dispahan" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/jasmin-dispahan</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/jasmin-dispahan" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/jasmin-dispahan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/jasmin-dispahan" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Bois Fume -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/bois-fume</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/bois-fume" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/bois-fume" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/bois-fume" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/bois-fume</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/bois-fume" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/bois-fume" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/bois-fume" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Neroli Royale -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/neroli-royale</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/neroli-royale" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/neroli-royale" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/neroli-royale" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/neroli-royale</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/neroli-royale" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/neroli-royale" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/neroli-royale" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Encens Sacre -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/encens-sacre</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/encens-sacre" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/encens-sacre" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/encens-sacre" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/encens-sacre</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/encens-sacre" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/encens-sacre" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/encens-sacre" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Brise d'Alborz -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/brise-dalborz</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/brise-dalborz" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/brise-dalborz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/brise-dalborz" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/brise-dalborz</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/brise-dalborz" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/brise-dalborz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/brise-dalborz" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Tabac Noble -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/tabac-noble</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/tabac-noble" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/tabac-noble" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/tabac-noble" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/tabac-noble</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/tabac-noble" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/tabac-noble" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/tabac-noble" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Iris de Florence -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/iris-de-florence</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/iris-de-florence" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/iris-de-florence" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/iris-de-florence" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/iris-de-florence</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/iris-de-florence" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/iris-de-florence" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/iris-de-florence" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Cedre de l'Atlas -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/cedre-de-latlas</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/cedre-de-latlas" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/cedre-de-latlas" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/cedre-de-latlas" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/cedre-de-latlas</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/cedre-de-latlas" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/cedre-de-latlas" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/cedre-de-latlas" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Mandarine Solaire -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/mandarine-solaire</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/mandarine-solaire" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/mandarine-solaire" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/mandarine-solaire" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/mandarine-solaire</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/mandarine-solaire" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/mandarine-solaire" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/mandarine-solaire" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Aqua Kashan -->
+  <url>
+    <loc>https://maisonrayeha.com/fa/shop/aqua-kashan</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/aqua-kashan" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/aqua-kashan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/aqua-kashan" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://maisonrayeha.com/en/shop/aqua-kashan</loc>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://maisonrayeha.com/fa/shop/aqua-kashan" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://maisonrayeha.com/en/shop/aqua-kashan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://maisonrayeha.com/fa/shop/aqua-kashan" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+</urlset>

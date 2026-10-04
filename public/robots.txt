@@ -1,0 +1,16 @@
+# ==============================================================================
+# Maison Rayeha Haute Parfumerie - Robots Configuration
+# TODO: Replace https://maisonrayeha.com with your production custom domain
+# ==============================================================================
+
+User-agent: *
+Allow: /
+Disallow: /fa/cart
+Disallow: /en/cart
+Disallow: /fa/checkout
+Disallow: /en/checkout
+Disallow: /fa/order-confirmation
+Disallow: /en/order-confirmation
+
+# Sitemaps
+Sitemap: https://maisonrayeha.com/sitemap.xml

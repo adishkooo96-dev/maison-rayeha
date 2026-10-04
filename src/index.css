@@ -1,0 +1,279 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  --color-near-black: #0E0E0E;
+  --color-warm-ivory: #F5F0E8;
+  --color-ivory: #F5F0E8;
+  --color-ivory-surface: #F5F0E8;
+  --color-ivory-subtle: #EBE4D8;
+  --color-muted-gold: #B89B5E;
+  --color-gold: #B89B5E;
+  --color-gold-light: #D4BC84;
+  --color-gold-dark: #785D26;
+  --color-neutral-muted: #6E6A62;
+  --color-neutral-border: #DFD7CA;
+  --color-border: #DFD7CA;
+  --color-muted: #6E6A62;
+
+  /* Typography defaults (English) */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-nastaliq: 'Noto Nastaliq Urdu', 'Vazirmatn', serif;
+  --line-height-base: 1.6;
+}
+
+/* Dark mode luxury obsidian/noir palette */
+[data-theme="dark"],
+html[data-theme="dark"],
+.dark {
+  color-scheme: dark;
+  --color-warm-ivory: #111111;
+  --color-ivory: #111111;
+  --color-ivory-surface: #181818;
+  --color-ivory-subtle: #202020;
+  --color-gold: #C8AA6E;
+  --color-gold-light: #DFCA9B;
+  --color-gold-dark: #D4BC84;
+  --color-muted: #9E988E;
+  --color-neutral-muted: #9E988E;
+  --color-border: #2C2924;
+  --color-neutral-border: #2C2924;
+}
+
+html[lang="fa"],
+html[dir="rtl"] {
+  --font-display: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-nastaliq: 'Noto Nastaliq Urdu', 'Vazirmatn', serif;
+  --line-height-base: 1.85;
+}
+
+@theme {
+  --color-near-black: var(--color-near-black);
+  --color-ivory: var(--color-ivory);
+  --color-ivory-surface: var(--color-ivory-surface);
+  --color-ivory-subtle: var(--color-ivory-subtle);
+  --color-gold: var(--color-gold);
+  --color-gold-light: var(--color-gold-light);
+  --color-gold-dark: var(--color-gold-dark);
+  --color-muted: var(--color-muted);
+  --color-border: var(--color-border);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-nastaliq: var(--font-nastaliq);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold) !important;
+  outline-offset: 2px !important;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: var(--line-height-base);
+  background-color: var(--color-ivory);
+  color: var(--color-near-black);
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Site-wide replacement of stark pure white (#FFFFFF) with warm ivory/cream (#F5F0E8) in light mode */
+html:not([data-theme="dark"]) body:not(.admin-scope),
+html:not([data-theme="dark"]) :not(.admin-scope) > .bg-white,
+html:not([data-theme="dark"]) :not(.admin-scope) .bg-white:not(.admin-override),
+html:not([data-theme="dark"]) .bg-white:not(.admin-scope *) {
+  background-color: #F5F0E8 !important;
+}
+
+/* Dark mode overrides for high-contrast luxury noir presentation */
+html[data-theme="dark"] body {
+  background-color: #111111 !important;
+  color: #F5F0E8 !important;
+}
+
+html[data-theme="dark"] .text-near-black {
+  color: #F5F0E8 !important;
+}
+
+html[data-theme="dark"] .bg-near-black {
+  background-color: #1C1C1C !important;
+}
+
+html[data-theme="dark"] .bg-white {
+  background-color: #181818 !important;
+  color: #F5F0E8;
+}
+
+html[data-theme="dark"] .hover\:text-near-black:hover {
+  color: #0E0E0E !important;
+}
+
+html[data-theme="dark"] .hover\:bg-near-black:hover {
+  background-color: #242424 !important;
+}
+
+html[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]),
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+  background-color: #181818;
+  color: #F5F0E8;
+  border-color: #2C2924;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+  color: #7E786E;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+}
+
+/* Persian specific typographic balance & rules (Heavier weights 700-800, visibly larger 1.8x+ than body) */
+html[lang="fa"] h1,
+html[dir="rtl"] h1 {
+  font-family: 'Vazirmatn', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  line-height: 1.35;
+  letter-spacing: 0 !important;
+}
+
+html[lang="fa"] h2,
+html[dir="rtl"] h2 {
+  font-family: 'Vazirmatn', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  line-height: 1.38;
+  letter-spacing: 0 !important;
+}
+
+html[lang="fa"] h3,
+html[dir="rtl"] h3 {
+  font-family: 'Vazirmatn', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.35rem, 2.5vw, 1.95rem);
+  line-height: 1.45;
+  letter-spacing: 0 !important;
+}
+
+html[lang="fa"] h4,
+html[lang="fa"] h5,
+html[lang="fa"] h6,
+html[dir="rtl"] h4,
+html[dir="rtl"] h5,
+html[dir="rtl"] h6 {
+  font-family: 'Vazirmatn', sans-serif;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0 !important;
+}
+
+/* Persian Calligraphic Luxury Hero Display Heading */
+html[lang="fa"] .font-nastaliq,
+html[dir="rtl"] .font-nastaliq,
+html[lang="fa"] .hero-display-heading,
+html[dir="rtl"] .hero-display-heading {
+  font-family: 'Noto Nastaliq Urdu', 'Vazirmatn', serif !important;
+  font-weight: 700;
+  line-height: 1.85 !important;
+}
+
+/* English Headings: Cormorant Garamond 20-30% visibly larger & elegant */
+html[lang="en"] h1 {
+  font-size: clamp(3rem, 6.5vw, 5.25rem);
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  line-height: 1.12;
+}
+
+html[lang="en"] h2 {
+  font-size: clamp(2.4rem, 4.8vw, 3.75rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.18;
+}
+
+html[lang="en"] h3 {
+  font-size: clamp(1.65rem, 3.2vw, 2.35rem);
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  line-height: 1.25;
+}
+
+html[lang="en"] .font-display {
+  letter-spacing: 0.02em;
+}
+
+/* Persian paragraph reading flow and line height */
+html[lang="fa"] p,
+html[dir="rtl"] p {
+  line-height: 1.85;
+}
+
+/* Ensure long-form Persian paragraphs start-align for readability, never centered */
+html[lang="fa"] p:not(.text-center-force):not(.badge-text),
+html[dir="rtl"] p:not(.text-center-force):not(.badge-text) {
+  text-align: start;
+}
+
+/* Strictly disable letter-spacing for Persian text to prevent tearing cursive ligatures */
+html[lang="fa"] span:not([dir="ltr"]):not([lang="en"]),
+html[lang="fa"] a:not([dir="ltr"]):not([lang="en"]),
+html[lang="fa"] button:not([dir="ltr"]):not([lang="en"]),
+html[lang="fa"] label:not([dir="ltr"]):not([lang="en"]),
+html[lang="fa"] input:not([dir="ltr"]):not([lang="en"]),
+html[lang="fa"] textarea:not([dir="ltr"]):not([lang="en"]),
+html[dir="rtl"] span:not([dir="ltr"]):not([lang="en"]),
+html[dir="rtl"] a:not([dir="ltr"]):not([lang="en"]),
+html[dir="rtl"] button:not([dir="ltr"]):not([lang="en"]),
+html[dir="rtl"] label:not([dir="ltr"]):not([lang="en"]),
+html[dir="rtl"] input:not([dir="ltr"]):not([lang="en"]),
+html[dir="rtl"] textarea:not([dir="ltr"]):not([lang="en"]) {
+  letter-spacing: 0;
+}
+
+/* Unicode bidi isolation */
+bdi, [dir="ltr"] {
+  unicode-bidi: isolate;
+}
+
+html[lang="en"] h1,
+html[lang="en"] h2,
+html[lang="en"] h3,
+html[lang="en"] .font-display {
+  letter-spacing: 0.02em;
+}
+
+/* Smooth transitions & reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile Responsiveness & Safe Area Inset Utilities */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Safe area padding utilities for notched devices (iPhone X/11/12/13/14/15/16) */
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.pt-safe {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+/* Minimum 44x44px touch targets helper */
+.touch-target-44 {
+  min-height: 44px;
+  min-width: 44px;
+}
+

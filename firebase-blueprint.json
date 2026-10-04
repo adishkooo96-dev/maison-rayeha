@@ -1,0 +1,144 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Luxury perfume offering in Maison Rayeha collection",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "slug": { "type": "string" },
+        "brand": { "type": "string" },
+        "name": { "type": "object" },
+        "subtitle": { "type": "object" },
+        "description": { "type": "object" },
+        "price": { "type": "object" },
+        "scentFamily": { "type": "string" },
+        "gender": { "type": "string" },
+        "inStock": { "type": "boolean" }
+      },
+      "required": ["id", "slug", "brand", "name", "price", "scentFamily", "gender"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase transaction record",
+      "type": "object",
+      "properties": {
+        "orderNumber": { "type": "string" },
+        "userId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerEmail": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "status": { "type": "string" },
+        "items": { "type": "array" },
+        "shippingAddress": { "type": "object" },
+        "totals": { "type": "object" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["orderNumber", "customerName", "status", "items", "totals", "createdAt"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile with role authentication",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["customer", "admin"] },
+        "isOwner": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "name", "email", "role", "createdAt"]
+    },
+    "ChatConversation": {
+      "title": "ChatConversation",
+      "description": "Real-time support chat thread between customer and concierge",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "guestSessionId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerEmail": { "type": "string" },
+        "status": { "type": "string", "enum": ["open", "closed"] },
+        "lastMessageAt": { "type": "string" },
+        "unreadByAdmin": { "type": "boolean" },
+        "unreadByCustomer": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["guestSessionId", "customerName", "status", "lastMessageAt", "createdAt"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Individual message in a support conversation",
+      "type": "object",
+      "properties": {
+        "senderType": { "type": "string", "enum": ["customer", "admin"] },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["senderType", "text", "createdAt"]
+    },
+    "Coupon": {
+      "title": "Coupon",
+      "description": "Discount code document",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "type": { "type": "string", "enum": ["percent", "fixed"] },
+        "value": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "expiresAt": { "type": "string" },
+        "minOrderAmount": { "type": "number" },
+        "note": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["code", "type", "value", "isActive", "minOrderAmount"]
+    },
+    "SiteContent": {
+      "title": "SiteContent",
+      "description": "Editable website content for pages like about and contact",
+      "type": "object",
+      "properties": {
+        "address": { "type": "object" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "workingHours": { "type": "object" },
+        "heroHeadline": { "type": "object" },
+        "heroSubtext": { "type": "object" },
+        "storyText": { "type": "object" },
+        "valuesTitle": { "type": "object" },
+        "values": { "type": "array" }
+      }
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Catalog of perfume products available in the shop"
+    },
+    "/siteContent/{contentId}": {
+      "schema": "SiteContent",
+      "description": "Public site content documents (about, contact)"
+    },
+    "/coupons/{code}": {
+      "schema": "Coupon",
+      "description": "Promotional discount codes and privilege vouchers"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Submitted customer orders"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Registered customer and admin profiles"
+    },
+    "/chats/{chatId}": {
+      "schema": "ChatConversation",
+      "description": "Customer support chat conversations"
+    },
+    "/chats/{chatId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Messages within a customer support chat thread"
+    }
+  }
+}
