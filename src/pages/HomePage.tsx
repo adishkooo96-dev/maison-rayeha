@@ -4,6 +4,7 @@ import { Seo } from '../components/seo/Seo';
 import { HeroSection } from '../components/home/HeroSection';
 import { BestsellersSection } from '../components/home/BestsellersSection';
 import { ScentFamilySection } from '../components/home/ScentFamilySection';
+import { FragranceAdvisorSection } from '../components/home/FragranceAdvisorSection';
 import { BrandStorySection } from '../components/home/BrandStorySection';
 import { SectionDivider } from '../components/ui/SectionDivider';
 
@@ -70,7 +71,13 @@ export const HomePage: React.FC = () => {
         {/* Decorative Divider */}
         <SectionDivider />
 
-        {/* 4. Brand Story Teaser */}
+        {/* 4. AI Fragrance Sommelier Section */}
+        <FragranceAdvisorSection />
+
+        {/* Decorative Divider */}
+        <SectionDivider />
+
+        {/* 5. Brand Story Teaser */}
         <BrandStorySection />
       </div>
     </>
