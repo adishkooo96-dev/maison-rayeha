@@ -191,12 +191,12 @@ export const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
   return (
     <section className="pt-20 border-t border-border/80 text-start" aria-labelledby="reviews-heading">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-border/80">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-[var(--border)]">
         <div>
-          <span className="text-xs uppercase tracking-[0.2em] rtl:tracking-normal text-gold-dark font-medium block mb-1">
+          <span className="text-xs uppercase tracking-[0.2em] rtl:tracking-normal text-gold font-medium block mb-1">
             {t('reviews.sectionSubtitle')}
           </span>
-          <h2 id="reviews-heading" className="text-2xl sm:text-3xl font-display font-light text-near-black">
+          <h2 id="reviews-heading" className="text-2xl sm:text-3xl font-display font-light text-[var(--text-primary)]">
             {t('reviews.sectionTitle')}
           </h2>
         </div>
@@ -213,11 +213,11 @@ export const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
       </div>
 
       {/* Ratings & Sensory Consensuses Overview */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-14 bg-ivory-surface border border-border/80 p-6 sm:p-8 rounded-xs shadow-2xs">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-14 bg-[var(--bg-surface)] border border-[var(--border)] p-6 sm:p-8 rounded-xs shadow-2xs">
         {/* Left: Overall Score and Distribution */}
-        <div className="lg:col-span-6 flex flex-col sm:flex-row items-center sm:items-start gap-8 border-b lg:border-b-0 lg:border-e border-border/70 pb-8 lg:pb-0 lg:pe-8">
+        <div className="lg:col-span-6 flex flex-col sm:flex-row items-center sm:items-start gap-8 border-b lg:border-b-0 lg:border-e border-[var(--border)] pb-8 lg:pb-0 lg:pe-8">
           <div className="flex flex-col items-center justify-center text-center shrink-0 min-w-[130px]">
-            <span className="text-5xl sm:text-6xl font-display font-light text-near-black tracking-tight">
+            <span className="text-5xl sm:text-6xl font-display font-light text-[var(--text-primary)] tracking-tight">
               {formatNumber(stats.averageRating, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
             </span>
             <div className="flex items-center gap-1 text-gold my-2" aria-label={`Rating: ${stats.averageRating} out of 5`}>
@@ -344,8 +344,8 @@ export const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
             onClick={() => setSelectedRatingFilter(null)}
             className={`min-h-[38px] px-3 text-xs rounded-xs border transition-colors cursor-pointer ${
               selectedRatingFilter === null && !onlyVerifiedFilter
-                ? 'bg-near-black text-ivory border-near-black shadow-2xs font-medium'
-                : 'bg-ivory text-near-black border-border hover:border-gold/60'
+                ? 'bg-[var(--chip-selected-bg)] text-[var(--chip-selected-text)] border-[var(--chip-selected-bg)] shadow-2xs font-semibold'
+                : 'bg-[var(--chip-bg)] text-[var(--chip-text)] border-[var(--border)] hover:border-gold'
             }`}
           >
             {t('reviews.filterAll')}
@@ -356,8 +356,8 @@ export const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
             onClick={() => setOnlyVerifiedFilter(!onlyVerifiedFilter)}
             className={`min-h-[38px] px-3 text-xs rounded-xs border transition-colors cursor-pointer flex items-center gap-1.5 ${
               onlyVerifiedFilter
-                ? 'bg-gold text-near-black border-gold shadow-2xs font-medium'
-                : 'bg-ivory text-near-black border-border hover:border-gold/60'
+                ? 'bg-gold text-[#111111] border-gold shadow-2xs font-semibold'
+                : 'bg-[var(--chip-bg)] text-[var(--chip-text)] border-[var(--border)] hover:border-gold'
             }`}
           >
             <CheckCircle2 className="w-3.5 h-3.5 stroke-[1.5]" />
@@ -416,7 +416,7 @@ export const ProductReviews: React.FC<ProductReviewsProps> = ({ product }) => {
           {filteredAndSortedReviews.map((rev) => (
             <article
               key={rev.id}
-              className="bg-ivory-surface border border-border/80 p-6 sm:p-7 rounded-xs shadow-2xs transition-all hover:border-gold/40"
+              className="bg-[var(--bg-surface)] border border-[var(--border)] p-6 sm:p-7 rounded-xs shadow-2xs transition-all hover:border-gold/40"
             >
               {/* Header: Reviewer Info & Ratings */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-border/60">

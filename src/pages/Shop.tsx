@@ -339,7 +339,7 @@ export const Shop: React.FC = () => {
         description={t('shop.metaDescription') || (lang === 'fa' ? 'مجموعه دست‌ساز عطرهای نیش میسون رایحه' : 'Explore the handcrafted niche perfume collection by Maison Rayeha.')}
         jsonLd={breadcrumbJsonLd}
       />
-      <div className="pt-28 pb-24 bg-ivory text-near-black">
+      <div className="pt-28 pb-24 bg-[var(--bg-page)] text-[var(--text-primary)]">
       <Container size="xl">
         {/* Breadcrumbs */}
         <div className="mb-6">
@@ -352,15 +352,15 @@ export const Shop: React.FC = () => {
         </div>
 
         {/* Page Header */}
-        <div className="pb-8 mb-8 border-b border-border/80 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="pb-8 mb-8 border-b border-[var(--border)] flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="text-start max-w-2xl">
             <span className="text-xs uppercase tracking-[0.2em] rtl:tracking-normal text-gold font-medium block mb-2">
               {t('shop.eyebrow')}
             </span>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-normal sm:font-medium rtl:font-extrabold rtl:leading-[1.32] text-near-black">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-normal sm:font-medium rtl:font-extrabold rtl:leading-[1.32] text-[var(--text-primary)]">
               {t('shop.title')}
             </h1>
-            <p className="mt-2.5 text-xs sm:text-sm text-muted leading-relaxed rtl:leading-loose font-light">
+            <p className="mt-2.5 text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed rtl:leading-loose font-light">
               {t('shop.subtitle')}
             </p>
           </div>
@@ -646,10 +646,10 @@ export const Shop: React.FC = () => {
                           onClick={() => setSelectedQuickViewSize(sizeStr)}
                           className={`min-h-[44px] min-w-[54px] px-3.5 py-2 text-xs font-mono font-medium border transition-all rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
                             !quickViewProduct.inStock
-                              ? 'opacity-40 cursor-not-allowed bg-ivory text-muted border-border'
+                              ? 'opacity-40 cursor-not-allowed bg-[var(--bg-surface-raised)] text-[var(--text-secondary)] border-[var(--border)]'
                               : selectedQuickViewSize === sizeStr
-                              ? 'bg-near-black text-ivory border-near-black shadow-2xs cursor-pointer'
-                              : 'bg-ivory text-near-black border-border hover:border-gold-dark cursor-pointer'
+                              ? 'bg-[var(--chip-selected-bg)] text-[var(--chip-selected-text)] border-[var(--chip-selected-bg)] shadow-2xs cursor-pointer font-semibold'
+                              : 'bg-[var(--bg-surface)] text-[var(--text-primary)] border-[var(--border)] hover:border-gold cursor-pointer'
                           }`}
                         >
                           {sizeStr}

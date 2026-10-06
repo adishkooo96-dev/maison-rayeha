@@ -44,14 +44,14 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
       title={tooltipTitle}
       className={`min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold shrink-0 cursor-pointer ${
         isTransparent
-          ? 'text-ivory hover:text-gold'
-          : 'text-near-black hover:text-gold'
+          ? 'text-white hover:text-gold'
+          : 'text-[var(--text-primary)] hover:text-gold'
       } ${className}`}
     >
       {isDark ? (
         <Sun className="w-5 h-5 stroke-[1.5] transition-transform duration-200 hover:rotate-45 text-gold-light" />
       ) : (
-        <Moon className="w-5 h-5 stroke-[1.5] transition-transform duration-200 hover:-rotate-12 text-near-black hover:text-gold" />
+        <Moon className="w-5 h-5 stroke-[1.5] transition-transform duration-200 hover:-rotate-12 text-[var(--text-primary)] hover:text-gold" />
       )}
     </button>
   );

@@ -2,19 +2,55 @@
 
 :root {
   color-scheme: light;
-  --color-near-black: #0E0E0E;
-  --color-warm-ivory: #F5F0E8;
-  --color-ivory: #F5F0E8;
-  --color-ivory-surface: #F5F0E8;
-  --color-ivory-subtle: #EBE4D8;
-  --color-muted-gold: #B89B5E;
-  --color-gold: #B89B5E;
-  --color-gold-light: #D4BC84;
-  --color-gold-dark: #785D26;
-  --color-neutral-muted: #6E6A62;
-  --color-neutral-border: #DFD7CA;
-  --color-border: #DFD7CA;
-  --color-muted: #6E6A62;
+
+  /* Semantic Theme Tokens (Light Mode - exact values of today) */
+  --bg-page: #F5F0E8;
+  --bg-surface: #FFFFFF;
+  --bg-surface-raised: #FAF7F2;
+  --text-primary: #0E0E0E;
+  --text-secondary: #6E6A62;
+  --text-on-image: #FFFFFF;
+  --border: #DFD7CA;
+  --gold: #B89B5E;
+  --gold-light: #D4BC84;
+  --gold-dark: #785D26;
+
+  /* Button Tokens */
+  --btn-primary-bg: #0E0E0E;
+  --btn-primary-text: #F5F0E8;
+  --btn-primary-hover-bg: #B89B5E;
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: #0E0E0E;
+  --btn-secondary-border: #0E0E0E;
+
+  /* Badge Tokens */
+  --badge-bg: #B89B5E;
+  --badge-text: #0E0E0E;
+
+  /* Chip / Tab Tokens */
+  --chip-bg: #EBE4D8;
+  --chip-text: #0E0E0E;
+  --chip-selected-bg: #0E0E0E;
+  --chip-selected-text: #F5F0E8;
+
+  /* Announcement Bar Tokens */
+  --announcement-bg: #0E0E0E;
+  --announcement-text: #F5F0E8;
+
+  /* Functional Status Tokens */
+  --danger: #DC2626;
+  --success: #16A34A;
+
+  /* Backward Compatibility Aliases */
+  --color-near-black: var(--text-primary);
+  --color-ivory: var(--bg-page);
+  --color-ivory-surface: var(--bg-surface);
+  --color-ivory-subtle: var(--bg-surface-raised);
+  --color-border: var(--border);
+  --color-muted: var(--text-secondary);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
 
   /* Typography defaults (English) */
   --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -23,22 +59,60 @@
   --line-height-base: 1.6;
 }
 
-/* Dark mode luxury obsidian/noir palette */
+/* Dark mode luxury obsidian/noir palette (Explicit Semantic Tokens) */
 [data-theme="dark"],
 html[data-theme="dark"],
 .dark {
   color-scheme: dark;
-  --color-warm-ivory: #111111;
-  --color-ivory: #111111;
-  --color-ivory-surface: #181818;
-  --color-ivory-subtle: #202020;
-  --color-gold: #C8AA6E;
-  --color-gold-light: #DFCA9B;
-  --color-gold-dark: #D4BC84;
-  --color-muted: #9E988E;
-  --color-neutral-muted: #9E988E;
-  --color-border: #2C2924;
-  --color-neutral-border: #2C2924;
+
+  /* Semantic Theme Tokens (Dark Mode) */
+  --bg-page: #0F0F10;
+  --bg-surface: #1A1A1C;
+  --bg-surface-raised: #232326;
+  --text-primary: #F5F0E8;
+  --text-secondary: #B8B2A7;
+  --text-on-image: #FFFFFF;
+  --border: rgba(245, 240, 232, 0.14);
+  --gold: #C9A96A;
+  --gold-light: #DFCA9B;
+  --gold-dark: #C9A96A;
+
+  /* Button Tokens */
+  --btn-primary-bg: #C9A96A;
+  --btn-primary-text: #111111;
+  --btn-primary-hover-bg: #D9BC84;
+  --btn-secondary-bg: transparent;
+  --btn-secondary-text: #F5F0E8;
+  --btn-secondary-border: #C9A96A;
+
+  /* Badge Tokens */
+  --badge-bg: #C9A96A;
+  --badge-text: #111111;
+
+  /* Chip / Tab Tokens */
+  --chip-bg: #232326;
+  --chip-text: #F5F0E8;
+  --chip-selected-bg: #C9A96A;
+  --chip-selected-text: #111111;
+
+  /* Announcement Bar Tokens */
+  --announcement-bg: #1A1A1C;
+  --announcement-text: #F5F0E8;
+
+  /* Functional Status Tokens */
+  --danger: #FF7A7A;
+  --success: #6FD3A0;
+
+  /* Backward Compatibility Aliases (Never invert text vs background!) */
+  --color-near-black: var(--text-primary);
+  --color-ivory: var(--bg-page);
+  --color-ivory-surface: var(--bg-surface);
+  --color-ivory-subtle: var(--bg-surface-raised);
+  --color-border: var(--border);
+  --color-muted: var(--text-secondary);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold);
 }
 
 html[lang="fa"],
@@ -50,79 +124,227 @@ html[dir="rtl"] {
 }
 
 @theme {
-  --color-near-black: var(--color-near-black);
-  --color-ivory: var(--color-ivory);
-  --color-ivory-surface: var(--color-ivory-surface);
-  --color-ivory-subtle: var(--color-ivory-subtle);
-  --color-gold: var(--color-gold);
-  --color-gold-light: var(--color-gold-light);
-  --color-gold-dark: var(--color-gold-dark);
-  --color-muted: var(--color-muted);
-  --color-border: var(--color-border);
+  --color-bg-page: var(--bg-page);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-surface-raised: var(--bg-surface-raised);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-on-image: var(--text-on-image);
+  --color-border: var(--border);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+
+  --color-btn-primary-bg: var(--btn-primary-bg);
+  --color-btn-primary-text: var(--btn-primary-text);
+  --color-btn-primary-hover: var(--btn-primary-hover-bg);
+  --color-btn-secondary-bg: var(--btn-secondary-bg);
+  --color-btn-secondary-text: var(--btn-secondary-text);
+  --color-btn-secondary-border: var(--btn-secondary-border);
+
+  --color-badge-bg: var(--badge-bg);
+  --color-badge-text: var(--badge-text);
+
+  --color-chip-bg: var(--chip-bg);
+  --color-chip-text: var(--chip-text);
+  --color-chip-selected-bg: var(--chip-selected-bg);
+  --color-chip-selected-text: var(--chip-selected-text);
+
+  --color-announcement-bg: var(--announcement-bg);
+  --color-announcement-text: var(--announcement-text);
+
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+
+  --color-near-black: var(--text-primary);
+  --color-ivory: var(--bg-page);
+  --color-ivory-surface: var(--bg-surface);
+  --color-ivory-subtle: var(--bg-surface-raised);
+  --color-muted: var(--text-secondary);
+
   --font-display: var(--font-display);
   --font-body: var(--font-body);
   --font-nastaliq: var(--font-nastaliq);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gold) !important;
+  outline: 2px solid var(--gold) !important;
   outline-offset: 2px !important;
 }
 
 body {
   font-family: var(--font-body);
   line-height: var(--line-height-base);
-  background-color: var(--color-ivory);
-  color: var(--color-near-black);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
   transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
-/* Site-wide replacement of stark pure white (#FFFFFF) with warm ivory/cream (#F5F0E8) in light mode */
+/* Light mode defaults: pure white on storefront maps to warm ivory / surface */
 html:not([data-theme="dark"]) body:not(.admin-scope),
 html:not([data-theme="dark"]) :not(.admin-scope) > .bg-white,
 html:not([data-theme="dark"]) :not(.admin-scope) .bg-white:not(.admin-override),
 html:not([data-theme="dark"]) .bg-white:not(.admin-scope *) {
-  background-color: #F5F0E8 !important;
+  background-color: #FFFFFF;
 }
 
-/* Dark mode overrides for high-contrast luxury noir presentation */
-html[data-theme="dark"] body {
-  background-color: #111111 !important;
-  color: #F5F0E8 !important;
+/* Dark mode luxury obsidian/noir presentation */
+html[data-theme="dark"] {
+  color-scheme: dark;
 }
 
-html[data-theme="dark"] .text-near-black {
-  color: #F5F0E8 !important;
+html[data-theme="dark"] body:not(.admin-scope) {
+  background-color: var(--bg-page) !important;
+  color: var(--text-primary) !important;
 }
 
-html[data-theme="dark"] .bg-near-black {
-  background-color: #1C1C1C !important;
+/* Never allow text-ivory or text-near-black to be dark in dark mode */
+html[data-theme="dark"] .text-near-black:not(.admin-scope *),
+html[data-theme="dark"] .text-black:not(.admin-scope *) {
+  color: var(--text-primary) !important;
 }
 
-html[data-theme="dark"] .bg-white {
-  background-color: #181818 !important;
-  color: #F5F0E8;
+html[data-theme="dark"] .text-ivory:not(.admin-scope *) {
+  color: var(--text-primary) !important;
 }
 
-html[data-theme="dark"] .hover\:text-near-black:hover {
-  color: #0E0E0E !important;
+html[data-theme="dark"] .bg-ivory:not(.admin-scope *) {
+  background-color: var(--bg-page) !important;
 }
 
-html[data-theme="dark"] .hover\:bg-near-black:hover {
-  background-color: #242424 !important;
+html[data-theme="dark"] .bg-ivory-surface:not(.admin-scope *),
+html[data-theme="dark"] .bg-white:not(.admin-scope *) {
+  background-color: var(--bg-surface) !important;
 }
 
-html[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]),
-html[data-theme="dark"] textarea,
-html[data-theme="dark"] select {
-  background-color: #181818;
-  color: #F5F0E8;
-  border-color: #2C2924;
+html[data-theme="dark"] .bg-ivory-subtle:not(.admin-scope *) {
+  background-color: var(--bg-surface-raised) !important;
 }
 
-html[data-theme="dark"] input::placeholder,
-html[data-theme="dark"] textarea::placeholder {
-  color: #7E786E;
+html[data-theme="dark"] .border-border:not(.admin-scope *) {
+  border-color: var(--border) !important;
+}
+
+/* In dark mode, if any button or action link uses bg-near-black, guarantee gold background with dark text */
+html[data-theme="dark"] button.bg-near-black:not(.admin-scope *),
+html[data-theme="dark"] a.bg-near-black:not(.admin-scope *),
+html[data-theme="dark"] input[type="submit"]:not(.admin-scope *) {
+  background-color: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-text) !important;
+  border-color: var(--btn-primary-bg) !important;
+}
+
+html[data-theme="dark"] button.bg-near-black:hover:not(.admin-scope *),
+html[data-theme="dark"] a.bg-near-black:hover:not(.admin-scope *) {
+  background-color: var(--btn-primary-hover-bg) !important;
+  border-color: var(--btn-primary-hover-bg) !important;
+  color: var(--btn-primary-text) !important;
+}
+
+/* Form controls (Inputs, Selects, Textareas) in dark mode */
+html[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not(.admin-scope *),
+html[data-theme="dark"] textarea:not(.admin-scope *),
+html[data-theme="dark"] select:not(.admin-scope *) {
+  background-color: var(--bg-surface-raised) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border) !important;
+  caret-color: var(--gold) !important;
+}
+
+html[data-theme="dark"] input:not(.admin-scope *)::placeholder,
+html[data-theme="dark"] textarea:not(.admin-scope *)::placeholder {
+  color: var(--text-secondary) !important;
+  opacity: 0.7;
+}
+
+html[data-theme="dark"] input:focus:not(.admin-scope *),
+html[data-theme="dark"] textarea:focus:not(.admin-scope *),
+html[data-theme="dark"] select:focus:not(.admin-scope *) {
+  border-color: var(--gold) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(201, 169, 106, 0.25) !important;
+}
+
+/* Force Admin Panel to always remain strictly in light theme */
+.admin-scope {
+  color-scheme: light !important;
+  --bg-page: #FAFAFA !important;
+  --bg-surface: #FFFFFF !important;
+  --bg-surface-raised: #F4F4F5 !important;
+  --text-primary: #18181B !important;
+  --text-secondary: #71717A !important;
+  --border: #E4E4E7 !important;
+  --gold: #B89B5E !important;
+  --gold-light: #D4BC84 !important;
+  --gold-dark: #785D26 !important;
+  --btn-primary-bg: #18181B !important;
+  --btn-primary-text: #FFFFFF !important;
+  --btn-primary-hover-bg: #27272A !important;
+  --btn-secondary-bg: #FFFFFF !important;
+  --btn-secondary-text: #18181B !important;
+  --btn-secondary-border: #E4E4E7 !important;
+  --badge-bg: #F4F4F5 !important;
+  --badge-text: #18181B !important;
+  --chip-bg: #F4F4F5 !important;
+  --chip-text: #18181B !important;
+  --chip-selected-bg: #18181B !important;
+  --chip-selected-text: #FFFFFF !important;
+  background-color: #FAFAFA !important;
+  color: #18181B !important;
+}
+
+.admin-scope * {
+  color-scheme: light !important;
+}
+
+html[data-theme="dark"] .admin-scope .bg-white {
+  background-color: #FFFFFF !important;
+  color: #18181B !important;
+}
+
+html[data-theme="dark"] .admin-scope .bg-zinc-50 {
+  background-color: #FAFAFA !important;
+}
+
+html[data-theme="dark"] .admin-scope .bg-zinc-100 {
+  background-color: #F4F4F5 !important;
+}
+
+html[data-theme="dark"] .admin-scope .text-zinc-900 {
+  color: #18181B !important;
+}
+
+html[data-theme="dark"] .admin-scope .text-zinc-800 {
+  color: #27272A !important;
+}
+
+html[data-theme="dark"] .admin-scope .text-zinc-700 {
+  color: #3F3F46 !important;
+}
+
+html[data-theme="dark"] .admin-scope .text-zinc-600 {
+  color: #52525B !important;
+}
+
+html[data-theme="dark"] .admin-scope .text-zinc-500 {
+  color: #71717A !important;
+}
+
+html[data-theme="dark"] .admin-scope .border-zinc-200 {
+  border-color: #E4E4E7 !important;
+}
+
+html[data-theme="dark"] .admin-scope input:not([type="checkbox"]):not([type="radio"]),
+html[data-theme="dark"] .admin-scope textarea,
+html[data-theme="dark"] .admin-scope select {
+  background-color: #FFFFFF !important;
+  color: #18181B !important;
+  border-color: #E4E4E7 !important;
+}
+
+html[data-theme="dark"] .admin-scope input::placeholder,
+html[data-theme="dark"] .admin-scope textarea::placeholder {
+  color: #A1A1AA !important;
 }
 
 h1, h2, h3, .font-display {

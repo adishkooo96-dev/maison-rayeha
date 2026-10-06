@@ -87,12 +87,12 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
     >
       <div
         ref={overlayRef}
-        className="min-h-screen sm:min-h-[500px] w-full max-w-4xl mx-auto bg-ivory-surface border-b sm:border-x sm:border-b border-border shadow-2xl p-4 sm:p-10 pb-[max(2rem,env(safe-area-inset-bottom))] text-start flex flex-col justify-start"
+        className="min-h-screen sm:min-h-[500px] w-full max-w-4xl mx-auto bg-[var(--bg-surface)] text-[var(--text-primary)] border-b sm:border-x sm:border-b border-[var(--border)] shadow-2xl p-4 sm:p-10 pb-[max(2rem,env(safe-area-inset-bottom))] text-start flex flex-col justify-start"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top bar with close button */}
-        <div className="flex items-center justify-between pb-4 sm:pb-6 border-b border-border/80">
-          <div className="flex items-center gap-2 text-gold-dark text-xs uppercase tracking-widest font-medium">
+        <div className="flex items-center justify-between pb-4 sm:pb-6 border-b border-[var(--border)]">
+          <div className="flex items-center gap-2 text-gold text-xs uppercase tracking-widest font-medium">
             <Sparkles className="w-4 h-4 stroke-[1.5]" aria-hidden="true" />
             <span>{t('searchOverlay.title')}</span>
           </div>
@@ -101,7 +101,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
             type="button"
             onClick={onClose}
             aria-label={t('common.close')}
-            className="min-h-[44px] min-w-[44px] flex items-center justify-center text-muted hover:text-near-black transition-colors rounded-xs border border-transparent hover:border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors rounded-xs border border-transparent hover:border-[var(--border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
           >
             <X className="w-5 h-5 stroke-[1.5]" />
           </button>
@@ -109,22 +109,22 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
 
         {/* Input box */}
         <form onSubmit={handleViewAll} className="mt-6 sm:mt-8 relative">
-          <div className="relative flex items-center border-b-2 border-near-black/80 focus-within:border-gold transition-colors pb-2">
-            <Search className="w-6 h-6 text-gold-dark stroke-[1.5] shrink-0 me-3" aria-hidden="true" />
+          <div className="relative flex items-center border-b-2 border-[var(--border)] focus-within:border-gold transition-colors pb-2">
+            <Search className="w-6 h-6 text-gold stroke-[1.5] shrink-0 me-3" aria-hidden="true" />
             <input
               ref={inputRef}
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t('searchOverlay.placeholder')}
-              className="w-full bg-transparent text-base sm:text-2xl font-light text-near-black placeholder:text-muted/60 focus:outline-none min-h-[44px]"
+              className="w-full bg-transparent text-base sm:text-2xl font-light text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]/60 focus:outline-none min-h-[44px]"
               aria-label={t('searchOverlay.title')}
             />
             {query && (
               <button
                 type="button"
                 onClick={() => setQuery('')}
-                className="min-h-[44px] min-w-[44px] flex items-center justify-center text-muted hover:text-near-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xs transition-colors cursor-pointer"
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xs transition-colors cursor-pointer"
                 aria-label="Clear query"
               >
                 <X className="w-4 h-4 stroke-[1.5]" />
@@ -136,8 +136,8 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
         {/* Trending tags */}
         {!query && (
           <div className="mt-8 pt-4">
-            <div className="flex items-center gap-2 text-xs text-muted font-medium mb-3">
-              <Tag className="w-3.5 h-3.5 text-gold-dark stroke-[1.5]" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-xs text-[var(--text-secondary)] font-medium mb-3">
+              <Tag className="w-3.5 h-3.5 text-gold stroke-[1.5]" aria-hidden="true" />
               <span>{t('searchOverlay.trending')}</span>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -146,7 +146,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
                   key={tag}
                   type="button"
                   onClick={() => setQuery(tag)}
-                  className="min-h-[40px] flex items-center text-xs bg-ivory text-near-black border border-border/80 px-3.5 py-1.5 rounded-xs shadow-2xs hover:border-gold hover:text-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold transition-colors cursor-pointer"
+                  className="min-h-[40px] flex items-center text-xs bg-[var(--chip-bg)] text-[var(--chip-text)] border border-[var(--border)] px-3.5 py-1.5 rounded-xs shadow-2xs hover:border-gold hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold transition-colors cursor-pointer"
                 >
                   {tag}
                 </button>
@@ -185,9 +185,9 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
                     <div
                       key={product.id}
                       onClick={() => handleSelectProduct(product)}
-                      className="group flex gap-3 sm:gap-4 p-3 border border-border/70 bg-ivory hover:border-gold/60 hover:shadow-2xs transition-all cursor-pointer rounded-xs"
+                      className="group flex gap-3 sm:gap-4 p-3 border border-[var(--border)] bg-[var(--bg-surface-raised)] hover:border-gold/60 hover:shadow-2xs transition-all cursor-pointer rounded-xs"
                     >
-                      <div className="w-16 h-20 bg-ivory-subtle shrink-0 overflow-hidden relative border border-border/40 rounded-xs">
+                      <div className="w-16 h-20 bg-[var(--bg-surface)] shrink-0 overflow-hidden relative border border-[var(--border)] rounded-xs">
                         <img
                           src={product.images[0]}
                           alt={product.name[lang]}
@@ -199,16 +199,16 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
                       </div>
 
                       <div className="flex-1 min-w-0 flex flex-col justify-center">
-                        <span className="text-[10px] text-gold-dark uppercase tracking-widest font-medium">
+                        <span className="text-[10px] text-gold uppercase tracking-widest font-medium">
                           {product.brand}
                         </span>
-                        <h4 className="text-sm font-medium text-near-black group-hover:text-gold-dark transition-colors truncate">
+                        <h4 className="text-sm font-medium text-[var(--text-primary)] group-hover:text-gold transition-colors truncate">
                           {product.name[lang]}
                         </h4>
-                        <p className="text-xs text-muted line-clamp-1 mt-0.5">
+                        <p className="text-xs text-[var(--text-secondary)] line-clamp-1 mt-0.5">
                           {product.subtitle[lang]}
                         </p>
-                        <div className="mt-1 text-xs font-semibold text-near-black font-mono">
+                        <div className="mt-1 text-xs font-semibold text-[var(--text-primary)] font-mono">
                           {formatPrice(startingPrice)}
                         </div>
                       </div>

@@ -14,10 +14,10 @@ export const Badge: React.FC<BadgeProps> = ({
   className = '',
 }) => {
   const variantStyles: Record<BadgeVariant, string> = {
-    gold: 'bg-gold/15 text-gold-dark border border-gold/40 font-medium',
-    dark: 'bg-near-black text-ivory border border-near-black',
-    outline: 'bg-transparent text-near-black border border-near-black/20',
-    subtle: 'bg-ivory-subtle text-muted border border-border',
+    gold: 'bg-gold/15 text-gold border border-gold/40 font-medium',
+    dark: 'bg-[var(--badge-bg)] text-[var(--badge-text)] border border-[var(--badge-bg)] font-semibold shadow-xs',
+    outline: 'bg-transparent text-[var(--text-primary)] border border-[var(--border)]',
+    subtle: 'bg-[var(--bg-surface-raised)] text-[var(--text-secondary)] border border-[var(--border)]',
   };
 
   return (

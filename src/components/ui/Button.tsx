@@ -35,17 +35,17 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantStyles: Record<ButtonVariant, string> = {
     primary:
-      'bg-near-black text-ivory border-2 border-near-black hover:bg-gold hover:border-gold hover:text-near-black active:scale-[0.98] motion-reduce:active:scale-100 shadow-sm hover:shadow-md',
+      'bg-[var(--btn-primary-bg)] text-[var(--btn-primary-text)] border-2 border-[var(--btn-primary-bg)] hover:bg-[var(--btn-primary-hover-bg)] hover:border-[var(--btn-primary-hover-bg)] hover:text-[var(--btn-primary-text)] active:scale-[0.98] motion-reduce:active:scale-100 shadow-sm hover:shadow-md font-semibold',
     secondary:
-      'bg-ivory-subtle text-near-black border-2 border-border hover:border-gold hover:text-near-black hover:bg-ivory active:scale-[0.98] motion-reduce:active:scale-100 shadow-2xs',
+      'bg-[var(--btn-secondary-bg)] text-[var(--btn-secondary-text)] border-2 border-[var(--btn-secondary-border)] hover:border-[var(--gold)] hover:text-[var(--gold)] active:scale-[0.98] motion-reduce:active:scale-100 shadow-2xs',
     gold:
-      'bg-gold text-near-black border-2 border-gold hover:bg-gold-light hover:border-gold-light active:scale-[0.98] motion-reduce:active:scale-100 shadow-sm hover:shadow-md font-bold',
+      'bg-[var(--gold)] text-[#111111] border-2 border-[var(--gold)] hover:bg-[var(--gold-light)] hover:border-[var(--gold-light)] hover:text-[#111111] active:scale-[0.98] motion-reduce:active:scale-100 shadow-sm hover:shadow-md font-bold',
     outline:
-      'bg-transparent text-near-black border-2 border-near-black/40 hover:border-gold-dark hover:text-gold-dark hover:bg-gold/10 active:scale-[0.98] motion-reduce:active:scale-100',
+      'bg-transparent text-[var(--text-primary)] border-2 border-[var(--border)] hover:border-[var(--gold)] hover:text-[var(--gold)] active:scale-[0.98] motion-reduce:active:scale-100',
     'outline-ivory':
-      'bg-transparent text-ivory border-2 border-ivory/50 hover:border-gold hover:text-gold hover:bg-ivory/10 active:scale-[0.98] motion-reduce:active:scale-100',
+      'bg-transparent text-[var(--text-on-image)] border-2 border-white/60 hover:border-[var(--gold)] hover:text-[var(--gold)] active:scale-[0.98] motion-reduce:active:scale-100',
     ghost:
-      'bg-transparent text-near-black hover:text-gold-dark hover:bg-near-black/5 active:scale-[0.98] motion-reduce:active:scale-100',
+      'bg-transparent text-[var(--text-primary)] hover:text-[var(--gold)] hover:bg-[var(--bg-surface-raised)] active:scale-[0.98] motion-reduce:active:scale-100',
   };
 
   return (

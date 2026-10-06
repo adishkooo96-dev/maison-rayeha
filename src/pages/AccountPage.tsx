@@ -212,8 +212,8 @@ export const AccountPage: React.FC = () => {
 
               {/* Photo URL edit form */}
               {isEditingPhoto && (
-                <div className="mb-5 p-3 bg-ivory border border-border/80 rounded-xs space-y-2.5">
-                  <label className="text-[11px] font-medium text-near-black block">
+                <div className="mb-5 p-3 bg-[var(--bg-surface-raised)] border border-[var(--border)] rounded-xs space-y-2.5">
+                  <label className="text-[11px] font-medium text-[var(--text-primary)] block">
                     {lang === 'fa' ? 'آدرس تصویر پروفایل (Photo URL):' : 'Profile Photo URL:'}
                   </label>
                   <div className="flex gap-2">
@@ -222,7 +222,7 @@ export const AccountPage: React.FC = () => {
                       value={photoInput}
                       onChange={(e) => setPhotoInput(e.target.value)}
                       placeholder="https://example.com/avatar.jpg"
-                      className="flex-1 min-h-[38px] px-2.5 py-1 text-xs border border-border rounded-xs bg-white text-near-black focus:outline-none focus:border-gold"
+                      className="flex-1 min-h-[38px] px-2.5 py-1 text-xs border border-[var(--border)] rounded-xs bg-[var(--bg-surface)] text-[var(--text-primary)] focus:outline-none focus:border-gold"
                     />
                     <button
                       type="button"

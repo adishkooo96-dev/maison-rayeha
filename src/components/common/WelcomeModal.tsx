@@ -100,7 +100,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
     >
       <div
         ref={modalRef}
-        className="relative w-full max-w-md bg-ivory-surface text-near-black border border-gold/40 rounded-xs shadow-2xl p-6 sm:p-8 text-center animate-in fade-in zoom-in-95 motion-reduce:animate-none duration-200"
+        className="relative w-full max-w-md bg-[var(--bg-surface)] text-[var(--text-primary)] border border-gold/40 rounded-xs shadow-2xl p-6 sm:p-8 text-center animate-in fade-in zoom-in-95 motion-reduce:animate-none duration-200"
       >
         {/* Close (×) Button */}
         <button
@@ -108,7 +108,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
           type="button"
           onClick={onClose}
           aria-label={lang === 'fa' ? 'بستن پیام خوش‌آمدگویی' : 'Close welcome modal'}
-          className="absolute top-3.5 end-3.5 p-2 rounded-xs text-muted hover:text-near-black hover:bg-gold/10 transition-colors cursor-pointer"
+          className="absolute top-3.5 end-3.5 p-2 rounded-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-gold/10 transition-colors cursor-pointer"
         >
           <X className="w-5 h-5 stroke-[1.5]" />
         </button>
@@ -116,29 +116,29 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
         {/* Decorative Top Accent: Maison Rayeha Monogram / Diamond */}
         <div className="flex items-center justify-center gap-3 mb-4" aria-hidden="true">
           <div className="h-[1px] w-12 bg-gradient-to-r from-transparent via-gold/50 to-gold" />
-          <div className="w-3.5 h-3.5 rotate-45 border border-gold bg-ivory flex items-center justify-center shadow-[0_0_8px_rgba(184,155,94,0.35)]">
+          <div className="w-3.5 h-3.5 rotate-45 border border-gold bg-[var(--bg-page)] flex items-center justify-center shadow-[0_0_8px_rgba(184,155,94,0.35)]">
             <div className="w-1 h-1 bg-gold-dark rotate-45" />
           </div>
           <div className="h-[1px] w-12 bg-gradient-to-l from-transparent via-gold/50 to-gold" />
         </div>
 
         {/* Brand Kicker */}
-        <span className="text-[11px] uppercase tracking-[0.25em] rtl:tracking-normal text-gold-dark font-medium block mb-2">
+        <span className="text-[11px] uppercase tracking-[0.25em] rtl:tracking-normal text-gold font-medium block mb-2">
           Maison Rayeha • Haute Parfumerie
         </span>
 
         {/* Greeting Title */}
         <h2
           id="welcome-modal-title"
-          className="text-2xl sm:text-3xl font-display font-light text-near-black mb-3 leading-snug"
+          className="text-2xl sm:text-3xl font-display font-light text-[var(--text-primary)] mb-3 leading-snug"
         >
           {lang === 'fa' ? (
             <>
-              خوش آمدید، <span className="font-normal text-gold-dark">{userName}</span>
+              خوش آمدید، <span className="font-normal text-gold">{userName}</span>
             </>
           ) : (
             <>
-              Welcome, <span className="font-normal text-gold-dark">{userName}</span>
+              Welcome, <span className="font-normal text-gold">{userName}</span>
             </>
           )}
         </h2>
@@ -146,7 +146,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
         {/* Warm Message */}
         <p
           id="welcome-modal-desc"
-          className="text-xs sm:text-sm text-muted font-light leading-relaxed mb-6 max-w-xs mx-auto"
+          className="text-xs sm:text-sm text-[var(--text-secondary)] font-light leading-relaxed mb-6 max-w-xs mx-auto"
         >
           {lang === 'fa'
             ? 'به دنیای رایحه‌های نیش میسون رایحه خوش آمدید. مجموعه‌ای از شاهکارهای بویایی در انتظار شماست.'

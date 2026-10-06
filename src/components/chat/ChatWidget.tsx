@@ -306,7 +306,7 @@ export const ChatWidget: React.FC = () => {
             ? 'گفتگو و پشتیبانی آنلاین'
             : 'Open Support Chat'
         }
-        className="fixed bottom-6 end-6 z-40 min-h-[52px] min-w-[52px] h-13 w-13 rounded-full bg-near-black hover:bg-zinc-800 text-gold shadow-xl border border-gold/40 flex items-center justify-center transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+        className="fixed bottom-6 end-6 z-40 min-h-[52px] min-w-[52px] h-13 w-13 rounded-full bg-[var(--announcement-bg)] hover:opacity-90 text-gold shadow-xl border border-gold/40 flex items-center justify-center transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
       >
         {isOpen ? (
           <X className="w-5 h-5 stroke-[2] text-gold" />
@@ -314,7 +314,7 @@ export const ChatWidget: React.FC = () => {
           <div className="relative">
             <MessageCircle className="w-6 h-6 stroke-[1.75] text-gold" />
             {hasUnread && (
-              <span className="absolute -top-1 -end-1 w-3.5 h-3.5 bg-rose-500 border-2 border-near-black rounded-full animate-pulse" />
+              <span className="absolute -top-1 -end-1 w-3.5 h-3.5 bg-rose-500 border-2 border-[var(--announcement-bg)] rounded-full animate-pulse" />
             )}
           </div>
         )}
@@ -326,19 +326,19 @@ export const ChatWidget: React.FC = () => {
           role="dialog"
           aria-modal="false"
           aria-label={lang === 'fa' ? 'پشتیبانی آنلاین میسون رایحه' : 'Maison Rayeha Concierge Chat'}
-          className={`fixed z-40 flex flex-col bg-ivory border border-gold/30 shadow-2xl overflow-hidden
+          className={`fixed z-40 flex flex-col bg-[var(--bg-page)] text-[var(--text-primary)] border border-gold/40 shadow-2xl overflow-hidden
             inset-x-0 bottom-0 h-[85vh] max-h-[580px] rounded-t-2xl sm:rounded-md
             sm:inset-auto sm:bottom-22 sm:end-6 sm:w-[380px] sm:h-[520px]
             animate-in fade-in slide-in-from-bottom-4 duration-200 text-start`}
         >
           {/* Header */}
-          <div className="bg-near-black text-ivory p-4 border-b border-gold/30 flex items-center justify-between shrink-0">
+          <div className="bg-[var(--announcement-bg)] text-[var(--announcement-text)] p-4 border-b border-gold/30 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center text-gold">
                 <Sparkles className="w-4 h-4 stroke-[1.5]" />
               </div>
               <div>
-                <h3 className="text-sm font-semibold font-display tracking-wide text-ivory">
+                <h3 className="text-sm font-semibold font-display tracking-wide text-[var(--announcement-text)]">
                   {lang === 'fa' ? 'مشاوره اختصاصی میسون رایحه' : 'Maison Rayeha Concierge'}
                 </h3>
                 <div className="flex items-center gap-1.5 text-[11px] text-emerald-400">
@@ -352,27 +352,27 @@ export const ChatWidget: React.FC = () => {
               type="button"
               onClick={handleToggleOpen}
               aria-label={lang === 'fa' ? 'بستن' : 'Close'}
-              className="p-1.5 text-ivory/60 hover:text-ivory transition-colors cursor-pointer rounded-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold"
+              className="p-1.5 text-[var(--announcement-text)]/70 hover:text-[var(--announcement-text)] transition-colors cursor-pointer rounded-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold"
             >
               <X className="w-4 h-4 stroke-[1.5]" />
             </button>
           </div>
 
           {/* Messages Body */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-ivory">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-[var(--bg-page)]">
             {/* Automated Welcome Note */}
             <div className="flex items-start gap-2 max-w-[85%]">
-              <div className="w-6 h-6 rounded-full bg-gold/20 text-gold-dark flex items-center justify-center shrink-0 mt-0.5 text-xs font-serif font-bold">
+              <div className="w-6 h-6 rounded-full bg-gold/20 text-gold flex items-center justify-center shrink-0 mt-0.5 text-xs font-serif font-bold">
                 M
               </div>
-              <div className="bg-ivory-surface border border-border/80 p-3 rounded-md shadow-2xs text-xs text-near-black leading-relaxed">
+              <div className="bg-[var(--bg-surface)] border border-[var(--border)] p-3 rounded-md shadow-2xs text-xs text-[var(--text-primary)] leading-relaxed">
                 <p>
                   {lang === 'fa'
                     ? 'درود بر شما؛ به خانه عطر میسون رایحه خوش آمدید. برای راهنمایی درباره روایح نیش، نت‌ها یا استعلام سفارش‌ها در خدمت شما هستیم.'
                     : 'Greetings and welcome to Maison Rayeha. How may our fragrance specialists assist your sensory journey today?'}
                 </p>
-                <div className="mt-1 text-[10px] text-muted flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3 text-gold-dark" />
+                <div className="mt-1 text-[10px] text-[var(--text-secondary)] flex items-center gap-1">
+                  <ShieldCheck className="w-3 h-3 text-gold" />
                   <span>{lang === 'fa' ? 'مشاوره تخصصی و اصالت عطر' : 'Official Haute Parfumerie'}</span>
                 </div>
               </div>
@@ -381,7 +381,7 @@ export const ChatWidget: React.FC = () => {
             {/* Guest details prompt if user is guest and hasn't started */}
             {!user && !hasEnteredGuestInfo && messages.length === 0 && (
               <div className="p-3 bg-gold/10 border border-gold/30 rounded-md text-xs space-y-2">
-                <span className="block font-medium text-near-black text-[11px]">
+                <span className="block font-medium text-[var(--text-primary)] text-[11px]">
                   {lang === 'fa'
                     ? 'جهت پیگیری بهتر پاسخ‌ها (اختیاری):'
                     : 'For tailored follow-up (optional):'}
@@ -391,14 +391,14 @@ export const ChatWidget: React.FC = () => {
                   placeholder={lang === 'fa' ? 'نام شما' : 'Your Name'}
                   value={guestName}
                   onChange={(e) => setGuestName(e.target.value)}
-                  className="w-full px-2.5 py-1.5 text-xs bg-white border border-border rounded-xs focus:outline-none focus:border-gold"
+                  className="w-full px-2.5 py-1.5 text-xs bg-[var(--bg-surface-raised)] text-[var(--text-primary)] border border-[var(--border)] rounded-xs focus:outline-none focus:border-gold"
                 />
                 <input
                   type="email"
                   placeholder={lang === 'fa' ? 'ایمیل شما (اختیاری)' : 'Your Email (optional)'}
                   value={guestEmail}
                   onChange={(e) => setGuestEmail(e.target.value)}
-                  className="w-full px-2.5 py-1.5 text-xs bg-white border border-border rounded-xs focus:outline-none focus:border-gold"
+                  className="w-full px-2.5 py-1.5 text-xs bg-[var(--bg-surface-raised)] text-[var(--text-primary)] border border-[var(--border)] rounded-xs focus:outline-none focus:border-gold"
                 />
               </div>
             )}
@@ -414,19 +414,19 @@ export const ChatWidget: React.FC = () => {
                   <div
                     className={`max-w-[85%] px-3.5 py-2.5 rounded-lg text-xs leading-relaxed ${
                       isCustomer
-                        ? 'bg-near-black text-ivory rounded-be-none shadow-2xs'
-                        : 'bg-white border border-border text-near-black rounded-bs-none shadow-2xs'
+                        ? 'bg-[var(--btn-primary-bg)] text-[var(--btn-primary-text)] font-medium rounded-be-none shadow-2xs'
+                        : 'bg-[var(--bg-surface)] border border-[var(--border)] text-[var(--text-primary)] rounded-bs-none shadow-2xs'
                     }`}
                   >
                     {!isCustomer && (
-                      <span className="block text-[10px] font-semibold text-gold-dark mb-1">
+                      <span className="block text-[10px] font-semibold text-gold mb-1">
                         {lang === 'fa' ? 'کارشناس میسون رایحه' : 'Maison Concierge'}
                       </span>
                     )}
                     <p className="whitespace-pre-wrap break-words">{m.text}</p>
                     <div
                       className={`text-[9px] mt-1.5 flex items-center justify-end gap-1 ${
-                        isCustomer ? 'text-ivory/60' : 'text-zinc-500'
+                        isCustomer ? 'text-[var(--btn-primary-text)]/70' : 'text-[var(--text-secondary)]'
                       }`}
                     >
                       <Clock className="w-2.5 h-2.5 shrink-0" />
@@ -439,21 +439,13 @@ export const ChatWidget: React.FC = () => {
                           : ''}
                       </span>
 
-                      {/* [Safety net: previous static double-tick code]
-                      <CheckCheck
-                        className={`w-3 h-3 shrink-0 ${
-                          isCustomer ? 'text-gold/80' : 'text-gold-dark'
-                        }`}
-                      />
-                      */}
-
                       {/* Real WhatsApp-style tick for customer's own sent messages */}
                       {isCustomer && (
                         <span title={m.status === 'seen' ? (lang === 'fa' ? 'دیده شد' : 'Seen') : (lang === 'fa' ? 'ارسال شد' : 'Sent')}>
                           {m.status === 'seen' ? (
-                            <CheckCheck className="w-3.5 h-3.5 text-gold/90 shrink-0" />
+                            <CheckCheck className="w-3.5 h-3.5 text-current shrink-0" />
                           ) : (
-                            <Check className="w-3 h-3 text-ivory/50 shrink-0" />
+                            <Check className="w-3 h-3 text-current/60 shrink-0" />
                           )}
                         </span>
                       )}
@@ -488,7 +480,7 @@ export const ChatWidget: React.FC = () => {
           <div
             role="group"
             aria-label={lang === 'fa' ? 'ارسال پیام' : 'Send message input'}
-            className="p-3 bg-white border-t border-border flex items-center gap-2 shrink-0"
+            className="p-3 bg-[var(--bg-surface)] border-t border-[var(--border)] flex items-center gap-2 shrink-0"
           >
             <input
               ref={inputRef}
@@ -503,14 +495,14 @@ export const ChatWidget: React.FC = () => {
               }}
               placeholder={lang === 'fa' ? 'پیام خود را بنویسید...' : 'Type your inquiry...'}
               disabled={isSending}
-              className="flex-1 px-3 py-2 text-xs bg-ivory border border-border rounded-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-near-black"
+              className="flex-1 px-3 py-2 text-xs bg-[var(--bg-surface-raised)] border border-[var(--border)] rounded-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]/70"
             />
             <button
               type="button"
               onClick={handleSendMessage}
               disabled={!inputText.trim() || isSending}
               aria-label={lang === 'fa' ? 'ارسال پیام' : 'Send message'}
-              className="min-h-[38px] min-w-[38px] px-3 py-2 bg-near-black hover:bg-zinc-800 disabled:opacity-40 disabled:cursor-not-allowed text-gold rounded-xs flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              className="min-h-[38px] min-w-[38px] px-3 py-2 bg-[var(--btn-primary-bg)] text-[var(--btn-primary-text)] hover:bg-[var(--btn-primary-hover-bg)] disabled:opacity-40 disabled:cursor-not-allowed rounded-xs flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold font-bold"
             >
               <Send className="w-4 h-4 stroke-[1.75]" />
             </button>

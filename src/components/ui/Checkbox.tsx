@@ -26,7 +26,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   return (
     <label
       htmlFor={id}
-      className={`inline-flex items-center gap-2.5 min-h-[40px] text-xs sm:text-sm text-near-black cursor-pointer select-none py-1 group ${
+      className={`inline-flex items-center gap-2.5 min-h-[40px] text-xs sm:text-sm text-[var(--text-primary)] cursor-pointer select-none py-1 group ${
         disabled ? 'opacity-40 cursor-not-allowed' : ''
       } ${className}`}
     >
@@ -42,20 +42,20 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         <div
           className={`w-4 h-4 rounded-xs border transition-colors flex items-center justify-center ${
             checked
-              ? 'bg-near-black border-near-black text-ivory'
-              : 'bg-ivory border-border group-hover:border-gold'
+              ? 'bg-[var(--chip-selected-bg)] border-[var(--chip-selected-bg)] text-[var(--chip-selected-text)]'
+              : 'bg-[var(--bg-surface)] border-[var(--border)] group-hover:border-[var(--gold)]'
           }`}
         >
           {checked && <Check className="w-3 h-3 stroke-[2.5]" aria-hidden="true" />}
         </div>
       </div>
 
-      <span className="flex-1 font-light text-near-black group-hover:text-gold transition-colors">
+      <span className="flex-1 font-light text-[var(--text-primary)] group-hover:text-[var(--gold)] transition-colors">
         {label}
       </span>
 
       {count !== undefined && (
-        <span className="text-[11px] text-muted font-mono bg-ivory-subtle px-1.5 py-0.5 rounded-xs">
+        <span className="text-[11px] text-[var(--text-secondary)] font-mono bg-[var(--bg-surface-raised)] px-1.5 py-0.5 rounded-xs">
           {formatNumber(count, { useGrouping: false })}
         </span>
       )}

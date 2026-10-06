@@ -891,7 +891,7 @@ export const CheckoutPage: React.FC = () => {
                       </div>
 
                       {/* List of unavailable items */}
-                      <div className="divide-y divide-rose-200/80 bg-white/80 border border-rose-200 rounded-xs p-2.5">
+                      <div className="divide-y divide-rose-200/80 bg-[var(--bg-surface)] border border-rose-300/40 rounded-xs p-2.5">
                         {unavailableItems.map((it) => {
                           const pName = getLocalized(it.product.name, lang) ?? it.product.id;
                           return (

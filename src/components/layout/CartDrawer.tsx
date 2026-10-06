@@ -71,15 +71,15 @@ export const CartDrawer: React.FC = () => {
 
       {/* Drawer panel positioned on logical 'end' side */}
       <div className="fixed inset-y-0 end-0 flex max-w-full">
-        <div className="w-screen max-w-md bg-ivory-surface border-s border-border shadow-2xl flex flex-col justify-between animate-in slide-in-from-end duration-300">
+        <div className="w-screen max-w-md bg-[var(--bg-surface)] border-s border-[var(--border)] shadow-2xl flex flex-col justify-between animate-in slide-in-from-end duration-300">
           {/* Header */}
-          <div className="p-4 sm:p-6 border-b border-border flex items-center justify-between">
+          <div className="p-4 sm:p-6 border-b border-[var(--border)] flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <ShoppingBag className="w-5 h-5 text-gold-dark stroke-[1.5]" aria-hidden="true" />
-              <h2 className="text-lg font-medium text-near-black font-display">
+              <ShoppingBag className="w-5 h-5 text-gold stroke-[1.5]" aria-hidden="true" />
+              <h2 className="text-lg font-medium text-[var(--text-primary)] font-display">
                 {t('cart.title')}
               </h2>
-              <span className="text-xs text-muted bg-ivory-subtle px-2 py-0.5 rounded-xs">
+              <span className="text-xs text-[var(--text-secondary)] bg-[var(--bg-surface-raised)] px-2 py-0.5 rounded-xs">
                 {formatNumber(items.reduce((sum, item) => sum + item.quantity, 0), { useGrouping: false })}
               </span>
             </div>
@@ -88,15 +88,15 @@ export const CartDrawer: React.FC = () => {
               type="button"
               onClick={closeCart}
               aria-label={t('common.close')}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-muted hover:text-near-black transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
             >
               <X className="w-5 h-5 stroke-[1.5]" />
             </button>
           </div>
 
           {/* Complimentary Shipping Notice Banner */}
-          <div className="bg-ivory-subtle/80 px-4 sm:px-6 py-2.5 border-b border-border/60 flex items-center gap-2 text-xs text-near-black/80">
-            <Sparkles className="w-4 h-4 text-gold-dark stroke-[1.5] shrink-0" aria-hidden="true" />
+          <div className="bg-[var(--bg-surface-raised)]/80 px-4 sm:px-6 py-2.5 border-b border-[var(--border)] flex items-center gap-2 text-xs text-[var(--text-primary)]">
+            <Sparkles className="w-4 h-4 text-gold stroke-[1.5] shrink-0" aria-hidden="true" />
             <span>{t('cart.shippingNote')}</span>
           </div>
 
@@ -214,19 +214,19 @@ export const CartDrawer: React.FC = () => {
 
                       <div className="flex items-center justify-between pt-2">
                         {/* Quantity Selector */}
-                        <div className="flex items-center border border-border bg-ivory rounded-xs shadow-2xs">
+                        <div className="flex items-center border border-[var(--border)] bg-[var(--bg-surface-raised)] rounded-xs shadow-2xs">
                           <button
                             type="button"
                             onClick={() =>
                               updateQuantity(item.product.id, item.size, item.quantity - 1)
                             }
                             aria-label="Decrease quantity"
-                            className="min-h-[38px] min-w-[38px] flex items-center justify-center text-muted hover:text-near-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xs transition-colors disabled:opacity-30 cursor-pointer"
+                            className="min-h-[38px] min-w-[38px] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xs transition-colors disabled:opacity-30 cursor-pointer"
                             disabled={item.quantity <= 1}
                           >
                             <Minus className="w-3.5 h-3.5 stroke-[1.5]" />
                           </button>
-                          <span className="px-2 text-xs font-medium text-near-black">
+                          <span className="px-2 text-xs font-medium text-[var(--text-primary)]">
                             {formatNumber(item.quantity, { useGrouping: false })}
                           </span>
                           <button
@@ -236,18 +236,18 @@ export const CartDrawer: React.FC = () => {
                             }
                             aria-label="Increase quantity"
                             disabled={
-                              typeof item.product?.stockQuantity === 'number' &&
+                              typeof item.product.stockQuantity === 'number' &&
                               item.product.stockQuantity > 0 &&
                               item.quantity >= item.product.stockQuantity
                             }
-                            className="min-h-[38px] min-w-[38px] flex items-center justify-center text-muted hover:text-near-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xs transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                            className="min-h-[38px] min-w-[38px] flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xs transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
                           >
                             <Plus className="w-3.5 h-3.5 stroke-[1.5]" />
                           </button>
                         </div>
 
                         {/* Line item total */}
-                        <span className="text-sm font-medium font-mono text-near-black">
+                        <span className="text-sm font-medium font-mono text-[var(--text-primary)]">
                           {formatPrice(itemPrice * item.quantity)}
                         </span>
                       </div>
@@ -260,23 +260,23 @@ export const CartDrawer: React.FC = () => {
 
           {/* Footer / Subtotal & Actions */}
           {items.length > 0 && (
-            <div className="p-4 sm:p-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] border-t border-border bg-ivory-subtle/50 flex flex-col gap-3 sm:gap-4">
+            <div className="p-4 sm:p-6 pb-[max(1.25rem,env(safe-area-inset-bottom))] border-t border-[var(--border)] bg-[var(--bg-surface-raised)]/60 flex flex-col gap-3 sm:gap-4">
               {items.some((it) => it.product?.inStock === false) && (
-                <div className="p-3 bg-rose-50 border border-rose-300 text-rose-800 text-xs rounded-xs flex items-start gap-2 animate-in fade-in duration-200">
-                  <AlertTriangle className="w-4 h-4 stroke-[1.75] text-rose-600 shrink-0 mt-0.5" />
+                <div className="p-3 bg-rose-500/10 border border-rose-500/40 text-rose-400 text-xs rounded-xs flex items-start gap-2 animate-in fade-in duration-200">
+                  <AlertTriangle className="w-4 h-4 stroke-[1.75] text-rose-500 shrink-0 mt-0.5" />
                   <span className="leading-relaxed">{t('cart.outOfStockWarning')}</span>
                 </div>
               )}
 
               <div className="flex justify-between items-center text-sm">
-                <span className="text-muted">{t('cart.subtotal')}</span>
-                <span className="text-lg font-semibold font-mono text-near-black">
+                <span className="text-[var(--text-secondary)]">{t('cart.subtotal')}</span>
+                <span className="text-lg font-semibold font-mono text-[var(--text-primary)]">
                   {formatPrice(subtotal)}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 text-[11px] text-muted">
-                <ShieldCheck className="w-4 h-4 stroke-[1.5] text-gold-dark shrink-0" aria-hidden="true" />
+              <div className="flex items-center gap-2 text-[11px] text-[var(--text-secondary)]">
+                <ShieldCheck className="w-4 h-4 stroke-[1.5] text-gold shrink-0" aria-hidden="true" />
                 <span>{t('common.luxuryPackaging')}</span>
               </div>
 

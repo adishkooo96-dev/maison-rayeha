@@ -50,8 +50,8 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
       aria-label={`${t('common.language')}: ${targetLang === 'en' ? 'English' : 'فارسی'}`}
       className={`min-h-[44px] min-w-[44px] flex items-center justify-center px-2.5 py-1 text-xs font-semibold uppercase tracking-wider rounded-xs border transition-colors cursor-pointer ${
         isTransparent
-          ? 'border-ivory/40 text-ivory hover:text-gold hover:border-gold bg-black/30'
-          : 'border-border text-near-black hover:text-gold hover:border-gold bg-ivory-subtle'
+          ? 'border-gold/50 text-white hover:text-gold hover:border-gold bg-[#0F0F10]/85 shadow-xs'
+          : 'border-[var(--border)] text-[var(--text-primary)] hover:text-gold hover:border-gold bg-[var(--bg-surface-raised)] shadow-xs'
       } ${className}`}
     >
       {targetLabel}

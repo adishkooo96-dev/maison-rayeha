@@ -110,15 +110,15 @@ export const MobileStickyBar: React.FC<MobileStickyBarProps> = ({
 
   return (
     <div
-      className={`sticky top-16 sm:top-20 z-20 bg-ivory/95 backdrop-blur-md border-b border-border/80 lg:hidden shadow-xs ${className}`}
+      className={`sticky top-16 sm:top-20 z-20 bg-[var(--bg-surface)]/95 backdrop-blur-md border-b border-[var(--border)] lg:hidden shadow-xs ${className}`}
     >
       {/* Two Equal Action Buttons: Sort and Filters */}
-      <div className="grid grid-cols-2 divide-x divide-border/70 rtl:divide-x-reverse border-b border-border/60">
+      <div className="grid grid-cols-2 divide-x divide-[var(--border)] rtl:divide-x-reverse border-b border-[var(--border)]">
         {/* Sort Trigger Button */}
         <button
           type="button"
           onClick={onOpenSortSheet}
-          className="flex items-center justify-center gap-2 py-3 px-4 text-xs font-medium text-near-black hover:bg-ivory hover:text-gold transition-colors cursor-pointer"
+          className="flex items-center justify-center gap-2 py-3 px-4 text-xs font-medium text-[var(--text-primary)] hover:bg-[var(--bg-surface-raised)] hover:text-gold transition-colors cursor-pointer"
           aria-label={t('filters.sortButton')}
         >
           <ArrowUpDown className="w-3.5 h-3.5 text-gold" aria-hidden="true" />
@@ -129,13 +129,13 @@ export const MobileStickyBar: React.FC<MobileStickyBarProps> = ({
         <button
           type="button"
           onClick={onOpenFilterDrawer}
-          className="flex items-center justify-center gap-2 py-3 px-4 text-xs font-medium text-near-black hover:bg-ivory hover:text-gold transition-colors cursor-pointer"
+          className="flex items-center justify-center gap-2 py-3 px-4 text-xs font-medium text-[var(--text-primary)] hover:bg-[var(--bg-surface-raised)] hover:text-gold transition-colors cursor-pointer"
           aria-label={t('filters.filterButton')}
         >
           <SlidersHorizontal className="w-3.5 h-3.5 text-gold" aria-hidden="true" />
           <span>{t('filters.filterButton')}</span>
           {activeFilterCount > 0 && (
-            <span className="min-w-4 h-4 px-1 bg-gold text-near-black text-[10px] font-mono font-bold rounded-full flex items-center justify-center">
+            <span className="min-w-4 h-4 px-1 bg-gold text-[#111111] text-[10px] font-mono font-bold rounded-full flex items-center justify-center">
               {formatNumber(activeFilterCount, { useGrouping: false })}
             </span>
           )}
@@ -159,8 +159,8 @@ export const MobileStickyBar: React.FC<MobileStickyBarProps> = ({
               onClick={() => onSortChange(chip.id)}
               className={`shrink-0 px-3 py-1.5 rounded-full text-xs transition-colors whitespace-nowrap cursor-pointer border ${
                 isActive
-                  ? 'bg-near-black text-ivory border-near-black font-medium shadow-xs'
-                  : 'bg-ivory-surface text-muted hover:text-near-black border-border hover:border-gold font-light'
+                  ? 'bg-[var(--chip-selected-bg)] text-[var(--chip-selected-text)] border-[var(--chip-selected-bg)] font-semibold shadow-xs'
+                  : 'bg-[var(--chip-bg)] text-[var(--chip-text)] border-[var(--border)] hover:border-gold font-light'
               }`}
             >
               {chip.label}

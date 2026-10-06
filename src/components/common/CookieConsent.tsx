@@ -55,7 +55,7 @@ export const CookieConsent: React.FC = () => {
           aria-label="Cookie consent banner"
           className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:end-6 z-50 max-w-lg"
         >
-          <div className="bg-near-black text-ivory border border-gold/40 p-5 sm:p-6 shadow-2xl space-y-4">
+          <div className="bg-[var(--bg-surface-raised)] text-[var(--text-primary)] border border-gold/40 p-5 sm:p-6 shadow-2xl space-y-4 rounded-xs">
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-2.5 text-gold">
                 <ShieldCheck className="w-4 h-4 shrink-0" />
@@ -67,20 +67,20 @@ export const CookieConsent: React.FC = () => {
                 type="button"
                 onClick={handleDecline}
                 aria-label={t('common.close')}
-                className="text-ivory/60 hover:text-gold transition-colors p-1"
+                className="text-[var(--text-secondary)] hover:text-gold transition-colors p-1 cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
             </div>
 
-            <p className="text-xs text-ivory/80 font-light leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] font-light leading-relaxed">
               {t('cookie.description')}
             </p>
 
             <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
               <LocaleLink
                 to="/about"
-                className="text-[11px] text-gold/80 hover:text-gold underline underline-offset-4 transition-colors font-light"
+                className="text-[11px] text-gold hover:text-gold-light underline underline-offset-4 transition-colors font-light"
               >
                 {t('cookie.learnMore')}
               </LocaleLink>
@@ -89,14 +89,14 @@ export const CookieConsent: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleDecline}
-                  className="px-3.5 py-1.5 border border-ivory/20 hover:border-ivory/40 text-ivory/70 hover:text-ivory text-[11px] uppercase tracking-wider font-medium transition-colors cursor-pointer"
+                  className="px-3.5 py-1.5 border border-[var(--border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] text-[11px] uppercase tracking-wider font-medium transition-colors cursor-pointer rounded-xs"
                 >
                   {t('cookie.decline')}
                 </button>
                 <button
                   type="button"
                   onClick={handleAccept}
-                  className="px-4 py-1.5 bg-gold text-near-black hover:bg-gold-light text-[11px] uppercase tracking-wider font-medium transition-colors cursor-pointer shadow-xs"
+                  className="px-4 py-1.5 bg-[var(--btn-primary-bg)] text-[var(--btn-primary-text)] hover:bg-[var(--btn-primary-hover-bg)] text-[11px] uppercase tracking-wider font-bold transition-colors cursor-pointer shadow-xs rounded-xs"
                 >
                   {t('cookie.accept')}
                 </button>

@@ -54,22 +54,22 @@ export const SortBottomSheet: React.FC<SortBottomSheetProps> = ({
       {/* Bottom Sheet Container */}
       <div
         ref={sheetRef}
-        className="relative w-full max-w-lg bg-ivory-surface rounded-t-2xl border-t border-border shadow-2xl z-10 animate-in slide-in-from-bottom duration-200 motion-reduce:animate-none pb-8"
+        className="relative w-full max-w-lg bg-[var(--bg-surface)] rounded-t-2xl border-t border-[var(--border)] shadow-2xl z-10 animate-in slide-in-from-bottom duration-200 motion-reduce:animate-none pb-8"
       >
         {/* Drag handle */}
         <div className="flex justify-center pt-3 pb-1" aria-hidden="true">
-          <div className="w-10 h-1 rounded-full bg-border" />
+          <div className="w-10 h-1 rounded-full bg-[var(--border)]" />
         </div>
 
         {/* Sheet Header */}
-        <div className="flex items-center justify-between px-5 py-3 border-b border-border/70 text-start">
-          <h3 className="text-sm font-semibold text-near-black">
+        <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--border)] text-start">
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">
             {t('sort.sortBy')}
           </h3>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-muted hover:text-near-black transition-colors rounded-xs focus:outline-none focus-visible:ring-1 focus-visible:ring-gold"
+            className="p-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors rounded-xs focus:outline-none focus-visible:ring-1 focus-visible:ring-gold"
             aria-label={t('filters.closeSort')}
           >
             <X className="w-4 h-4" />
@@ -89,8 +89,8 @@ export const SortBottomSheet: React.FC<SortBottomSheetProps> = ({
                 onClick={() => handleSelect(item.id)}
                 className={`w-full flex items-center justify-between px-5 py-3.5 text-xs text-start transition-colors cursor-pointer ${
                   isSelected
-                    ? 'text-gold bg-gold/5 font-medium'
-                    : 'text-near-black hover:bg-ivory font-light'
+                    ? 'text-gold bg-gold/10 font-medium'
+                    : 'text-[var(--text-primary)] hover:bg-[var(--bg-surface-raised)] font-light'
                 }`}
               >
                 <span>{item.label}</span>

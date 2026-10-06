@@ -39,7 +39,7 @@ export const ScentFamilySection: React.FC = () => {
   return (
     <section
       id="scent-families-section"
-      className="py-16 sm:py-24 bg-ivory text-near-black"
+      className="py-16 sm:py-24 bg-[var(--bg-page)] text-[var(--text-primary)]"
       aria-labelledby="scent-families-heading"
     >
       <Container size="lg">
@@ -60,15 +60,15 @@ export const ScentFamilySection: React.FC = () => {
                 onClick={() => setActiveFamilyId(family.id)}
                 className={`p-4 border transition-all duration-300 text-start flex flex-col justify-between h-24 rounded-[10px] cursor-pointer ${
                   isCurrent
-                    ? 'bg-near-black text-ivory border-near-black shadow-md'
-                    : 'bg-ivory-subtle text-near-black border-border hover:border-gold'
+                    ? 'bg-[var(--chip-selected-bg)] text-[var(--chip-selected-text)] border-[var(--chip-selected-bg)] shadow-md font-semibold'
+                    : 'bg-[var(--bg-surface-raised)] text-[var(--text-primary)] border-[var(--border)] hover:border-gold'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className={isCurrent ? 'text-gold' : 'text-muted'}>
+                  <span className={isCurrent ? 'text-gold' : 'text-[var(--text-secondary)]'}>
                     {familyIcons[family.id]}
                   </span>
-                  <span className={`text-[10px] tracking-widest rtl:tracking-normal uppercase ${isCurrent ? 'text-gold' : 'text-muted'}`}>
+                  <span className={`text-[10px] tracking-widest rtl:tracking-normal uppercase ${isCurrent ? 'text-gold' : 'text-[var(--text-secondary)]'}`}>
                     {formatNumber(scentFamilies.indexOf(family) + 1, { minimumIntegerDigits: 2, useGrouping: false })}
                   </span>
                 </div>
@@ -82,9 +82,9 @@ export const ScentFamilySection: React.FC = () => {
         </div>
 
         {/* Featured Family Showcase Card */}
-        <div className="bg-ivory-surface border-[1.5px] border-gold rounded-[12px] shadow-sm p-6 sm:p-10 lg:p-12 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+        <div className="bg-[var(--bg-surface)] border-[1.5px] border-gold rounded-[12px] shadow-sm p-6 sm:p-10 lg:p-12 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           {/* Mood Photograph */}
-          <div className="w-full lg:w-1/2 aspect-[4/3] sm:aspect-[16/10] overflow-hidden bg-ivory-subtle relative border border-gold/40 rounded-[8px] shrink-0">
+          <div className="w-full lg:w-1/2 aspect-[4/3] sm:aspect-[16/10] overflow-hidden bg-[var(--bg-surface-raised)] relative border border-gold/40 rounded-[8px] shrink-0">
             <img
               src={activeFamily.image}
               alt={getLocalized(activeFamily.name, lang)}
@@ -95,8 +95,8 @@ export const ScentFamilySection: React.FC = () => {
               decoding="async"
               className="w-full h-full object-cover object-center transition-all duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-near-black/60 via-transparent to-transparent" />
-            <div className="absolute bottom-4 start-4 text-ivory">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+            <div className="absolute bottom-4 start-4 text-white">
               <span className="text-xs uppercase tracking-widest rtl:tracking-normal text-gold block">
                 {t('scentFamilies.pureElements')}
               </span>
@@ -113,24 +113,24 @@ export const ScentFamilySection: React.FC = () => {
                 {getLocalized(activeFamily.tagline, lang)}
               </span>
 
-              <h3 className="text-2xl sm:text-4xl font-normal sm:font-medium font-display rtl:font-bold rtl:leading-[1.35] text-near-black">
+              <h3 className="text-2xl sm:text-4xl font-normal sm:font-medium font-display rtl:font-bold rtl:leading-[1.35] text-[var(--text-primary)]">
                 {getLocalized(activeFamily.name, lang)}
               </h3>
 
-              <p className="mt-4 text-sm text-muted leading-relaxed rtl:leading-loose font-light">
+              <p className="mt-4 text-sm text-[var(--text-secondary)] leading-relaxed rtl:leading-loose font-light">
                 {getLocalized(activeFamily.description, lang)}
               </p>
 
               {/* Characteristic Notes Chips */}
-              <div className="mt-6 pt-6 border-t border-border">
-                <span className="text-xs font-medium uppercase tracking-wider rtl:tracking-normal text-near-black block mb-3">
+              <div className="mt-6 pt-6 border-t border-[var(--border)]">
+                <span className="text-xs font-medium uppercase tracking-wider rtl:tracking-normal text-[var(--text-primary)] block mb-3">
                   {t('scentFamilies.signatureNotes')}:
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {getLocalized(activeFamily.characteristicNotes, lang).map((note) => (
                     <span
                       key={note}
-                      className="px-3 py-1 bg-ivory-subtle border border-border text-xs text-near-black/90 font-light"
+                      className="px-3 py-1 bg-[var(--bg-surface-raised)] border border-[var(--border)] text-xs text-[var(--text-primary)] font-light rounded-xs"
                     >
                       {note}
                     </span>
@@ -140,10 +140,10 @@ export const ScentFamilySection: React.FC = () => {
             </div>
 
             {/* Action CTA */}
-            <div className="mt-8 pt-6 border-t border-border">
+            <div className="mt-8 pt-6 border-t border-[var(--border)]">
               <LocaleLink
                 to={`/shop?scentFamily=${activeFamily.id}`}
-                className="inline-flex items-center min-h-[44px] gap-2.5 text-xs uppercase tracking-widest rtl:tracking-normal font-medium text-near-black hover:text-gold transition-colors group"
+                className="inline-flex items-center min-h-[44px] gap-2.5 text-xs uppercase tracking-widest rtl:tracking-normal font-medium text-[var(--text-primary)] hover:text-gold transition-colors group"
               >
                 <span>{t('scentFamilies.exploreFamily')}</span>
                 <ArrowIcon className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
@@ -155,15 +155,15 @@ export const ScentFamilySection: React.FC = () => {
         {/* Active Family Products Grid: 2-col mobile, 3-col tablet, 4-col desktop */}
         {familyProducts.length > 0 && (
           <div className="mt-12 sm:mt-16">
-            <div className="flex items-center justify-between mb-6 pb-2 border-b border-border/80">
-              <span className="text-xs uppercase tracking-widest rtl:tracking-normal text-gold-dark font-medium">
+            <div className="flex items-center justify-between mb-6 pb-2 border-b border-[var(--border)]">
+              <span className="text-xs uppercase tracking-widest rtl:tracking-normal text-gold font-medium">
                 {lang === 'fa'
                   ? `شاهکارهای منتخب خانواده ${getLocalized(activeFamily.name, lang)}`
                   : `Curated ${getLocalized(activeFamily.name, lang)} Creations`}
               </span>
               <LocaleLink
                 to={`/shop?scentFamily=${activeFamily.id}`}
-                className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-near-black hover:text-gold-dark font-medium transition-colors group"
+                className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-[var(--text-primary)] hover:text-gold font-medium transition-colors group"
               >
                 <span>{lang === 'fa' ? 'مشاهده همه' : 'View all'}</span>
                 <ArrowIcon className="w-3.5 h-3.5 stroke-[1.5] transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />

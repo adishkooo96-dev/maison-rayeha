@@ -1,14 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect } from 'react';
 import {
   MapPin,
   Phone,
   Mail,
   Clock,
-  Send,
   CheckCircle2,
   HelpCircle,
   Compass,
@@ -16,21 +11,16 @@ import {
   Share2,
 } from 'lucide-react';
 import { Container } from '../components/ui/Container';
-import { Input } from '../components/ui/Input';
-import { Textarea } from '../components/ui/Textarea';
-import { Select } from '../components/ui/Select';
 import { Accordion, AccordionItem } from '../components/ui/Accordion';
 import { Seo } from '../components/seo/Seo';
 import { useI18n } from '../hooks/useI18n';
-import { normalizeDigits, handleLiveDigitInput } from '../lib/formatters';
+import { normalizeDigits } from '../lib/formatters';
 import { SOCIAL_LINKS } from '../components/layout/Footer';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
 export const ContactPage: React.FC = () => {
-  const { lang, isRTL, t } = useI18n();
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const { lang, t } = useI18n();
 
   // Firestore contact document data with independent per-field fallbacks
   const [firestoreContact, setFirestoreContact] = useState<{
@@ -87,86 +77,6 @@ export const ContactPage: React.FC = () => {
 
   const phoneTelHref = `tel:${normalizeDigits(displayPhone).replace(/[^\d+]/g, '')}`;
   const emailMailtoHref = `mailto:${displayEmail}`;
-
-  // Dynamic schema evaluated at render time for current language
-  const contactSchema = useMemo(() => {
-    return z.object({
-      name: z
-        .string()
-        .trim()
-        .min(2, t('contact.nameMin')),
-      email: z
-        .string()
-        .trim()
-        .email(t('contact.emailInvalid')),
-      phone: z
-        .string()
-        .optional()
-        .refine(
-          (val) => {
-            if (!val || val.trim() === '') return true;
-            const normalized = normalizeDigits(val.trim());
-            return /^[\d\s+\-()]{7,20}$/.test(normalized);
-          },
-          { message: t('contact.phoneInvalid') }
-        ),
-      subject: z
-        .string()
-        .min(1, t('contact.subjectRequired')),
-      message: z
-        .string()
-        .trim()
-        .min(10, t('contact.messageMin')),
-    });
-  }, [t]);
-
-  type ContactFormData = z.infer<typeof contactSchema>;
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    reset,
-    formState: { errors },
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-      subject: 'consultation',
-      message: '',
-    },
-  });
-
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
-
-    // Normalize phone digits before dispatch
-    const normalizedData = {
-      ...data,
-      phone: data.phone ? normalizeDigits(data.phone) : '',
-    };
-
-    // TODO: Connect to real backend API or transactional email service (e.g. Resend, SendGrid, or custom API route)
-    // Example: await fetch('/api/concierge/inquiries', { method: 'POST', body: JSON.stringify(normalizedData) });
-    console.log('[Maison Concierge] Inquiry submitted:', normalizedData);
-
-    // Simulated network latency
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      reset();
-    }, 1500);
-  };
-
-  const subjectOptions = [
-    { value: 'consultation', label: t('contact.subjectConsultation') },
-    { value: 'order', label: t('contact.subjectOrder') },
-    { value: 'atelier', label: t('contact.subjectAtelier') },
-    { value: 'press', label: t('contact.subjectPress') },
-    { value: 'other', label: t('contact.subjectOther') },
-  ];
 
   const faqItems: AccordionItem[] = [
     {
@@ -237,7 +147,7 @@ export const ContactPage: React.FC = () => {
       <div className="bg-ivory text-near-black py-12 sm:py-16 lg:py-24">
         <Container size="lg">
           {/* Header */}
-          <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20 space-y-3">
+          <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-18 space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 border border-gold/40 bg-gold/5 text-gold-dark text-xs uppercase tracking-widest rtl:tracking-normal font-medium rounded-xs">
               <Compass className="w-3.5 h-3.5 stroke-[1.5]" />
               <span>{t('contact.eyebrow')}</span>
@@ -250,137 +160,20 @@ export const ContactPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Main 2-Column Section: Form & Info */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start pb-20 border-b border-border/60">
-            {/* Left Column: Form */}
-            <div className="lg:col-span-7 bg-ivory-surface border border-border/80 p-6 sm:p-10 shadow-2xs rounded-xs text-start">
-              <h2 className="text-xl font-display font-light rtl:font-normal rtl:leading-[1.45] text-near-black mb-6">
-                {t('contact.formTitle')}
-              </h2>
-
-              <AnimatePresence mode="wait">
-                {isSuccess ? (
-                  <motion.div
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    className="py-12 px-6 text-center space-y-5 bg-ivory border border-gold/40 rounded-xs shadow-2xs"
-                  >
-                    <div className="w-14 h-14 rounded-full bg-gold/10 border border-gold/40 flex items-center justify-center text-gold-dark mx-auto">
-                      <CheckCircle2 className="w-7 h-7 stroke-[1.75]" />
-                    </div>
-                    <div className="space-y-2">
-                      <h3 className="text-xl font-display font-normal text-near-black">
-                        {t('contact.successTitle')}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-muted font-light max-w-md mx-auto leading-relaxed">
-                        {t('contact.successDesc')}
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setIsSuccess(false)}
-                      className="inline-flex items-center gap-2 px-6 py-2.5 border border-near-black text-near-black hover:bg-near-black hover:text-ivory transition-colors text-xs uppercase tracking-widest font-medium cursor-pointer rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-                    >
-                      <span>{t('contact.sendAnother')}</span>
-                    </button>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                    {/* Name */}
-                    <Input
-                      label={t('contact.nameLabel')}
-                      placeholder={t('contact.namePlaceholder')}
-                      error={errors.name?.message}
-                      {...register('name')}
-                    />
-
-                    {/* Email and Phone */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Input
-                        type="email"
-                        label={t('contact.emailLabel')}
-                        placeholder={t('contact.emailPlaceholder')}
-                        error={errors.email?.message}
-                        dir="ltr"
-                        className="text-start"
-                        {...register('email')}
-                      />
-                      <Input
-                        type="tel"
-                        label={t('contact.phoneLabel')}
-                        placeholder={t('contact.phonePlaceholder')}
-                        error={errors.phone?.message}
-                        dir="ltr"
-                        className="text-start"
-                        normalizeDigits
-                        {...register('phone', {
-                          onChange: handleLiveDigitInput,
-                        })}
-                      />
-                    </div>
-
-                    {/* Subject */}
-                    <div className="w-full text-start">
-                      <label
-                        htmlFor="contact-subject"
-                        className="block text-xs font-medium text-near-black mb-1.5"
-                      >
-                        {t('contact.subjectLabel')}
-                      </label>
-                      <Select
-                        id="contact-subject"
-                        options={subjectOptions}
-                        containerClassName="w-full"
-                        className="w-full"
-                        {...register('subject')}
-                      />
-                      {errors.subject?.message && (
-                        <p className="text-red-500 text-xs mt-1">{errors.subject.message}</p>
-                      )}
-                    </div>
-
-                    {/* Message */}
-                    <Textarea
-                      label={t('contact.messageLabel')}
-                      placeholder={t('contact.messagePlaceholder')}
-                      rows={5}
-                      error={errors.message?.message}
-                      {...register('message')}
-                    />
-
-                    {/* Submit Button */}
-                    <div className="pt-2">
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] gap-3 px-8 py-3.5 bg-near-black text-ivory hover:bg-gold hover:text-near-black transition-colors duration-200 text-xs uppercase tracking-widest font-medium disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer rounded-xs shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <div className="w-4 h-4 border-2 border-ivory border-t-transparent rounded-full animate-spin" />
-                            <span>{t('contact.submitting')}</span>
-                          </>
-                        ) : (
-                          <>
-                            <span>{t('contact.submitButton')}</span>
-                            <Send className="w-3.5 h-3.5 stroke-[1.5] rtl:-scale-x-100" />
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  </form>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Right Column: Info & Styled Map Placeholder */}
-            <div className="lg:col-span-5 space-y-8 text-start">
-              <div className="p-6 sm:p-8 bg-ivory-surface border border-border/80 rounded-xs shadow-2xs space-y-6">
-                <h2 className="text-lg font-display font-normal rtl:leading-[1.45] text-near-black">
-                  {t('contact.infoTitle')}
-                </h2>
+          {/* Main Showcase Section: Side-by-Side Balanced Cards (Info & Architectural GPS Sanctuary) */}
+          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch pb-16 sm:pb-20 border-b border-border/60">
+            {/* Left Card: Info & Contact Card */}
+            <div className="p-7 sm:p-9 bg-ivory-surface border border-border/80 rounded-xs shadow-2xs flex flex-col justify-between text-start space-y-8">
+              <div className="space-y-6">
+                <div className="border-b border-border/60 pb-4">
+                  <div className="flex items-center gap-2 text-gold-dark text-xs uppercase tracking-widest rtl:tracking-normal font-medium mb-1">
+                    <Sparkles className="w-3.5 h-3.5 stroke-[1.5]" />
+                    <span>{t('contact.eyebrow')}</span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-display font-light rtl:font-normal rtl:leading-[1.4] text-near-black">
+                    {t('contact.infoTitle')}
+                  </h2>
+                </div>
 
                 <div className="space-y-5">
                   {/* Address */}
@@ -449,73 +242,84 @@ export const ContactPage: React.FC = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* Social Links */}
-                <div className="pt-4 border-t border-border/60 flex items-center gap-3">
-                  <span className="text-xs text-muted font-light">Maison Channels:</span>
-                  <div className="flex items-center gap-2">
-                    {[
-                      { name: 'Instagram', href: SOCIAL_LINKS.instagram },
-                      { name: 'Telegram', href: SOCIAL_LINKS.telegram },
-                      { name: 'WhatsApp', href: SOCIAL_LINKS.whatsapp },
-                    ].map((network) => (
-                      <a
-                        key={network.name}
-                        href={network.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Maison Rayeha ${network.name}`}
-                        className="px-2.5 py-1 text-[11px] border border-border/80 text-near-black/80 hover:text-gold-dark hover:border-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold transition-colors cursor-pointer rounded-xs"
-                      >
-                        {network.name}
-                      </a>
-                    ))}
-                  </div>
-                </div>
               </div>
 
-              {/* Styled Map Placeholder (Architectural Blueprint Style) */}
-              <div className="p-6 bg-near-black text-ivory border border-border/80 rounded-xs shadow-2xs relative overflow-hidden text-start">
-                {/* Subtle blueprint grid overlay */}
-                <div
-                  className="absolute inset-0 opacity-10 pointer-events-none"
-                  style={{
-                    backgroundImage: `radial-gradient(circle, #C5A880 1px, transparent 1px)`,
-                    backgroundSize: '20px 20px',
-                  }}
-                />
+              {/* Social Channels Footer */}
+              <div className="pt-5 border-t border-border/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <span className="text-xs text-muted font-light">Maison Channels:</span>
+                <div className="flex items-center gap-2 flex-wrap">
+                  {[
+                    { name: 'Instagram', href: SOCIAL_LINKS.instagram },
+                    { name: 'Telegram', href: SOCIAL_LINKS.telegram },
+                    { name: 'WhatsApp', href: SOCIAL_LINKS.whatsapp },
+                  ].map((network) => (
+                    <a
+                      key={network.name}
+                      href={network.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Maison Rayeha ${network.name}`}
+                      className="px-3 py-1.5 text-[11px] border border-border/80 text-near-black/80 hover:text-gold-dark hover:border-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold transition-colors cursor-pointer rounded-xs"
+                    >
+                      {network.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
 
-                <div className="relative z-10 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-gold-light">
-                      <Compass className="w-4 h-4 stroke-[1.5] animate-spin-slow motion-reduce:animate-none" />
-                      <span className="text-xs uppercase tracking-widest rtl:tracking-normal font-mono">
-                        {t('contact.mapPlaceholderTitle')}
-                      </span>
-                    </div>
-                    <span className="text-[10px] font-mono text-ivory/60 border border-ivory/20 px-2 py-0.5 rounded-xs">
-                      GPS SANCTUARY
+            {/* Right Card: Styled Map & GPS Sanctuary Card (Architectural Blueprint Style) */}
+            <div className="p-7 sm:p-9 bg-near-black text-ivory border border-border/80 rounded-xs shadow-2xs relative overflow-hidden flex flex-col justify-between text-start space-y-6">
+              {/* Subtle blueprint grid overlay */}
+              <div
+                className="absolute inset-0 opacity-10 pointer-events-none"
+                style={{
+                  backgroundImage: `radial-gradient(circle, #C5A880 1px, transparent 1px)`,
+                  backgroundSize: '20px 20px',
+                }}
+              />
+
+              <div className="relative z-10 space-y-6">
+                <div className="flex items-center justify-between border-b border-ivory/15 pb-4">
+                  <div className="flex items-center gap-2 text-gold-light">
+                    <Compass className="w-4 h-4 stroke-[1.5] animate-spin-slow motion-reduce:animate-none" />
+                    <span className="text-xs uppercase tracking-widest rtl:tracking-normal font-mono">
+                      {t('contact.mapPlaceholderTitle')}
                     </span>
                   </div>
-
-                  {/* Stylized Architectural Compass Canvas */}
-                  <div className="h-36 w-full border border-gold/25 bg-near-black/80 rounded-xs flex flex-col items-center justify-center relative overflow-hidden p-4 text-center">
-                    {/* Concentric rings */}
-                    <div className="w-24 h-24 rounded-full border border-gold/20 absolute animate-pulse motion-reduce:animate-none" />
-                    <div className="w-16 h-16 rounded-full border border-gold/30 absolute" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_12px_#C5A880] relative z-10" />
-
-                    <div className="absolute bottom-2 inset-x-0 text-center">
-                      <p className="text-[10px] font-mono text-gold-light tracking-wider rtl:tracking-normal">
-                        {t('contact.mapPlaceholderCoords')}
-                      </p>
-                    </div>
-                  </div>
-
-                  <p className="text-[11px] text-ivory/70 font-light leading-relaxed rtl:leading-loose">
-                    {t('contact.mapPlaceholderNotice')}
-                  </p>
+                  <span className="text-[10px] font-mono text-ivory/60 border border-ivory/20 px-2 py-0.5 rounded-xs">
+                    GPS SANCTUARY
+                  </span>
                 </div>
+
+                {/* Stylized Architectural Compass Canvas */}
+                <div className="h-44 w-full border border-gold/25 bg-near-black/80 rounded-xs flex flex-col items-center justify-center relative overflow-hidden p-4 text-center">
+                  {/* Concentric rings */}
+                  <div className="w-32 h-32 rounded-full border border-gold/20 absolute animate-pulse motion-reduce:animate-none" />
+                  <div className="w-20 h-20 rounded-full border border-gold/30 absolute" />
+                  <div className="w-3 h-3 rounded-full bg-gold shadow-[0_0_14px_#C5A880] relative z-10" />
+
+                  <div className="absolute bottom-3 inset-x-0 text-center px-4">
+                    <p className="text-[10px] sm:text-[11px] font-mono text-gold-light tracking-wider rtl:tracking-normal">
+                      {t('contact.mapPlaceholderCoords')}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-xs text-ivory/70 font-light leading-relaxed rtl:leading-loose">
+                  {t('contact.mapPlaceholderNotice')}
+                </p>
+              </div>
+
+              {/* Direct VIP hotline action link */}
+              <div className="relative z-10 pt-4 border-t border-ivory/15">
+                <a
+                  href={phoneTelHref}
+                  className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 bg-gold/15 hover:bg-gold text-gold-light hover:text-near-black border border-gold/40 hover:border-gold rounded-xs text-xs uppercase tracking-widest font-medium transition-colors cursor-pointer"
+                >
+                  <Phone className="w-3.5 h-3.5 stroke-[1.75]" />
+                  <span>{lang === 'fa' ? 'تماس مستقیم با کارشناس تشریفات' : 'Direct Call to VIP Concierge'}</span>
+                </a>
               </div>
             </div>
           </div>

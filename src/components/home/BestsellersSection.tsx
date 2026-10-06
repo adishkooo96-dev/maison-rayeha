@@ -60,7 +60,7 @@ export const BestsellersSection: React.FC = () => {
   return (
     <section
       id="bestsellers-section"
-      className="py-16 sm:py-24 bg-ivory text-near-black"
+      className="py-16 sm:py-24 bg-[var(--bg-page)] text-[var(--text-primary)]"
       aria-labelledby="bestsellers-heading"
     >
       <Container size="lg">
@@ -84,8 +84,8 @@ export const BestsellersSection: React.FC = () => {
               onClick={() => setFilter(tab.id as any)}
               className={`px-5 py-2.5 text-xs uppercase tracking-wider transition-all duration-200 cursor-pointer rounded-[8px] border shrink-0 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
                 filter === tab.id
-                  ? 'bg-near-black text-ivory border-near-black font-semibold shadow-xs'
-                  : 'bg-ivory-subtle text-muted hover:text-near-black border-border hover:border-gold-dark hover:shadow-2xs'
+                  ? 'bg-[var(--chip-selected-bg)] text-[var(--chip-selected-text)] border-[var(--chip-selected-bg)] font-semibold shadow-xs'
+                  : 'bg-[var(--chip-bg)] text-[var(--chip-text)] hover:text-[var(--text-primary)] border-[var(--border)] hover:border-gold hover:shadow-2xs'
               }`}
             >
               {tab.label}
@@ -108,7 +108,7 @@ export const BestsellersSection: React.FC = () => {
         <div className="mt-14 sm:mt-16 text-center">
           <LocaleLink
             to="/shop?sort=bestseller"
-            className="inline-flex items-center gap-3 text-xs sm:text-sm uppercase tracking-widest font-medium text-near-black hover:text-gold-dark transition-colors group pb-1 border-b border-near-black/20 hover:border-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xs"
+            className="inline-flex items-center gap-3 text-xs sm:text-sm uppercase tracking-widest font-medium text-[var(--text-primary)] hover:text-gold transition-colors group pb-1 border-b border-[var(--border)] hover:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xs"
           >
             <span>{t('bestsellers.viewAll')}</span>
             <ArrowIcon className="w-4 h-4 stroke-[1.5] transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
@@ -125,20 +125,20 @@ export const BestsellersSection: React.FC = () => {
           className="fixed inset-0 z-50 bg-near-black/70 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6"
         >
           <div
-            className="bg-ivory-surface w-full max-w-2xl border-2 border-gold shadow-2xl relative flex flex-col md:flex-row overflow-hidden rounded-[12px] animate-in fade-in zoom-in-95 duration-200"
+            className="bg-[var(--bg-surface)] text-[var(--text-primary)] w-full max-w-2xl border-2 border-gold shadow-2xl relative flex flex-col md:flex-row overflow-hidden rounded-[12px] animate-in fade-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
               onClick={() => setQuickViewProduct(null)}
               aria-label={t('common.close')}
-              className="absolute top-4 end-4 z-10 min-h-[44px] min-w-[44px] flex items-center justify-center bg-ivory/80 text-near-black hover:text-gold-dark transition-colors rounded-xs cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              className="absolute top-4 end-4 z-10 min-h-[44px] min-w-[44px] flex items-center justify-center bg-[var(--bg-surface-raised)] text-[var(--text-primary)] hover:text-gold transition-colors rounded-xs cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
             >
               <X className="w-5 h-5 stroke-[1.5]" />
             </button>
 
             {/* Image Side */}
-            <div className="md:w-1/2 bg-ivory-subtle relative aspect-square md:aspect-auto overflow-hidden">
+            <div className="md:w-1/2 bg-[var(--bg-surface-raised)] relative aspect-square md:aspect-auto overflow-hidden">
               <img
                 src={quickViewProduct.images[0]}
                 alt={quickViewProduct.name[lang]}
@@ -223,7 +223,7 @@ export const BestsellersSection: React.FC = () => {
 
                 {/* Sizes Selector */}
                 <div className="mt-5">
-                  <span className="text-xs font-medium text-near-black block mb-2">
+                  <span className="text-xs font-medium text-[var(--text-primary)] block mb-2">
                     {t('product.selectSize')}
                   </span>
                   <div className="flex gap-2">
@@ -237,10 +237,10 @@ export const BestsellersSection: React.FC = () => {
                           onClick={() => setSelectedSize(sizeStr)}
                           className={`min-h-[38px] px-3.5 py-1.5 text-xs font-mono font-medium rounded-xs border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
                             !quickViewProduct.inStock
-                              ? 'opacity-40 cursor-not-allowed bg-ivory text-muted border-border'
+                              ? 'opacity-40 cursor-not-allowed bg-[var(--bg-surface-raised)] text-[var(--text-secondary)] border-[var(--border)]'
                               : selectedSize === sizeStr
-                              ? 'bg-near-black text-ivory border-near-black shadow-2xs cursor-pointer'
-                              : 'bg-ivory text-near-black border-border hover:border-gold-dark cursor-pointer'
+                              ? 'bg-[var(--chip-selected-bg)] text-[var(--chip-selected-text)] border-[var(--chip-selected-bg)] shadow-2xs cursor-pointer font-semibold'
+                              : 'bg-[var(--bg-surface)] text-[var(--text-primary)] border-[var(--border)] hover:border-gold cursor-pointer'
                           }`}
                         >
                           {sizeStr}

@@ -153,9 +153,9 @@ export const ShopFilters: React.FC<ShopFiltersProps> = ({
   return (
     <div className={`flex flex-col text-start ${className}`}>
       {/* Top Header / Clear All Link */}
-      <div className="flex items-center justify-between pb-3.5 mb-2 border-b border-border/80">
-        <div className="flex items-center gap-2 font-medium text-sm text-near-black">
-          <Sliders className="w-4 h-4 stroke-[1.5] text-gold-dark" aria-hidden="true" />
+      <div className="flex items-center justify-between pb-3.5 mb-2 border-b border-[var(--border)]">
+        <div className="flex items-center gap-2 font-medium text-sm text-[var(--text-primary)]">
+          <Sliders className="w-4 h-4 stroke-[1.5] text-gold" aria-hidden="true" />
           <span>{t('filters.title')}</span>
         </div>
 
@@ -163,7 +163,7 @@ export const ShopFilters: React.FC<ShopFiltersProps> = ({
           <button
             type="button"
             onClick={onResetFilters}
-            className="text-xs text-muted hover:text-gold-dark transition-colors inline-flex items-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xs px-1"
+            className="text-xs text-[var(--text-secondary)] hover:text-gold transition-colors inline-flex items-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xs px-1"
           >
             <RotateCcw className="w-3.5 h-3.5 stroke-[1.5]" />
             <span>{t('filters.clearAllFilters')}</span>
@@ -172,26 +172,26 @@ export const ShopFilters: React.FC<ShopFiltersProps> = ({
       </div>
 
       {/* Accordion Sections */}
-      <div className="divide-y divide-border/60">
+      <div className="divide-y divide-[var(--border)]">
         {/* 1. Gender */}
         <div className="py-3">
           <button
             type="button"
             aria-expanded={openSections.includes('gender')}
             onClick={() => toggleSection('gender')}
-            className="w-full flex items-center justify-between py-1 px-1 text-xs font-semibold uppercase tracking-wider text-near-black hover:text-gold-dark transition-colors cursor-pointer rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+            className="w-full flex items-center justify-between py-1 px-1 text-xs font-semibold uppercase tracking-wider text-[var(--text-primary)] hover:text-gold transition-colors cursor-pointer rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           >
             <span className="flex items-center gap-2">
               <span>{t('filters.gender')}</span>
               {activeGenderCount > 0 && (
-                <span className="min-w-4 h-4 px-1.5 bg-gold text-near-black text-[10px] font-mono font-bold rounded-full flex items-center justify-center">
+                <span className="min-w-4 h-4 px-1.5 bg-gold text-[#111111] text-[10px] font-mono font-bold rounded-full flex items-center justify-center">
                   {formatNumber(activeGenderCount, { useGrouping: false })}
                 </span>
               )}
             </span>
             <ChevronDown
-              className={`w-4 h-4 stroke-[1.5] text-muted transition-transform duration-200 ${
-                openSections.includes('gender') ? 'rotate-180 text-gold-dark' : ''
+              className={`w-4 h-4 stroke-[1.5] text-[var(--text-secondary)] transition-transform duration-200 ${
+                openSections.includes('gender') ? 'rotate-180 text-gold' : ''
               }`}
               aria-hidden="true"
             />
@@ -219,19 +219,19 @@ export const ShopFilters: React.FC<ShopFiltersProps> = ({
             type="button"
             aria-expanded={openSections.includes('scentFamily')}
             onClick={() => toggleSection('scentFamily')}
-            className="w-full flex items-center justify-between py-1 px-1 text-xs font-semibold uppercase tracking-wider text-near-black hover:text-gold-dark transition-colors cursor-pointer rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+            className="w-full flex items-center justify-between py-1 px-1 text-xs font-semibold uppercase tracking-wider text-[var(--text-primary)] hover:text-gold transition-colors cursor-pointer rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           >
             <span className="flex items-center gap-2">
               <span>{t('filters.scentFamily')}</span>
               {activeFamilyCount > 0 && (
-                <span className="min-w-4 h-4 px-1.5 bg-gold text-near-black text-[10px] font-mono font-bold rounded-full flex items-center justify-center">
+                <span className="min-w-4 h-4 px-1.5 bg-gold text-[#111111] text-[10px] font-mono font-bold rounded-full flex items-center justify-center">
                   {formatNumber(activeFamilyCount, { useGrouping: false })}
                 </span>
               )}
             </span>
             <ChevronDown
-              className={`w-4 h-4 stroke-[1.5] text-muted transition-transform duration-200 ${
-                openSections.includes('scentFamily') ? 'rotate-180 text-gold-dark' : ''
+              className={`w-4 h-4 stroke-[1.5] text-[var(--text-secondary)] transition-transform duration-200 ${
+                openSections.includes('scentFamily') ? 'rotate-180 text-gold' : ''
               }`}
               aria-hidden="true"
             />
@@ -282,19 +282,19 @@ export const ShopFilters: React.FC<ShopFiltersProps> = ({
               {/* In-list search box for brands */}
               {availableBrands.length >= 5 && (
                 <div className="relative mb-2">
-                  <Search className="w-3.5 h-3.5 text-muted absolute top-2.5 start-2.5 pointer-events-none" />
+                  <Search className="w-3.5 h-3.5 text-[var(--text-secondary)] absolute top-2.5 start-2.5 pointer-events-none" />
                   <input
                     type="text"
                     value={brandSearch}
                     onChange={(e) => setBrandSearch(e.target.value)}
                     placeholder={t('filters.searchBrand')}
-                    className="w-full ps-8 pe-6 py-1.5 text-xs bg-ivory text-near-black border border-border rounded-xs focus:outline-none focus:border-gold placeholder:text-muted/70"
+                    className="w-full ps-8 pe-6 py-1.5 text-xs bg-[var(--bg-surface)] text-[var(--text-primary)] border border-[var(--border)] rounded-xs focus:outline-none focus:border-gold placeholder:text-[var(--text-secondary)]/70"
                   />
                   {brandSearch && (
                     <button
                       type="button"
                       onClick={() => setBrandSearch('')}
-                      className="absolute top-2.5 end-2 text-muted hover:text-near-black p-0.5 cursor-pointer"
+                      className="absolute top-2.5 end-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] p-0.5 cursor-pointer"
                       aria-label={t('common.clear')}
                     >
                       <X className="w-3 h-3" />
@@ -421,7 +421,7 @@ export const ShopFilters: React.FC<ShopFiltersProps> = ({
 
       {/* Mobile Drawer Sticky Footer */}
       {isMobileDrawer && (
-        <div className="sticky bottom-0 bg-ivory-surface pt-4 pb-2 border-t border-border mt-auto flex items-center gap-2">
+        <div className="sticky bottom-0 bg-[var(--bg-surface)] pt-4 pb-2 border-t border-[var(--border)] mt-auto flex items-center gap-2">
           <Button
             variant="primary"
             size="md"

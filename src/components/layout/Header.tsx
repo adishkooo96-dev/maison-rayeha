@@ -53,8 +53,8 @@ export const Header: React.FC = () => {
   const isTransparent = isHomePage && !isScrolled;
 
   const headerClass = isTransparent
-    ? 'bg-gradient-to-b from-near-black/75 via-near-black/45 to-transparent text-ivory border-b border-ivory/10'
-    : 'bg-ivory-surface/95 backdrop-blur-md text-near-black border-b border-border/80 shadow-[0_4px_24px_-4px_rgba(14,14,14,0.07)]';
+    ? 'bg-gradient-to-b from-black/80 via-black/50 to-transparent text-white border-b border-white/10'
+    : 'bg-[var(--bg-surface)]/95 backdrop-blur-md text-[var(--text-primary)] border-b border-[var(--border)] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.07)]';
 
   return (
     <>
@@ -63,11 +63,7 @@ export const Header: React.FC = () => {
       >
         {/* Top mini announcement bar */}
         <div
-          className={`py-1.5 px-4 text-center text-[11px] tracking-widest rtl:tracking-normal uppercase transition-colors border-b ${
-            isTransparent
-              ? 'bg-near-black/50 text-ivory/90 border-ivory/10'
-              : 'bg-near-black text-ivory border-near-black'
-          }`}
+          className="py-1.5 px-4 text-center text-[11px] tracking-widest rtl:tracking-normal uppercase transition-colors border-b bg-[var(--announcement-bg)] text-[var(--announcement-text)] border-[var(--border)] font-medium"
         >
           <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
             <Sparkles className="w-3 h-3 text-gold stroke-[1.5]" aria-hidden="true" />
@@ -86,7 +82,7 @@ export const Header: React.FC = () => {
               onClick={() => setIsMobileMenuOpen(true)}
               aria-label={t('common.menu')}
               className={`min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
-                isTransparent ? 'text-ivory hover:text-gold' : 'text-near-black hover:text-gold'
+                isTransparent ? 'text-white hover:text-gold' : 'text-[var(--text-primary)] hover:text-gold'
               }`}
             >
               <Menu className="w-6 h-6 stroke-[1.5]" />
@@ -101,15 +97,13 @@ export const Header: React.FC = () => {
             >
               <span
                 className={`text-base xs:text-lg sm:text-2xl md:text-3xl tracking-[0.12em] sm:tracking-[0.18em] uppercase font-light font-display transition-colors truncate max-w-[150px] xs:max-w-none ${
-                  isTransparent ? 'text-ivory group-hover:text-gold' : 'text-near-black group-hover:text-gold'
+                  isTransparent ? 'text-white group-hover:text-gold' : 'text-[var(--text-primary)] group-hover:text-gold'
                 }`}
               >
                 Maison Rayeha
               </span>
               <span
-                className={`text-[8px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] rtl:tracking-normal uppercase font-medium transition-colors ${
-                  isTransparent ? 'text-gold-light' : 'text-gold-dark'
-                }`}
+                className="text-[8px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] rtl:tracking-normal uppercase font-medium transition-colors text-gold group-hover:text-gold-light"
               >
                 {t('common.hauteParfumerie')}
               </span>
@@ -126,12 +120,10 @@ export const Header: React.FC = () => {
                 className={({ isActive }) =>
                   `text-xs tracking-widest rtl:tracking-normal uppercase transition-all duration-200 py-1 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-xs ${
                     isActive
-                      ? isTransparent
-                        ? 'text-gold font-medium'
-                        : 'text-gold-dark font-medium'
+                      ? 'text-gold font-semibold'
                       : isTransparent
-                      ? 'text-ivory/90 hover:text-gold font-light'
-                      : 'text-near-black/90 hover:text-gold-dark font-light'
+                      ? 'text-white/90 hover:text-gold font-normal'
+                      : 'text-[var(--text-primary)] hover:text-gold font-normal'
                   }`
                 }
               >
@@ -153,8 +145,8 @@ export const Header: React.FC = () => {
               type="button"
               onClick={() => setIsSearchOpen(true)}
               aria-label={t('nav.search')}
-              className={`min-h-[44px] min-w-[36px] sm:min-w-[44px] flex items-center justify-center transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold shrink-0 ${
-                isTransparent ? 'text-ivory hover:text-gold' : 'text-near-black hover:text-gold-dark'
+              className={`min-h-[44px] min-w-[36px] sm:min-w-[44px] flex items-center justify-center transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold shrink-0 cursor-pointer ${
+                isTransparent ? 'text-white hover:text-gold' : 'text-[var(--text-primary)] hover:text-gold'
               }`}
             >
               <Search className="w-5 h-5 stroke-[1.5]" />
@@ -168,17 +160,15 @@ export const Header: React.FC = () => {
               type="button"
               onClick={openCart}
               aria-label={`${t('nav.cart')} (${formatNumber(totalCartCount, { useGrouping: false })})`}
-              className={`min-h-[44px] min-w-[36px] sm:min-w-[44px] transition-colors rounded-xs relative flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold shrink-0 ${
-                isTransparent ? 'text-ivory hover:text-gold' : 'text-near-black hover:text-gold-dark'
+              className={`min-h-[44px] min-w-[36px] sm:min-w-[44px] transition-colors rounded-xs relative flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold shrink-0 cursor-pointer ${
+                isTransparent ? 'text-white hover:text-gold' : 'text-[var(--text-primary)] hover:text-gold'
               }`}
             >
               <div className="relative flex items-center justify-center">
                 <ShoppingBag className="w-5 h-5 stroke-[1.5]" />
                 {totalCartCount > 0 && (
                   <span
-                    className={`absolute -top-2 -end-2.5 min-w-4 h-4 px-1 bg-gold text-near-black text-[10px] font-bold rounded-full flex items-center justify-center font-mono ring-2 transition-colors ${
-                      isTransparent ? 'ring-near-black' : 'ring-ivory-surface'
-                    }`}
+                    className="absolute -top-2 -end-2.5 min-w-4 h-4 px-1 bg-gold text-[#111111] text-[10px] font-bold rounded-full flex items-center justify-center font-mono ring-2 ring-[var(--bg-surface)] transition-colors"
                   >
                     {formatNumber(totalCartCount, { useGrouping: false })}
                   </span>

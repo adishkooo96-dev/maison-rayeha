@@ -272,7 +272,7 @@ export const ProductDetail: React.FC = () => {
         ogType="product"
         jsonLd={[productJsonLd, breadcrumbJsonLd]}
       />
-      <div className="pt-28 pb-[max(6rem,calc(5rem+env(safe-area-inset-bottom)))] lg:pb-24 bg-ivory text-near-black">
+      <div className="pt-28 pb-[max(6rem,calc(5rem+env(safe-area-inset-bottom)))] lg:pb-24 bg-[var(--bg-page)] text-[var(--text-primary)]">
         <Container size="xl">
         {/* Breadcrumb Navigation */}
         <div className="mb-6">
@@ -290,12 +290,12 @@ export const ProductDetail: React.FC = () => {
         </div>
 
         {/* Product Master View Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16 pb-16 border-b border-border/80 text-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16 pb-16 border-b border-[var(--border)] text-start">
           {/* Gallery Column (lg: 6 or 7 cols) */}
           <div className="lg:col-span-6 xl:col-span-7 flex flex-col gap-4">
             {/* Main Stage with Zoom Lens */}
             <div
-              className="relative aspect-[4/5] bg-ivory-subtle border-[1.5px] border-gold rounded-[12px] shadow-sm overflow-hidden cursor-crosshair group"
+              className="relative aspect-[4/5] bg-[var(--bg-surface-raised)] border-[1.5px] border-gold rounded-[12px] shadow-sm overflow-hidden cursor-crosshair group"
               onMouseEnter={() => setIsZoomed(true)}
               onMouseLeave={() => setIsZoomed(false)}
               onMouseMove={handleMouseMove}
@@ -408,24 +408,24 @@ export const ProductDetail: React.FC = () => {
               </div>
 
               {/* Price Display */}
-              <div className="pt-2 border-t border-border/80">
+              <div className="pt-2 border-t border-[var(--border)]">
                 <div className="flex items-baseline gap-3">
-                  <span className="text-2xl sm:text-3xl font-light font-mono text-near-black">
+                  <span className="text-2xl sm:text-3xl font-light font-mono text-[var(--text-primary)]">
                     {formatPrice(currentPrice)}
                   </span>
-                  <span className="text-xs text-muted font-light">
+                  <span className="text-xs text-[var(--text-secondary)] font-light">
                     ({selectedSize} •{' '}
                     {productConcentration || 'Extrait de Parfum'})
                   </span>
                 </div>
                 {product && !product.inStock && (
-                  <p className="mt-2 text-xs font-medium text-rose-700 rtl:font-normal flex items-center gap-1.5 animate-in fade-in duration-300">
+                  <p className="mt-2 text-xs font-medium text-rose-500 rtl:font-normal flex items-center gap-1.5 animate-in fade-in duration-300">
                     <span className="inline-block w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
                     <span>{t('product.unavailableNote')}</span>
                   </p>
                 )}
                 {product && product.inStock && typeof product.stockQuantity === 'number' && product.stockQuantity > 0 && product.stockQuantity <= 5 && (
-                  <p className="mt-2 text-xs font-medium text-amber-700 rtl:font-normal flex items-center gap-1.5 animate-in fade-in duration-300">
+                  <p className="mt-2 text-xs font-medium text-amber-500 rtl:font-normal flex items-center gap-1.5 animate-in fade-in duration-300">
                     <span className="inline-block w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
                     <span>{t('product.limitedStock')}</span>
                   </p>
@@ -434,7 +434,7 @@ export const ProductDetail: React.FC = () => {
 
               {/* Flacon Volume Selector */}
               <div className="pt-2">
-                <span className="text-xs uppercase tracking-wider rtl:tracking-normal font-semibold text-near-black block mb-2.5">
+                <span className="text-xs uppercase tracking-wider rtl:tracking-normal font-semibold text-[var(--text-primary)] block mb-2.5">
                   {t('productDetail.selectSize')}
                 </span>
                 <RadioGroup
@@ -632,16 +632,16 @@ export const ProductDetail: React.FC = () => {
       </Container>
 
       {/* Mobile Sticky Buy Bar */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-ivory/95 backdrop-blur-md border-t border-border px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg flex items-center justify-between gap-3">
+      <div className="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-[var(--bg-surface)]/95 backdrop-blur-md border-t border-[var(--border)] px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-lg flex items-center justify-between gap-3">
         <div className="min-w-0 flex-1 text-start">
-          <span className="text-sm font-mono font-medium text-gold-dark block truncate">
+          <span className="text-sm font-mono font-medium text-gold block truncate">
             {formatPrice(currentPrice)}
           </span>
-          <span className="text-[11px] text-muted block truncate font-light">
+          <span className="text-[11px] text-[var(--text-secondary)] block truncate font-light">
             {selectedSize} • {productName}
           </span>
           {product && !product.inStock && (
-            <span className="text-[11px] text-rose-600 block font-medium truncate">
+            <span className="text-[11px] text-rose-500 block font-medium truncate">
               {t('product.outOfStock')}
             </span>
           )}

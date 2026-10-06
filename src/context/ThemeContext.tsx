@@ -42,9 +42,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       // Ignore localStorage errors
     }
 
-    // Apply data-theme and class on <html> element
+    // Apply data-theme, class, and color-scheme on <html> element
     const root = document.documentElement;
     root.setAttribute('data-theme', theme);
+    root.style.colorScheme = theme;
     if (theme === 'dark') {
       root.classList.add('dark');
     } else {
@@ -54,7 +55,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // Also update meta theme-color if present
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', theme === 'dark' ? '#111111' : '#F5F0E8');
+      metaThemeColor.setAttribute('content', theme === 'dark' ? '#0F0F10' : '#F5F0E8');
     }
   }, [theme]);
 

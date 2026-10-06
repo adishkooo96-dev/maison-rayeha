@@ -628,7 +628,7 @@ export const AdminPage: React.FC = () => {
     return (
       <div className="py-32 text-center">
         <div className="w-8 h-8 border-2 border-gold border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-xs text-muted font-mono">{lang === 'fa' ? 'در حال بررسی اعتبارسنجی مدیریت...' : 'Verifying administrative credentials...'}</p>
+        <p className="text-xs text-muted font-mono">{t('admin.header.verifyingCredentials')}</p>
       </div>
     );
   }
@@ -666,7 +666,7 @@ export const AdminPage: React.FC = () => {
   });
 
   return (
-    <div className="py-8 bg-zinc-50 min-h-screen text-start text-zinc-900 font-sans">
+    <div className="admin-scope py-8 bg-zinc-50 min-h-screen text-start text-zinc-900 font-sans" style={{ colorScheme: 'light' }}>
       <Seo title="Admin Dashboard | Maison Rayeha" description="Internal administrative dashboard" />
 
       <Container size="xl">
