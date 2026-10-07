@@ -89,7 +89,9 @@
     "inStock": "In stock",
     "limitedStock": "Limited stock",
     "unavailableNote": "This item is currently unavailable",
-    "unavailableBtn": "Out of stock"
+    "unavailableBtn": "Out of stock",
+    "discountBadge": "{percent} OFF",
+    "discountOff": "OFF"
   },
   "footer": {
     "brandDescription": "Maison Rayeha: An independent haute fragrance house uniting ancient Persian alchemy with contemporary French niche perfumery.",

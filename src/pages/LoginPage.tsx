@@ -95,7 +95,7 @@ export const LoginPage: React.FC = () => {
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   return (
-    <div className="py-16 sm:py-24 bg-ivory min-h-[calc(100vh-200px)] flex items-center">
+    <div className="pt-28 sm:pt-32 pb-16 sm:pb-24 bg-ivory min-h-[calc(100vh-100px)] flex items-center">
       <Seo
         title={lang === 'fa' ? 'ورود به حساب کاربری | میسون رایحه' : 'Sign In | Maison Rayeha'}
         description={lang === 'fa' ? 'ورود به پنل اختصاصی مشتریان خانه عطر میسون رایحه' : 'Sign in to your Maison Rayeha patron account'}

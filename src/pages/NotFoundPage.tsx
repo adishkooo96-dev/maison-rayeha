@@ -28,7 +28,7 @@ export const NotFoundPage: React.FC = () => {
         noindex={true}
       />
 
-      <div className="min-h-[75vh] flex items-center justify-center bg-ivory text-near-black py-16 sm:py-24">
+      <div className="min-h-[75vh] flex items-center justify-center bg-ivory text-near-black pt-28 sm:pt-32 pb-16 sm:pb-24">
         <Container size="sm" className="text-center">
           <div className="space-y-8 max-w-lg mx-auto">
             {/* Elegant Flacon Silhouette Emblem */}

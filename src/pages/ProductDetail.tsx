@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ShoppingBag, Check, ShieldCheck, Truck, Sparkles, Droplets, Clock, Wind, ArrowRight, ArrowLeft, AlertCircle } from 'lucide-react';
 import { products as initialProducts } from '../data/products';
 import { getProductBySlug, getAllProducts, subscribeToProducts } from '../lib/productsApi';
-import { getSizePrice, getRelatedProducts, getStartingPrice } from '../lib/products';
+import { getSizePrice, getRelatedProducts, getStartingPrice, getDiscountedPrice } from '../lib/products';
 import { Product } from '../types';
 import { useI18n } from '../hooks/useI18n';
 import { useCartStore } from '../store/cartStore';
@@ -302,6 +302,11 @@ export const ProductDetail: React.FC = () => {
             >
               {/* Product Badges */}
               <div className="absolute top-4 start-4 z-10 flex flex-col gap-2 pointer-events-none">
+                {product.discountPercent && product.discountPercent > 0 && (
+                  <span className="px-2.5 py-1 text-xs font-bold tracking-wider rtl:tracking-normal bg-rose-700 text-white border border-rose-600 rounded-xs shadow-md">
+                    {t('product.discountBadge', { percent: `${product.discountPercent}%` })}
+                  </span>
+                )}
                 {product.isBestseller && (
                   <Badge variant="gold">{t('product.bestseller')}</Badge>
                 )}
@@ -410,9 +415,20 @@ export const ProductDetail: React.FC = () => {
               {/* Price Display */}
               <div className="pt-2 border-t border-[var(--border)]">
                 <div className="flex items-baseline gap-3">
-                  <span className="text-2xl sm:text-3xl font-light font-mono text-[var(--text-primary)]">
-                    {formatPrice(currentPrice)}
-                  </span>
+                  {product.discountPercent && product.discountPercent > 0 ? (
+                    <>
+                      <span className="text-xl sm:text-2xl font-light font-mono text-[var(--text-secondary)] line-through decoration-rose-500/70 opacity-75">
+                        {formatPrice(currentPrice)}
+                      </span>
+                      <span className="text-3xl sm:text-4xl font-bold font-mono text-rose-600 dark:text-rose-400">
+                        {formatPrice(getDiscountedPrice(currentPrice, product.discountPercent))}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="text-2xl sm:text-3xl font-light font-mono text-[var(--text-primary)]">
+                      {formatPrice(currentPrice)}
+                    </span>
+                  )}
                   <span className="text-xs text-[var(--text-secondary)] font-light">
                     ({selectedSize} •{' '}
                     {productConcentration || 'Extrait de Parfum'})

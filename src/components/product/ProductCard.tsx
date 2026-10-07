@@ -3,7 +3,7 @@ import { ShoppingBag, Check, Eye } from 'lucide-react';
 import { Product } from '../../types';
 import { useI18n } from '../../hooks/useI18n';
 import { useCartStore } from '../../store/cartStore';
-import { getStartingPrice } from '../../lib/products';
+import { getStartingPrice, getDiscountedPrice } from '../../lib/products';
 import { Badge } from '../ui/Badge';
 import { LocaleLink } from '../navigation/LocaleLink';
 
@@ -19,7 +19,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
   const [isHovered, setIsHovered] = useState(false);
 
   const productUrl = `/${lang}/shop/${product.slug}`;
-  const startingPrice = getStartingPrice(product);
+  const rawStartingPrice = getStartingPrice(product);
+  const hasDiscount = Boolean(product.discountPercent && product.discountPercent > 0);
+  const finalStartingPrice = hasDiscount
+    ? getDiscountedPrice(rawStartingPrice, product.discountPercent)
+    : rawStartingPrice;
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -51,6 +55,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
           {!product.inStock && (
             <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider rtl:tracking-normal bg-rose-950/90 backdrop-blur-xs text-rose-200 border border-rose-500/50 rounded-xs shadow-xs">
               {t('product.outOfStock')}
+            </span>
+          )}
+          {product.inStock && hasDiscount && (
+            <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold tracking-wider rtl:tracking-normal bg-rose-700 text-white border border-rose-600 rounded-xs shadow-xs">
+              {t('product.discountBadge', { percent: `${product.discountPercent}%` })}
             </span>
           )}
           {product.inStock && typeof product.stockQuantity === 'number' && product.stockQuantity > 0 && product.stockQuantity <= 5 && (
@@ -195,8 +204,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
             </span>
           </div>
 
-          <div className="text-xs sm:text-sm font-mono font-semibold text-[var(--text-primary)] whitespace-nowrap shrink-0 ms-auto">
-            {formatPrice(startingPrice)}
+          <div className="flex items-center gap-1.5 whitespace-nowrap shrink-0 ms-auto">
+            {hasDiscount && (
+              <span className="text-[10px] sm:text-xs font-mono text-[var(--text-secondary)] line-through decoration-rose-500/70 opacity-75">
+                {formatPrice(rawStartingPrice)}
+              </span>
+            )}
+            <span
+              className={`text-xs sm:text-sm font-mono font-semibold ${
+                hasDiscount ? 'text-rose-600 dark:text-rose-400 font-bold' : 'text-[var(--text-primary)]'
+              }`}
+            >
+              {formatPrice(finalStartingPrice)}
+            </span>
           </div>
         </div>
       </div>

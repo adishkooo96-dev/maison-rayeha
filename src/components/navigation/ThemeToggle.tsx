@@ -42,16 +42,18 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
       onClick={toggleTheme}
       aria-label={ariaLabel}
       title={tooltipTitle}
-      className={`min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold shrink-0 cursor-pointer ${
+      className={`min-h-[44px] min-w-[44px] flex items-center justify-center transition-all duration-200 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold shrink-0 cursor-pointer ${
         isTransparent
-          ? 'text-white hover:text-gold'
-          : 'text-[var(--text-primary)] hover:text-gold'
+          ? 'text-white hover:text-gold-light'
+          : isDark
+          ? 'text-gold-light hover:text-white'
+          : 'text-stone-800 hover:text-gold-dark'
       } ${className}`}
     >
       {isDark ? (
-        <Sun className="w-5 h-5 stroke-[1.5] transition-transform duration-200 hover:rotate-45 text-gold-light" />
+        <Sun className="w-5 h-5 stroke-[1.75] transition-transform duration-200 hover:rotate-45 text-amber-300 drop-shadow-[0_0_8px_rgba(252,211,77,0.35)]" />
       ) : (
-        <Moon className="w-5 h-5 stroke-[1.5] transition-transform duration-200 hover:-rotate-12 text-[var(--text-primary)] hover:text-gold" />
+        <Moon className="w-5 h-5 stroke-[1.75] transition-transform duration-200 hover:-rotate-12 text-stone-700 hover:text-gold-dark" />
       )}
     </button>
   );

@@ -148,7 +148,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({
   };
 
   return (
-    <div ref={containerRef} className={`relative inline-block text-start ${className}`}>
+    <div ref={containerRef} className={`relative inline-block text-start ${isOpen ? 'z-50' : 'z-20'} ${className}`}>
       {/* Combobox Trigger Button */}
       <button
         ref={buttonRef}
@@ -166,7 +166,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({
         }
         onClick={() => setIsOpen((prev) => !prev)}
         onKeyDown={handleButtonKeyDown}
-        className="inline-flex items-center justify-between gap-2.5 px-3 py-2 sm:px-3.5 sm:py-2.5 bg-ivory-surface border border-border hover:border-gold/70 text-xs sm:text-sm font-medium text-near-black focus-visible:outline-none focus-visible:border-gold focus-visible:ring-1 focus-visible:ring-gold transition-colors cursor-pointer select-none rounded-xs shadow-2xs"
+        className="inline-flex items-center justify-between gap-2.5 px-3 py-2 sm:px-3.5 sm:py-2.5 bg-white border border-border hover:border-gold/70 text-xs sm:text-sm font-medium text-near-black focus-visible:outline-none focus-visible:border-gold focus-visible:ring-1 focus-visible:ring-gold transition-colors cursor-pointer select-none rounded-xs shadow-xs"
       >
         <span className="flex items-center gap-2 text-muted">
           <ArrowUpDown className="w-3.5 h-3.5 text-gold shrink-0" aria-hidden="true" />
@@ -185,7 +185,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({
         />
       </button>
 
-      {/* Listbox Popover */}
+      {/* Listbox Popover - fully opaque white, high z-index and elevation */}
       {isOpen && (
         <ul
           ref={listboxRef}
@@ -194,7 +194,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({
           tabIndex={-1}
           aria-label={t('sort.label')}
           onKeyDown={handleListboxKeyDown}
-          className="absolute z-40 mt-1.5 end-0 w-52 sm:w-56 bg-ivory-surface border border-border shadow-xl py-1.5 rounded-xs overflow-hidden focus:outline-none animate-in fade-in-50 zoom-in-95 duration-150"
+          className="absolute z-50 mt-1.5 end-0 w-52 sm:w-56 bg-white border border-border shadow-xl py-1.5 rounded-xs overflow-hidden focus:outline-none animate-in fade-in-50 zoom-in-95 duration-150"
         >
           {options.map((opt, index) => {
             const isSelected = opt.value === value;
@@ -212,8 +212,8 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({
                   isSelected
                     ? 'text-gold font-medium bg-gold/10'
                     : isHighlighted
-                    ? 'bg-ivory-subtle text-near-black'
-                    : 'text-near-black hover:bg-ivory-subtle'
+                    ? 'bg-stone-100 text-near-black'
+                    : 'text-near-black hover:bg-stone-50'
                 }`}
               >
                 <span className="truncate">{opt.label}</span>

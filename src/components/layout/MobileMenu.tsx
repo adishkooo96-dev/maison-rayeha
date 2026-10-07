@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { X, Globe, User, Shield, LogOut, Sun, Moon } from 'lucide-react';
+import { X, User, Shield, LogOut } from 'lucide-react';
 import { useI18n } from '../../hooks/useI18n';
 import { useAuth } from '../../context/AuthContext';
-import { useTheme } from '../../context/ThemeContext';
 import { LocaleNavLink, LocaleLink } from '../navigation/LocaleLink';
 
 export interface MobileMenuProps {
@@ -12,9 +11,8 @@ export interface MobileMenuProps {
 }
 
 export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
-  const { lang, isRTL, t, changeLanguage } = useI18n();
+  const { lang, isRTL, t } = useI18n();
   const { user, profile, isAdmin, logout } = useAuth();
-  const { theme, setTheme } = useTheme();
   const previousActiveElementRef = useRef<HTMLElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -224,82 +222,6 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                       </LocaleLink>
                     </div>
                   )}
-                </div>
-
-                {/* Theme Mode Selector */}
-                <div className="mt-8 pt-6 border-t border-[var(--border)]">
-                  <span className="text-xs uppercase tracking-wider text-[var(--text-secondary)] mb-3 flex items-center gap-2">
-                    {theme === 'dark' ? (
-                      <Moon className="w-3.5 h-3.5 stroke-[1.5] text-gold" />
-                    ) : (
-                      <Sun className="w-3.5 h-3.5 stroke-[1.5] text-gold" />
-                    )}
-                    {lang === 'fa' ? 'حالت نمایش (تم)' : 'Theme Mode'}
-                  </span>
-                  <div className="grid grid-cols-2 gap-2 mt-2">
-                    <button
-                      type="button"
-                      onClick={() => setTheme('light')}
-                      className={`min-h-[44px] flex items-center justify-center gap-2 py-2 px-3 text-xs font-medium border text-center transition-colors cursor-pointer rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
-                        theme === 'light'
-                          ? 'bg-[var(--chip-selected-bg)] text-[var(--chip-selected-text)] border-[var(--chip-selected-bg)] font-semibold shadow-xs'
-                          : 'bg-[var(--chip-bg)] text-[var(--chip-text)] border-[var(--border)] hover:border-gold'
-                      }`}
-                    >
-                      <Sun className="w-4 h-4 stroke-[1.5]" />
-                      <span>{lang === 'fa' ? 'روشن' : 'Light'}</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setTheme('dark')}
-                      className={`min-h-[44px] flex items-center justify-center gap-2 py-2 px-3 text-xs font-medium border text-center transition-colors cursor-pointer rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
-                        theme === 'dark'
-                          ? 'bg-[var(--chip-selected-bg)] text-[var(--chip-selected-text)] border-[var(--chip-selected-bg)] font-semibold shadow-xs'
-                          : 'bg-[var(--chip-bg)] text-[var(--chip-text)] border-[var(--border)] hover:border-gold'
-                      }`}
-                    >
-                      <Moon className="w-4 h-4 stroke-[1.5]" />
-                      <span>{lang === 'fa' ? 'تیره' : 'Dark'}</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Language Selector */}
-                <div className="mt-6 pt-6 border-t border-[var(--border)]">
-                  <span className="text-xs uppercase tracking-wider text-muted mb-3 flex items-center gap-2">
-                    <Globe className="w-3.5 h-3.5 stroke-[1.5] text-gold-dark" />
-                    {t('common.language')}
-                  </span>
-                  <div className="grid grid-cols-2 gap-2 mt-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        changeLanguage('fa');
-                        onClose();
-                      }}
-                      className={`min-h-[44px] flex items-center justify-center py-2 px-3 text-xs font-medium border text-center transition-colors cursor-pointer rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
-                        lang === 'fa'
-                          ? 'bg-[var(--chip-selected-bg)] text-[var(--chip-selected-text)] border-[var(--chip-selected-bg)] font-semibold shadow-xs'
-                          : 'bg-[var(--chip-bg)] text-[var(--chip-text)] border-[var(--border)] hover:border-gold'
-                      }`}
-                    >
-                      فارسی (FA)
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        changeLanguage('en');
-                        onClose();
-                      }}
-                      className={`min-h-[44px] flex items-center justify-center py-2 px-3 text-xs font-medium border text-center transition-colors cursor-pointer rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold ${
-                        lang === 'en'
-                          ? 'bg-[var(--chip-selected-bg)] text-[var(--chip-selected-text)] border-[var(--chip-selected-bg)] font-semibold shadow-xs'
-                          : 'bg-[var(--chip-bg)] text-[var(--chip-text)] border-[var(--border)] hover:border-gold'
-                      }`}
-                    >
-                      English (EN)
-                    </button>
-                  </div>
                 </div>
               </div>
 

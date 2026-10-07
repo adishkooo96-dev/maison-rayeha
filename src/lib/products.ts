@@ -47,6 +47,24 @@ export function getSizePrice(product: Product, size: string | number): { fa: num
 }
 
 /**
+ * Calculates final price after product-level discount (if any)
+ */
+export function getDiscountedPrice(
+  originalPrice: { fa: number; en: number },
+  discountPercent?: number
+): { fa: number; en: number } {
+  if (!discountPercent || discountPercent <= 0) {
+    return originalPrice;
+  }
+
+  const factor = (100 - discountPercent) / 100;
+  return {
+    fa: Math.round(originalPrice.fa * factor),
+    en: Math.round(originalPrice.en * factor),
+  };
+}
+
+/**
  * Finds a product by its unique slug
  */
 export function getProductBySlug(slug: string, products: Product[]): Product | undefined {

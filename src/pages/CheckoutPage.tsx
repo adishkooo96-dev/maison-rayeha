@@ -382,12 +382,12 @@ export const CheckoutPage: React.FC = () => {
     <>
       <Seo title={t('checkout.title')} noindex={true} />
 
-      <div className="py-8 sm:py-12 bg-ivory">
+      <div className="pt-28 sm:pt-32 pb-16 sm:pb-24 bg-ivory">
         <Container>
-          <Breadcrumb items={breadcrumbs} className="mb-6" />
+          <Breadcrumb items={breadcrumbs} className="mb-6 sm:mb-8" />
 
           {/* Stepper Progress */}
-          <div className="mb-10">
+          <div className="mb-8 sm:mb-12">
             <Stepper steps={steps} currentStepIndex={currentStep} />
           </div>
 

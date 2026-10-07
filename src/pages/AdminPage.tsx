@@ -666,7 +666,7 @@ export const AdminPage: React.FC = () => {
   });
 
   return (
-    <div className="admin-scope py-8 bg-zinc-50 min-h-screen text-start text-zinc-900 font-sans" style={{ colorScheme: 'light' }}>
+    <div className="admin-scope pt-28 sm:pt-32 pb-16 bg-zinc-50 min-h-screen text-start text-zinc-900 font-sans" style={{ colorScheme: 'light' }}>
       <Seo title="Admin Dashboard | Maison Rayeha" description="Internal administrative dashboard" />
 
       <Container size="xl">

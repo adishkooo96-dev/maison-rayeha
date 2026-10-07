@@ -144,10 +144,10 @@ export const ContactPage: React.FC = () => {
         jsonLd={breadcrumbJsonLd}
       />
 
-      <div className="bg-ivory text-near-black py-12 sm:py-16 lg:py-24">
+      <div className="bg-ivory text-near-black pt-28 sm:pt-32 pb-16 sm:pb-24 lg:pb-28">
         <Container size="lg">
           {/* Header */}
-          <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-18 space-y-3">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 border border-gold/40 bg-gold/5 text-gold-dark text-xs uppercase tracking-widest rtl:tracking-normal font-medium rounded-xs">
               <Compass className="w-3.5 h-3.5 stroke-[1.5]" />
               <span>{t('contact.eyebrow')}</span>
@@ -160,10 +160,10 @@ export const ContactPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Main Showcase Section: Side-by-Side Balanced Cards (Info & Architectural GPS Sanctuary) */}
-          <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch pb-16 sm:pb-20 border-b border-border/60">
-            {/* Left Card: Info & Contact Card */}
-            <div className="p-7 sm:p-9 bg-ivory-surface border border-border/80 rounded-xs shadow-2xs flex flex-col justify-between text-start space-y-8">
+          {/* Main Showcase Section: Contact Card with Direct Call under Social Links */}
+          <div className="max-w-3xl mx-auto pb-16 sm:pb-20 border-b border-border/60">
+            {/* Contact Information & Direct Action Card */}
+            <div className="p-7 sm:p-10 bg-ivory-surface border border-border/80 rounded-xs shadow-2xs text-start space-y-8">
               <div className="space-y-6">
                 <div className="border-b border-border/60 pb-4">
                   <div className="flex items-center gap-2 text-gold-dark text-xs uppercase tracking-widest rtl:tracking-normal font-medium mb-1">
@@ -175,9 +175,9 @@ export const ContactPage: React.FC = () => {
                   </h2>
                 </div>
 
-                <div className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
                   {/* Address */}
-                  <div className="flex items-start gap-3.5">
+                  <div className="sm:col-span-2 flex items-start gap-3.5 p-3.5 rounded-xs bg-ivory/60 border border-border/40">
                     <div className="w-9 h-9 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold-dark shrink-0 mt-0.5">
                       <MapPin className="w-4 h-4 stroke-[1.5]" />
                     </div>
@@ -192,7 +192,7 @@ export const ContactPage: React.FC = () => {
                   </div>
 
                   {/* Phone */}
-                  <div className="flex items-start gap-3.5">
+                  <div className="flex items-start gap-3.5 p-3.5 rounded-xs bg-ivory/60 border border-border/40">
                     <div className="w-9 h-9 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold-dark shrink-0 mt-0.5">
                       <Phone className="w-4 h-4 stroke-[1.5]" />
                     </div>
@@ -210,7 +210,7 @@ export const ContactPage: React.FC = () => {
                   </div>
 
                   {/* Email */}
-                  <div className="flex items-start gap-3.5">
+                  <div className="flex items-start gap-3.5 p-3.5 rounded-xs bg-ivory/60 border border-border/40">
                     <div className="w-9 h-9 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold-dark shrink-0 mt-0.5">
                       <Mail className="w-4 h-4 stroke-[1.5]" />
                     </div>
@@ -228,7 +228,7 @@ export const ContactPage: React.FC = () => {
                   </div>
 
                   {/* Hours */}
-                  <div className="flex items-start gap-3.5">
+                  <div className="sm:col-span-2 flex items-start gap-3.5 p-3.5 rounded-xs bg-ivory/60 border border-border/40">
                     <div className="w-9 h-9 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold-dark shrink-0 mt-0.5">
                       <Clock className="w-4 h-4 stroke-[1.5]" />
                     </div>
@@ -244,82 +244,49 @@ export const ContactPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Social Channels Footer */}
-              <div className="pt-5 border-t border-border/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <span className="text-xs text-muted font-light">Maison Channels:</span>
-                <div className="flex items-center gap-2 flex-wrap">
-                  {[
-                    { name: 'Instagram', href: SOCIAL_LINKS.instagram },
-                    { name: 'Telegram', href: SOCIAL_LINKS.telegram },
-                    { name: 'WhatsApp', href: SOCIAL_LINKS.whatsapp },
-                  ].map((network) => (
-                    <a
-                      key={network.name}
-                      href={network.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Maison Rayeha ${network.name}`}
-                      className="px-3 py-1.5 text-[11px] border border-border/80 text-near-black/80 hover:text-gold-dark hover:border-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold transition-colors cursor-pointer rounded-xs"
-                    >
-                      {network.name}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Right Card: Styled Map & GPS Sanctuary Card (Architectural Blueprint Style) */}
-            <div className="p-7 sm:p-9 bg-near-black text-ivory border border-border/80 rounded-xs shadow-2xs relative overflow-hidden flex flex-col justify-between text-start space-y-6">
-              {/* Subtle blueprint grid overlay */}
-              <div
-                className="absolute inset-0 opacity-10 pointer-events-none"
-                style={{
-                  backgroundImage: `radial-gradient(circle, #C5A880 1px, transparent 1px)`,
-                  backgroundSize: '20px 20px',
-                }}
-              />
-
-              <div className="relative z-10 space-y-6">
-                <div className="flex items-center justify-between border-b border-ivory/15 pb-4">
-                  <div className="flex items-center gap-2 text-gold-light">
-                    <Compass className="w-4 h-4 stroke-[1.5] animate-spin-slow motion-reduce:animate-none" />
-                    <span className="text-xs uppercase tracking-widest rtl:tracking-normal font-mono">
-                      {t('contact.mapPlaceholderTitle')}
-                    </span>
-                  </div>
-                  <span className="text-[10px] font-mono text-ivory/60 border border-ivory/20 px-2 py-0.5 rounded-xs">
-                    GPS SANCTUARY
+              {/* Social Channels & Direct Call */}
+              <div className="pt-6 border-t border-border/60 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <span className="text-xs text-muted font-medium">
+                    {lang === 'fa' ? 'شبکه‌های اجتماعی مِزون:' : 'Maison Channels:'}
                   </span>
-                </div>
-
-                {/* Stylized Architectural Compass Canvas */}
-                <div className="h-44 w-full border border-gold/25 bg-near-black/80 rounded-xs flex flex-col items-center justify-center relative overflow-hidden p-4 text-center">
-                  {/* Concentric rings */}
-                  <div className="w-32 h-32 rounded-full border border-gold/20 absolute animate-pulse motion-reduce:animate-none" />
-                  <div className="w-20 h-20 rounded-full border border-gold/30 absolute" />
-                  <div className="w-3 h-3 rounded-full bg-gold shadow-[0_0_14px_#C5A880] relative z-10" />
-
-                  <div className="absolute bottom-3 inset-x-0 text-center px-4">
-                    <p className="text-[10px] sm:text-[11px] font-mono text-gold-light tracking-wider rtl:tracking-normal">
-                      {t('contact.mapPlaceholderCoords')}
-                    </p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {[
+                      { name: 'Instagram', href: SOCIAL_LINKS.instagram },
+                      { name: 'Telegram', href: SOCIAL_LINKS.telegram },
+                      { name: 'WhatsApp', href: SOCIAL_LINKS.whatsapp },
+                    ].map((network) => (
+                      <a
+                        key={network.name}
+                        href={network.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Maison Rayeha ${network.name}`}
+                        className="px-3.5 py-1.5 text-xs border border-border/80 text-near-black/80 hover:text-gold-dark hover:border-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold transition-colors cursor-pointer rounded-xs bg-ivory/70 font-medium"
+                      >
+                        {network.name}
+                      </a>
+                    ))}
                   </div>
                 </div>
 
-                <p className="text-xs text-ivory/70 font-light leading-relaxed rtl:leading-loose">
-                  {t('contact.mapPlaceholderNotice')}
-                </p>
-              </div>
-
-              {/* Direct VIP hotline action link */}
-              <div className="relative z-10 pt-4 border-t border-ivory/15">
-                <a
-                  href={phoneTelHref}
-                  className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 bg-gold/15 hover:bg-gold text-gold-light hover:text-near-black border border-gold/40 hover:border-gold rounded-xs text-xs uppercase tracking-widest font-medium transition-colors cursor-pointer"
-                >
-                  <Phone className="w-3.5 h-3.5 stroke-[1.75]" />
-                  <span>{lang === 'fa' ? 'تماس مستقیم با کارشناس تشریفات' : 'Direct Call to VIP Concierge'}</span>
-                </a>
+                {/* Direct Call (تماس مستقیم) under Social Channels */}
+                <div className="pt-2">
+                  <a
+                    href={phoneTelHref}
+                    className="flex items-center justify-center gap-3 w-full py-3.5 px-6 bg-near-black hover:bg-gold-dark text-ivory hover:text-near-black border border-near-black hover:border-gold-dark rounded-xs text-sm font-medium transition-all duration-200 cursor-pointer shadow-xs group"
+                  >
+                    <div className="w-7 h-7 rounded-full bg-gold/20 group-hover:bg-near-black/10 flex items-center justify-center text-gold group-hover:text-near-black shrink-0 transition-colors">
+                      <Phone className="w-3.5 h-3.5 stroke-[2]" />
+                    </div>
+                    <span className="font-medium">
+                      {lang === 'fa' ? 'تماس مستقیم با کارشناس' : 'Direct Call to Concierge'}
+                    </span>
+                    <span className="text-xs font-mono opacity-80 border-s border-ivory/30 group-hover:border-near-black/30 ps-3">
+                      <bdi dir="ltr">{displayPhone}</bdi>
+                    </span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

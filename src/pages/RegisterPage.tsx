@@ -93,7 +93,7 @@ export const RegisterPage: React.FC = () => {
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   return (
-    <div className="py-16 sm:py-24 bg-ivory min-h-[calc(100vh-200px)] flex items-center">
+    <div className="pt-28 sm:pt-32 pb-16 sm:pb-24 bg-ivory min-h-[calc(100vh-100px)] flex items-center">
       <Seo
         title={lang === 'fa' ? 'ثبت‌نام و عضویت | میسون رایحه' : 'Create an Account | Maison Rayeha'}
         description={lang === 'fa' ? 'عضویت در باشگاه خریداران نیش میسون رایحه' : 'Join the Maison Rayeha patron community'}

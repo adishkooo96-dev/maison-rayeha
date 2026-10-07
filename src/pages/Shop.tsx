@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { SlidersHorizontal, ArrowUpDown, X, Sparkles, RefreshCw, ShoppingBag, Eye, Check } from 'lucide-react';
 import { products as initialProducts } from '../data/products';
 import { getAllProducts, subscribeToProducts } from '../lib/productsApi';
-import { filterProducts, sortProducts, getSizePrice, getStartingPrice } from '../lib/products';
+import { filterProducts, sortProducts, getSizePrice, getStartingPrice, getDiscountedPrice } from '../lib/products';
 import { Product, ProductFilters, SortOption, Gender, ScentFamilyId } from '../types';
 import { useI18n } from '../hooks/useI18n';
 import { useCartStore } from '../store/cartStore';
@@ -62,6 +62,10 @@ export const Shop: React.FC = () => {
     const minPriceParam = searchParams.get('minPrice');
     const maxPriceParam = searchParams.get('maxPrice');
     const searchQuery = searchParams.get('q') || undefined;
+    const inStockOnlyParam =
+      searchParams.get('inStockOnly') === 'true' || searchParams.get('inStock') === 'true';
+    const discountedOnlyParam =
+      searchParams.get('discountedOnly') === 'true' || searchParams.get('discounted') === 'true';
 
     return {
       gender: gender.length > 0 ? gender : undefined,
@@ -71,6 +75,8 @@ export const Shop: React.FC = () => {
       minPrice: minPriceParam ? parseFloat(minPriceParam) : undefined,
       maxPrice: maxPriceParam ? parseFloat(maxPriceParam) : undefined,
       searchQuery,
+      inStockOnly: inStockOnlyParam ? true : undefined,
+      discountedOnly: discountedOnlyParam ? true : undefined,
     };
   }, [searchParams]);
 
@@ -135,6 +141,13 @@ export const Shop: React.FC = () => {
       }
       if (newFilters.maxPrice !== undefined) {
         nextParams.set('maxPrice', String(newFilters.maxPrice));
+      }
+
+      if (newFilters.inStockOnly) {
+        nextParams.set('inStockOnly', 'true');
+      }
+      if (newFilters.discountedOnly) {
+        nextParams.set('discountedOnly', 'true');
       }
 
       setSearchParams(nextParams);
@@ -281,6 +294,28 @@ export const Shop: React.FC = () => {
       });
     }
 
+    if (filters.inStockOnly) {
+      chips.push({
+        label: t('filters.inStockOnly'),
+        onRemove: () => {
+          const next = { ...filters };
+          delete next.inStockOnly;
+          handleFilterChange(next);
+        },
+      });
+    }
+
+    if (filters.discountedOnly) {
+      chips.push({
+        label: t('filters.discountedOnly'),
+        onRemove: () => {
+          const next = { ...filters };
+          delete next.discountedOnly;
+          handleFilterChange(next);
+        },
+      });
+    }
+
     return chips;
   }, [filters, t, formatPrice]);
 
@@ -408,7 +443,7 @@ export const Shop: React.FC = () => {
           {/* Product Grid Area */}
           <main className="lg:col-span-3 flex flex-col justify-start">
             {/* Results count & Sort Toolbar: Visible on both desktop & mobile outside filter drawer */}
-            <div className="sticky top-[calc(4rem+env(safe-area-inset-top,0px))] z-10 bg-ivory/95 backdrop-blur-xs py-2 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:static lg:bg-transparent lg:p-0 lg:m-0 flex flex-wrap items-center justify-between gap-3 mb-6 pb-3 border-b border-border/60">
+            <div className="sticky top-[calc(4rem+env(safe-area-inset-top,0px))] z-30 bg-ivory/95 backdrop-blur-xs py-2 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:static lg:bg-transparent lg:p-0 lg:m-0 flex flex-wrap items-center justify-between gap-3 mb-6 pb-3 border-b border-border/60">
               <div className="flex items-center gap-2 text-xs sm:text-sm text-muted">
                 <span>
                   {t('shop.showing')}{' '}
@@ -582,8 +617,29 @@ export const Shop: React.FC = () => {
                   {getLocalized(quickViewProduct.subtitle, lang)}
                 </p>
 
-                <div className="mt-3 text-lg font-semibold text-near-black font-mono">
-                  {formatPrice(getSizePrice(quickViewProduct, selectedQuickViewSize))}
+                <div className="mt-3 flex items-center gap-2">
+                  {quickViewProduct.discountPercent && quickViewProduct.discountPercent > 0 ? (
+                    <>
+                      <span className="text-base font-medium text-muted line-through font-mono">
+                        {formatPrice(getSizePrice(quickViewProduct, selectedQuickViewSize))}
+                      </span>
+                      <span className="text-xl font-bold text-rose-600 font-mono">
+                        {formatPrice(
+                          getDiscountedPrice(
+                            getSizePrice(quickViewProduct, selectedQuickViewSize),
+                            quickViewProduct.discountPercent
+                          )
+                        )}
+                      </span>
+                      <span className="px-1.5 py-0.5 text-[10px] font-bold bg-rose-700 text-white rounded-xs">
+                        {t('product.discountBadge', { percent: `${quickViewProduct.discountPercent}%` })}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="text-lg font-semibold text-near-black font-mono">
+                      {formatPrice(getSizePrice(quickViewProduct, selectedQuickViewSize))}
+                    </span>
+                  )}
                 </div>
                 {!quickViewProduct.inStock && (
                   <p className="mt-1.5 text-xs font-medium text-rose-700 flex items-center gap-1.5">

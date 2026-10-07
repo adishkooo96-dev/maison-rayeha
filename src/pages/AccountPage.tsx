@@ -113,7 +113,7 @@ export const AccountPage: React.FC = () => {
 
   if (authLoading || !user) {
     return (
-      <div className="py-24 text-center">
+      <div className="pt-32 pb-24 text-center">
         <div className="w-8 h-8 border-2 border-gold border-t-transparent rounded-full animate-spin mx-auto mb-4" />
         <p className="text-xs text-muted font-light">{lang === 'fa' ? 'در حال بارگذاری...' : 'Loading profile...'}</p>
       </div>
@@ -123,7 +123,7 @@ export const AccountPage: React.FC = () => {
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   return (
-    <div className="py-12 sm:py-16 bg-ivory min-h-screen text-start">
+    <div className="pt-28 sm:pt-32 pb-16 sm:pb-24 bg-ivory min-h-screen text-start">
       <Seo
         title={lang === 'fa' ? 'حساب کاربری | میسون رایحه' : 'My Account | Maison Rayeha'}
         description={lang === 'fa' ? 'مشاهده سفارشات و مدیریت حساب کاربری در خانه عطر میسون رایحه' : 'View orders and manage your Maison Rayeha profile'}

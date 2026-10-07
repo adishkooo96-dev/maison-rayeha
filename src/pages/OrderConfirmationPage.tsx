@@ -35,7 +35,7 @@ export const OrderConfirmationPage: React.FC = () => {
 
   if (!lastOrder) {
     return (
-      <div className="py-20 bg-ivory">
+      <div className="pt-28 sm:pt-32 pb-20 bg-ivory">
         <Container>
           <div className="max-w-md mx-auto text-center space-y-4 p-8 border border-dashed border-border/80 bg-ivory-surface rounded-xs shadow-2xs">
             <div className="w-16 h-16 rounded-full bg-ivory-subtle flex items-center justify-center text-muted mx-auto border border-border">
@@ -69,7 +69,7 @@ export const OrderConfirmationPage: React.FC = () => {
     <>
       <Seo title={t('orderConfirmation.title')} noindex={true} />
 
-      <div className="py-8 sm:py-14 bg-ivory">
+      <div className="pt-28 sm:pt-32 pb-16 sm:pb-24 bg-ivory">
         <Container>
           <div className="max-w-3xl mx-auto space-y-8">
             {/* Success Celebration Card */}

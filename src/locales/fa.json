@@ -89,7 +89,9 @@
     "inStock": "موجود",
     "limitedStock": "تعداد محدود",
     "unavailableNote": "این محصول در حال حاضر موجود نیست",
-    "unavailableBtn": "ناموجود"
+    "unavailableBtn": "ناموجود",
+    "discountBadge": "{percent} تخفیف",
+    "discountOff": "تخفیف"
   },
   "footer": {
     "brandDescription": "میسون رایحه؛ خانه عطر نیش فاخر. پیوند دهنده شکوه کیمیای کهن شرق و اصالت عطرسازی مدرن.",

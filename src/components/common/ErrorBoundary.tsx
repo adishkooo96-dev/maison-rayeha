@@ -81,7 +81,7 @@ export class ErrorBoundary extends Component<Props, State> {
       const isNet = isNetworkError(this.state.error);
 
       return (
-        <div className="min-h-[60vh] flex items-center justify-center p-6 bg-[var(--bg-page,#0A0A0A)] text-[var(--text-primary,#FBF9F5)]">
+        <div className="min-h-[70vh] flex items-center justify-center p-6 pt-32 pb-20 bg-[var(--bg-page,#0A0A0A)] text-[var(--text-primary,#FBF9F5)]">
           <div className="max-w-lg w-full p-8 bg-[var(--bg-surface,#141414)] border border-[var(--border,#2E2E2E)] text-center space-y-6 shadow-xl rounded-xs">
             <div className="w-14 h-14 rounded-full border border-gold/40 bg-gold/10 flex items-center justify-center text-gold mx-auto">
               {isNet ? <WifiOff className="w-7 h-7" /> : <AlertCircle className="w-7 h-7" />}

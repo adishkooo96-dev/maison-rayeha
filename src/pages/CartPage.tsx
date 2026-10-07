@@ -121,7 +121,7 @@ export const CartPage: React.FC = () => {
     <>
       <Seo title={t('cartPage.title')} noindex={true} />
 
-      <div className="py-8 sm:py-12 pb-[max(7rem,calc(6rem+env(safe-area-inset-bottom)))] lg:pb-12 bg-ivory">
+      <div className="pt-28 sm:pt-32 pb-[max(7rem,calc(6rem+env(safe-area-inset-bottom)))] lg:pb-12 bg-ivory">
         <Container>
           <Breadcrumb items={breadcrumbs} className="mb-6" />
 

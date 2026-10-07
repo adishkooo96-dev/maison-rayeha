@@ -120,7 +120,7 @@ export const ForgotPasswordPage: React.FC = () => {
   const BackArrowIcon = isRTL ? ArrowRight : ArrowLeft;
 
   return (
-    <div className="py-16 sm:py-24 bg-ivory min-h-[calc(100vh-200px)] flex items-center">
+    <div className="pt-28 sm:pt-32 pb-16 sm:pb-24 bg-ivory min-h-[calc(100vh-100px)] flex items-center">
       <Seo
         title={
           t('forgotPassword.metaTitle') ||

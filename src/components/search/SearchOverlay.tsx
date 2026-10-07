@@ -3,7 +3,7 @@ import { Search, X, ArrowRight, ArrowLeft, Sparkles, Tag } from 'lucide-react';
 import { useI18n } from '../../hooks/useI18n';
 import { products as initialProducts } from '../../data/products';
 import { getAllProducts } from '../../lib/productsApi';
-import { searchProducts, getStartingPrice } from '../../lib/products';
+import { searchProducts, getStartingPrice, getDiscountedPrice } from '../../lib/products';
 import { Product } from '../../types';
 import { useLocaleNavigate } from '../navigation/LocaleLink';
 
@@ -208,8 +208,24 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
                         <p className="text-xs text-[var(--text-secondary)] line-clamp-1 mt-0.5">
                           {product.subtitle[lang]}
                         </p>
-                        <div className="mt-1 text-xs font-semibold text-[var(--text-primary)] font-mono">
-                          {formatPrice(startingPrice)}
+                        <div className="mt-1 flex items-center gap-1.5 text-xs font-mono">
+                          {product.discountPercent && product.discountPercent > 0 ? (
+                            <>
+                              <span className="text-[10px] text-[var(--text-secondary)] line-through decoration-rose-500/70 opacity-75">
+                                {formatPrice(startingPrice)}
+                              </span>
+                              <span className="font-bold text-rose-600 dark:text-rose-400">
+                                {formatPrice(getDiscountedPrice(startingPrice, product.discountPercent))}
+                              </span>
+                              <span className="px-1 py-0.2 text-[9px] font-bold bg-rose-700 text-white rounded-xs">
+                                {product.discountPercent}%
+                              </span>
+                            </>
+                          ) : (
+                            <span className="font-semibold text-[var(--text-primary)]">
+                              {formatPrice(startingPrice)}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>

@@ -5,7 +5,7 @@ export const SuspenseFallback: React.FC = () => {
 
   return (
     <div
-      className="min-h-[50vh] flex flex-col items-center justify-center p-8 bg-ivory text-near-black"
+      className="min-h-[60vh] flex flex-col items-center justify-center p-8 pt-32 pb-20 bg-ivory text-near-black"
       role="status"
       aria-live="polite"
     >
