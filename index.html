@@ -68,9 +68,29 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <meta name="theme-color" content="#121212" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
+    <script>
+      // Early catch-all for initial script bundle load failures
+      window.addEventListener('error', function(e) {
+        if (e && e.target && e.target.tagName === 'SCRIPT') {
+          var lastReload = Number(sessionStorage.getItem('maison_script_reload') || 0);
+          if (Date.now() - lastReload > 15000) {
+            sessionStorage.setItem('maison_script_reload', String(Date.now()));
+            if ('caches' in window) {
+              caches.keys().then(function(keys) {
+                keys.forEach(function(k) { caches.delete(k); });
+              });
+            }
+            window.location.reload();
+          }
+        }
+      }, true);
+    </script>
     <title>Maison Rayeha Luxury Parfums</title>
     <meta name="description" content="A luxury, modern bilingual (Persian & English) e-commerce fragrance house with artisanal perfumes, bespoke scent families, and refined sensory aesthetics." />
     <meta property="og:title" content="Maison Rayeha Luxury Parfums" />

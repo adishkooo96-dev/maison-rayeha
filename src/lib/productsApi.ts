@@ -76,36 +76,53 @@ export function subscribeToProducts(
 
   let unsubscribeFirestore = () => {};
 
-  try {
-    const productsCol = collection(db, PRODUCTS_COLLECTION);
-    unsubscribeFirestore = onSnapshot(
-      productsCol,
-      (snap) => {
-        if (!snap.empty) {
-          const items: Product[] = [];
-          snap.forEach((docSnap) => {
-            items.push(
-              normalizeProductStock({
-                ...(docSnap.data() as Product),
-                id: docSnap.id,
-              })
-            );
-          });
-          notifySubscribers(items);
+  function attachSnapshot() {
+    try {
+      unsubscribeFirestore();
+      const productsCol = collection(db, PRODUCTS_COLLECTION);
+      unsubscribeFirestore = onSnapshot(
+        productsCol,
+        (snap) => {
+          if (!snap.empty) {
+            const items: Product[] = [];
+            snap.forEach((docSnap) => {
+              items.push(
+                normalizeProductStock({
+                  ...(docSnap.data() as Product),
+                  id: docSnap.id,
+                })
+              );
+            });
+            notifySubscribers(items);
+          }
+        },
+        (error) => {
+          console.warn('onSnapshot error in subscribeToProducts:', error);
+          if (onError) onError(error);
         }
-      },
-      (error) => {
-        console.warn('onSnapshot error in subscribeToProducts:', error);
-        if (onError) onError(error);
-      }
-    );
-  } catch (error: any) {
-    console.warn('Could not establish products snapshot listener:', error);
+      );
+    } catch (error: any) {
+      console.warn('Could not establish products snapshot listener:', error);
+    }
+  }
+
+  attachSnapshot();
+
+  // Re-establish listener upon Firebase reconnection
+  const handleReconnect = () => {
+    attachSnapshot();
+  };
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener('maison:firebase:reconnected', handleReconnect);
   }
 
   return () => {
     localSubscribers.delete(callback);
     unsubscribeFirestore();
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('maison:firebase:reconnected', handleReconnect);
+    }
   };
 }
 

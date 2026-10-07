@@ -9,24 +9,27 @@ import { ScrollToTop } from './components/common/ScrollToTop';
 import { ToastProvider } from './components/ui/Toast';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { NetworkProvider } from './context/NetworkContext';
+import { NetworkStatusBanner } from './components/common/NetworkStatusBanner';
+import { lazyWithRetry } from './lib/lazyWithRetry';
 import { Language } from './types';
 
-// Code-split / lazy-loaded routes for performance
-const HomePage = React.lazy(() => import('./pages/HomePage').then((m) => ({ default: m.HomePage })));
-const Shop = React.lazy(() => import('./pages/Shop').then((m) => ({ default: m.Shop })));
-const ProductDetail = React.lazy(() => import('./pages/ProductDetail').then((m) => ({ default: m.ProductDetail })));
-const CartPage = React.lazy(() => import('./pages/CartPage').then((m) => ({ default: m.CartPage })));
-const CheckoutPage = React.lazy(() => import('./pages/CheckoutPage').then((m) => ({ default: m.CheckoutPage })));
-const OrderConfirmationPage = React.lazy(() => import('./pages/OrderConfirmationPage').then((m) => ({ default: m.OrderConfirmationPage })));
-const AboutPage = React.lazy(() => import('./pages/AboutPage').then((m) => ({ default: m.AboutPage })));
-const ContactPage = React.lazy(() => import('./pages/ContactPage').then((m) => ({ default: m.ContactPage })));
-const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })));
-const PlaceholderPage = React.lazy(() => import('./pages/PlaceholderPage').then((m) => ({ default: m.PlaceholderPage })));
-const LoginPage = React.lazy(() => import('./pages/LoginPage').then((m) => ({ default: m.LoginPage })));
-const RegisterPage = React.lazy(() => import('./pages/RegisterPage').then((m) => ({ default: m.RegisterPage })));
-const ForgotPasswordPage = React.lazy(() => import('./pages/ForgotPasswordPage').then((m) => ({ default: m.ForgotPasswordPage })));
-const AccountPage = React.lazy(() => import('./pages/AccountPage').then((m) => ({ default: m.AccountPage })));
-const AdminPage = React.lazy(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })));
+// Code-split / lazy-loaded routes with auto-retry and cache-bust recovery
+const HomePage = lazyWithRetry(() => import('./pages/HomePage').then((m) => ({ default: m.HomePage })), 'HomePage');
+const Shop = lazyWithRetry(() => import('./pages/Shop').then((m) => ({ default: m.Shop })), 'Shop');
+const ProductDetail = lazyWithRetry(() => import('./pages/ProductDetail').then((m) => ({ default: m.ProductDetail })), 'ProductDetail');
+const CartPage = lazyWithRetry(() => import('./pages/CartPage').then((m) => ({ default: m.CartPage })), 'CartPage');
+const CheckoutPage = lazyWithRetry(() => import('./pages/CheckoutPage').then((m) => ({ default: m.CheckoutPage })), 'CheckoutPage');
+const OrderConfirmationPage = lazyWithRetry(() => import('./pages/OrderConfirmationPage').then((m) => ({ default: m.OrderConfirmationPage })), 'OrderConfirmationPage');
+const AboutPage = lazyWithRetry(() => import('./pages/AboutPage').then((m) => ({ default: m.AboutPage })), 'AboutPage');
+const ContactPage = lazyWithRetry(() => import('./pages/ContactPage').then((m) => ({ default: m.ContactPage })), 'ContactPage');
+const NotFoundPage = lazyWithRetry(() => import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })), 'NotFoundPage');
+const PlaceholderPage = lazyWithRetry(() => import('./pages/PlaceholderPage').then((m) => ({ default: m.PlaceholderPage })), 'PlaceholderPage');
+const LoginPage = lazyWithRetry(() => import('./pages/LoginPage').then((m) => ({ default: m.LoginPage })), 'LoginPage');
+const RegisterPage = lazyWithRetry(() => import('./pages/RegisterPage').then((m) => ({ default: m.RegisterPage })), 'RegisterPage');
+const ForgotPasswordPage = lazyWithRetry(() => import('./pages/ForgotPasswordPage').then((m) => ({ default: m.ForgotPasswordPage })), 'ForgotPasswordPage');
+const AccountPage = lazyWithRetry(() => import('./pages/AccountPage').then((m) => ({ default: m.AccountPage })), 'AccountPage');
+const AdminPage = lazyWithRetry(() => import('./pages/AdminPage').then((m) => ({ default: m.AdminPage })), 'AdminPage');
 
 export function getStoredLanguage(): Language {
   try {
@@ -124,42 +127,45 @@ export default function App() {
     <HelmetProvider>
       <BrowserRouter>
         <ScrollToTop />
-        <ThemeProvider>
-          <I18nProvider>
-            <AuthProvider>
-              <ToastProvider>
-                <Routes>
-                {/* Language-prefixed routes */}
-                <Route path="/:lang" element={<LanguageRouteWrapper />}>
-                  <Route index element={<HomePage />} />
-                  <Route path="shop" element={<Shop />} />
-                  <Route path="shop/:slug" element={<ProductDetail />} />
-                  <Route path="cart" element={<CartPage />} />
-                  <Route path="checkout" element={<CheckoutPage />} />
-                  <Route path="order-confirmation" element={<OrderConfirmationPage />} />
-                  <Route path="collections" element={<Navigate to="../shop" replace />} />
-                  <Route path="scent-families" element={<PlaceholderPage pageKey="scentFamilies" />} />
-                  <Route path="about" element={<AboutPage />} />
-                  <Route path="contact" element={<ContactPage />} />
-                  <Route path="login" element={<LoginPage />} />
-                  <Route path="register" element={<RegisterPage />} />
-                  <Route path="forgot-password" element={<ForgotPasswordPage />} />
-                  <Route path="account" element={<AccountPage />} />
-                  <Route path="admin" element={<AdminPage />} />
-                  <Route path="404" element={<NotFoundPage />} />
-                  {/* Fallback for unknown sub-paths within valid language */}
-                  <Route path="*" element={<NotFoundPage />} />
-                </Route>
+        <NetworkProvider>
+          <ThemeProvider>
+            <I18nProvider>
+              <AuthProvider>
+                <ToastProvider>
+                  <NetworkStatusBanner />
+                  <Routes>
+                    {/* Language-prefixed routes */}
+                    <Route path="/:lang" element={<LanguageRouteWrapper />}>
+                      <Route index element={<HomePage />} />
+                      <Route path="shop" element={<Shop />} />
+                      <Route path="shop/:slug" element={<ProductDetail />} />
+                      <Route path="cart" element={<CartPage />} />
+                      <Route path="checkout" element={<CheckoutPage />} />
+                      <Route path="order-confirmation" element={<OrderConfirmationPage />} />
+                      <Route path="collections" element={<Navigate to="../shop" replace />} />
+                      <Route path="scent-families" element={<PlaceholderPage pageKey="scentFamilies" />} />
+                      <Route path="about" element={<AboutPage />} />
+                      <Route path="contact" element={<ContactPage />} />
+                      <Route path="login" element={<LoginPage />} />
+                      <Route path="register" element={<RegisterPage />} />
+                      <Route path="forgot-password" element={<ForgotPasswordPage />} />
+                      <Route path="account" element={<AccountPage />} />
+                      <Route path="admin" element={<AdminPage />} />
+                      <Route path="404" element={<NotFoundPage />} />
+                      {/* Fallback for unknown sub-paths within valid language */}
+                      <Route path="*" element={<NotFoundPage />} />
+                    </Route>
 
-                {/* Root and unknown/missing prefix routes */}
-                <Route path="*" element={<LocalizedRedirect />} />
-              </Routes>
-            </ToastProvider>
-          </AuthProvider>
-        </I18nProvider>
-      </ThemeProvider>
-    </BrowserRouter>
-  </HelmetProvider>
+                    {/* Root and unknown/missing prefix routes */}
+                    <Route path="*" element={<LocalizedRedirect />} />
+                  </Routes>
+                </ToastProvider>
+              </AuthProvider>
+            </I18nProvider>
+          </ThemeProvider>
+        </NetworkProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

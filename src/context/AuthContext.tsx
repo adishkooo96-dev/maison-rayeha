@@ -1,14 +1,15 @@
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import {
   User,
   onAuthStateChanged,
+  onIdTokenChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
   updateProfile as updateFirebaseProfile,
 } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import { auth, db } from '../lib/firebase';
+import { auth, db, reconnectFirebase, subscribeFirebaseConnection, isFirebaseOnline } from '../lib/firebase';
 import { UserProfile } from '../types/auth';
 
 interface AuthContextType {
@@ -17,6 +18,10 @@ interface AuthContextType {
   isAdmin: boolean;
   isOwner: boolean;
   loading: boolean;
+  isOnline: boolean;
+  isReconnecting: boolean;
+  connectionError: string | null;
+  reconnect: () => Promise<boolean>;
   login: (email: string, pass: string) => Promise<UserProfile | null>;
   register: (name: string, email: string, pass: string, phone?: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -30,6 +35,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isOnline, setIsOnline] = useState<boolean>(isFirebaseOnline());
+  const [isReconnecting, setIsReconnecting] = useState<boolean>(false);
+  const [connectionError, setConnectionError] = useState<string | null>(null);
+
+  const isReconnectingRef = useRef(false);
+
+  // Subscribe to connection state
+  useEffect(() => {
+    const unsub = subscribeFirebaseConnection((online) => {
+      setIsOnline(online);
+      if (!online) {
+        setConnectionError('اتصال به سرور قطع شده است');
+      } else {
+        setConnectionError(null);
+      }
+    });
+    return unsub;
+  }, []);
 
   // Fetch or construct profile from Firestore
   const fetchProfile = useCallback(async (firebaseUser: User | null): Promise<UserProfile | null> => {
@@ -76,19 +99,99 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [user, fetchProfile]);
 
+  // Manual & automatic reconnect handler
+  const reconnect = useCallback(async (): Promise<boolean> => {
+    if (isReconnectingRef.current) return true;
+    isReconnectingRef.current = true;
+    setIsReconnecting(true);
+    setConnectionError(null);
+
+    try {
+      const res = await reconnectFirebase(true);
+      if (res.success) {
+        if (auth.currentUser) {
+          setUser(auth.currentUser);
+          const p = await fetchProfile(auth.currentUser);
+          setProfile(p);
+        }
+        setIsOnline(true);
+        setConnectionError(null);
+        return true;
+      } else {
+        setConnectionError(res.error || 'خطا در برقراری مجدد اتصال');
+        return false;
+      }
+    } catch (err: any) {
+      setConnectionError(err?.message || 'خطا در اتصال مجدد');
+      return false;
+    } finally {
+      isReconnectingRef.current = false;
+      setIsReconnecting(false);
+    }
+  }, [fetchProfile]);
+
+  // Auth State & Token Refresh Listeners
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    let isMounted = true;
+
+    // Listen to auth state transitions
+    const unsubAuthState = onAuthStateChanged(auth, async (currentUser) => {
+      if (!isMounted) return;
       setUser(currentUser);
       if (currentUser) {
-        const userProfile = await fetchProfile(currentUser);
-        setProfile(userProfile);
+        try {
+          const userProfile = await fetchProfile(currentUser);
+          if (isMounted) setProfile(userProfile);
+        } catch {
+          // Handled gracefully in fetchProfile
+        }
       } else {
-        setProfile(null);
+        if (isMounted) setProfile(null);
       }
-      setLoading(false);
+      if (isMounted) setLoading(false);
     });
 
-    return () => unsubscribe();
+    // Listen to token refresh events (fires on token refresh, revocation, or auto-renewal)
+    const unsubIdToken = onIdTokenChanged(auth, async (currentUser) => {
+      if (!isMounted) return;
+      if (currentUser) {
+        setUser(currentUser);
+      }
+    });
+
+    // Proactive Keep-Alive: Refresh token every 25 minutes while tab remains open
+    // Firebase tokens expire after 60 minutes; this prevents token expiry completely
+    const keepAliveTimer = setInterval(async () => {
+      if (auth.currentUser && typeof document !== 'undefined' && !document.hidden && navigator.onLine) {
+        try {
+          await auth.currentUser.getIdToken(true);
+          console.debug('[Auth] Proactive token keep-alive succeeded');
+        } catch (e) {
+          console.warn('[Auth] Proactive token keep-alive deferred:', e);
+        }
+      }
+    }, 25 * 60 * 1000);
+
+    // Listen for reconnection custom event
+    const handleReconnectedEvent = async () => {
+      if (auth.currentUser && isMounted) {
+        try {
+          const updated = await fetchProfile(auth.currentUser);
+          if (isMounted) setProfile(updated);
+        } catch {
+          // Ignore
+        }
+      }
+    };
+    window.addEventListener('maison:firebase:reconnected', handleReconnectedEvent);
+
+    return () => {
+      isMounted = false;
+      unsubAuthState();
+      unsubIdToken();
+      clearInterval(keepAliveTimer);
+      window.removeEventListener('maison:firebase:reconnected', handleReconnectedEvent);
+    };
   }, [fetchProfile]);
 
   const login = async (email: string, pass: string): Promise<UserProfile | null> => {
@@ -98,7 +201,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const userProfile = await fetchProfile(credential.user);
       setUser(credential.user);
       setProfile(userProfile);
+      setConnectionError(null);
       return userProfile;
+    } catch (err: any) {
+      if (err?.code === 'auth/network-request-failed') {
+        setConnectionError('خطای شبکه هنگام ورود. لطفاً اتصال اینترنت خود را بررسی کنید.');
+      }
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -127,6 +236,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       setUser(credential.user);
       setProfile(newProfile);
+      setConnectionError(null);
+    } catch (err: any) {
+      if (err?.code === 'auth/network-request-failed') {
+        setConnectionError('خطای شبکه هنگام ثبت‌نام. لطفاً اتصال اینترنت خود را بررسی کنید.');
+      }
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -161,6 +276,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAdmin,
         isOwner,
         loading,
+        isOnline,
+        isReconnecting,
+        connectionError,
+        reconnect,
         login,
         register,
         logout,
@@ -180,3 +299,4 @@ export const useAuth = () => {
   }
   return context;
 };
+
