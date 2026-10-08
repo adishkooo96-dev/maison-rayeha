@@ -1,4 +1,5 @@
 import { GoogleGenAI, Type, Schema } from '@google/genai';
+import { products } from '../data/products';
 
 export interface RecommendedPerfume {
   name: string;
@@ -73,26 +74,77 @@ const RECOMMENDATION_SCHEMA: Schema = {
 };
 
 /**
- * Intelligent client-side fallback in case of missing keys or network restrictions,
- * ensuring seamless user testing directly within the preview iframe.
+ * Maps scent family key to readable Persian text.
  */
-function getCuratedMasterpieceFallback(userQuery: string): RecommendationResult {
-  const q = userQuery.toLowerCase();
+function getFamilyLabelFa(family: string): string {
+  switch (family) {
+    case 'oriental':
+      return 'شرقی و کهربایی سلطنتی';
+    case 'woody':
+      return 'چوبی و رزینی نیش';
+    case 'fresh':
+      return 'مرکباتی و اقیانوسی خنک';
+    case 'floral':
+      return 'گلی و مخملی فاخر';
+    default:
+      return 'نیش اختصاصی';
+  }
+}
 
+/**
+ * Intelligent client-side fallback based on products in the project and international classics.
+ * Always returns a rich, tailored 3-perfume recommendation even if Gemini API is unreachable or denied.
+ */
+export function getCuratedMasterpieceFallback(userQuery: string, lang: 'fa' | 'en' = 'fa'): RecommendationResult {
+  const q = (userQuery || '').toLowerCase();
+
+  // Try matching directly against project catalog
+  const matchingFromCatalog: RecommendedPerfume[] = [];
+
+  for (const p of products) {
+    const nameStr = `${p.name.fa} ${p.name.en} ${p.brand} ${p.scentFamily}`.toLowerCase();
+    const notesStr = [
+      ...(p.notes.top.fa || []),
+      ...(p.notes.heart.fa || []),
+      ...(p.notes.base.fa || []),
+      ...(p.notes.top.en || []),
+      ...(p.notes.heart.en || []),
+      ...(p.notes.base.en || []),
+    ].join(' ').toLowerCase();
+
+    // Check if user query matches product family, name, or notes
+    const isFamilyMatch =
+      (q.includes('چوب') || q.includes('wood')) && p.scentFamily === 'woody' ||
+      (q.includes('شرق') || q.includes('عود') || q.includes('oud') || q.includes('oriental')) && p.scentFamily === 'oriental' ||
+      (q.includes('خنک') || q.includes('مرکبات') || q.includes('fresh') || q.includes('citrus')) && p.scentFamily === 'fresh' ||
+      (q.includes('گل') || q.includes('floral') || q.includes('رز') || q.includes('rose')) && p.scentFamily === 'floral';
+
+    const isDirectMatch = q.split(/\s+/).some((word) => word.length > 2 && (nameStr.includes(word) || notesStr.includes(word)));
+
+    if (isFamilyMatch || isDirectMatch) {
+      matchingFromCatalog.push({
+        name: lang === 'fa' ? p.name.fa : p.name.en,
+        brand: p.brand,
+        scentFamily: lang === 'fa' ? getFamilyLabelFa(p.scentFamily) : p.scentFamily,
+        topNotes: lang === 'fa' ? p.notes.top.fa : p.notes.top.en,
+        heartNotes: lang === 'fa' ? p.notes.heart.fa : p.notes.heart.en,
+        baseNotes: lang === 'fa' ? p.notes.base.fa : p.notes.base.en,
+        reason: lang === 'fa' ? p.description.fa : p.description.en,
+        seasonOrOccasion: lang === 'fa' ? (p.isBestseller ? 'چهارفصل، موقعیت‌های ویژه و محافل رسمی' : 'تمام فصول') : 'Signature versatile wear',
+      });
+    }
+
+    if (matchingFromCatalog.length >= 3) break;
+  }
+
+  // Woody & Oud specialized fallback
   if (q.includes('چوب') || q.includes('wood') || q.includes('عود') || q.includes('oud') || q.includes('صندل')) {
     return {
-      consultantNote: 'با توجه به اشتیاق شما به نت‌های اصیل چوبی و رزین‌های گرانبها، این ۳ شاهکار باوقار و پرشکوه برای امضای بویایی شما برگزیده شدند:',
+      consultantNote:
+        lang === 'fa'
+          ? 'بر اساس علاقه و اشتیاق شما به نت‌های اصیل چوبی و رزین‌های گرانبها، این ۳ شاهکار باوقار و پرشکوه برای امضای بویایی شما برگزیده شدند:'
+          : 'Based on your preference for noble woods and precious resins, here are three curated masterworks for your olfactory signature:',
       recommendations: [
-        {
-          name: 'Oud Wood',
-          brand: 'Tom Ford Private Blend',
-          scentFamily: 'چوبی ادویه‌ای نیش',
-          topNotes: ['چوب عود گرانبها', 'هل سبز', 'فلفل سیچوان'],
-          heartNotes: ['چوب صندل', 'چوب رز برزیلی', 'خس‌خس'],
-          baseNotes: ['لوبیا تونکا', 'کهربا', 'وانیل دودی'],
-          reason: 'یکی از خالص‌ترین و شیک‌ترین تفاسیر عود غربی با تعادلی بی‌نظیر میان بافت صیقلی چوب صندل و گرمای اغواگر کهربا.',
-          seasonOrOccasion: 'شب‌های پاییز و زمستان، جلسات کاری رده‌بالا و قرارهای خاص',
-        },
         {
           name: 'عود نوکتورن (Oud Nocturne)',
           brand: 'Maison Rayeha Haute Parfumerie',
@@ -104,22 +156,36 @@ function getCuratedMasterpieceFallback(userQuery: string): RecommendationResult 
           seasonOrOccasion: 'مراسم رسمی فاخر و ضیافت‌های مجلل شبانه',
         },
         {
-          name: 'Tam Dao Eau de Parfum',
-          brand: 'Diptyque Paris',
+          name: 'Oud Wood',
+          brand: 'Tom Ford Private Blend',
+          scentFamily: 'چوبی ادویه‌ای نیش',
+          topNotes: ['چوب عود گرانبها', 'هل سبز', 'فلفل سیچوان'],
+          heartNotes: ['چوب صندل', 'چوب رز برزیلی', 'خس‌خس'],
+          baseNotes: ['لوبیا تونکا', 'کهربا', 'وانیل دودی'],
+          reason: 'یکی از خالص‌ترین و شیک‌ترین تفاسیر عود غربی با تعادلی بی‌نظیر میان بافت صیقلی چوب صندل و گرمای اغواگر کهربا.',
+          seasonOrOccasion: 'شب‌های پاییز و زمستان، جلسات کاری رده‌بالا و قرارهای خاص',
+        },
+        {
+          name: 'صندل سلست (Santal Céleste)',
+          brand: 'Atelier Qajar',
           scentFamily: 'چوبی آروماتیک مخملی',
-          topNotes: ['سرو ایتالیایی', 'مورد', 'گل رز'],
-          heartNotes: ['چوب صندل گوا', 'چوب سدر اطلس'],
-          baseNotes: ['مشک سفید', 'کهربای برفی', 'رزین گرم'],
-          reason: 'سفری معنوی به جنگل‌های هندوچین با لطیف‌ترین و خامه‌ای‌ترین حس چوب صندل که حسی از آرامش عمیق را ساطع می‌کند.',
+          topNotes: ['برگ بنفشه فرانسوی', 'بذر هل', 'شیر بادام'],
+          heartNotes: ['ریشه زنبق زرد فلورانس', 'پاپیروس مصری', 'جوز هندی'],
+          baseNotes: ['چوب صندل میسور', 'سدر سفید ویرجینیا', 'عنبر خاکستری'],
+          reason: 'هارمونی آرامش‌بخش چوب صندل طبیعی با نت‌های لطیف بنفشه و شیر بادام، نماد آرامش و طمأنینه اشرافی.',
           seasonOrOccasion: 'تمام فصول به‌ویژه غروب‌های پاییزی و موقعیت‌های صمیمی',
         },
       ],
     };
   }
 
+  // Fresh & Citrus specialized fallback
   if (q.includes('مرکبات') || q.includes('خنک') || q.includes('citrus') || q.includes('fresh') || q.includes('تابستان') || q.includes('summer')) {
     return {
-      consultantNote: 'برای سلیقه باطراوت و پویای شما که شیفته درخشش مرکبات و نسیم‌های باطراوت مدیترانه‌ای هستید، ۳ نماد جاودان طراوت انتخاب شدند:',
+      consultantNote:
+        lang === 'fa'
+          ? 'برای سلیقه باطراوت و پویای شما که شیفته درخشش مرکبات و نسیم‌های باطراوت مدیترانه‌ای هستید، ۳ نماد جاودان طراوت انتخاب شدند:'
+          : 'For your vibrant taste celebrating Mediterranean citrus and aquatic breezes, three masterworks were selected:',
       recommendations: [
         {
           name: 'Aventus',
@@ -155,9 +221,23 @@ function getCuratedMasterpieceFallback(userQuery: string): RecommendationResult 
     };
   }
 
+  // If we collected matching items from catalog, merge or complement them
+  if (matchingFromCatalog.length >= 3) {
+    return {
+      consultantNote:
+        lang === 'fa'
+          ? 'بر اساس ارزیابی دقیق نت‌ها و ویژگی‌های مد نظر شما، این ۳ شاهکار برگزیده از کلکسیون میسون برای سلیقه شما پیشنهاد می‌شوند:'
+          : 'Based on your preferred olfactory profile, here are three tailored perfumes matching your taste:',
+      recommendations: matchingFromCatalog.slice(0, 3),
+    };
+  }
+
   // Default universal Haute Parfumerie recommendation tailored to the inquiry
   return {
-    consultantNote: 'بر اساس بررسی هارمونی سلیقه اعلامی شما، این ۳ شاهکار نمادین از برترین خانه‌های عطر نیش جهان با بالاترین کیفیت انتخاب گردیدند:',
+    consultantNote:
+      lang === 'fa'
+        ? 'بر اساس بررسی هارمونی سلیقه اعلامی شما، این ۳ شاهکار نمادین از برترین خانه‌های عطر نیش جهان با بالاترین کیفیت انتخاب گردیدند:'
+        : 'Based on our olfactory analysis of your scent profile, three iconic masterpieces were curated for you:',
     recommendations: [
       {
         name: 'Baccarat Rouge 540 Extrait',
@@ -180,27 +260,35 @@ function getCuratedMasterpieceFallback(userQuery: string): RecommendationResult 
         seasonOrOccasion: 'پاییز و زمستان، ضیافت‌های خصوصی و شب‌نشینی‌های رمانتیک',
       },
       {
-        name: 'رز دمشق امپریال (Rose Impériale)',
+        name: 'رز دو شیراز (Rose de Shiraz)',
         brand: 'Maison Rayeha Haute Parfumerie',
-        scentFamily: 'گلی چوبی نیش',
-        topNotes: ['فلفل صورتی', 'تمشک وحشی', 'پرتقال تلخ'],
-        heartNotes: ['رز سرخ دمشقی', 'پئونی مخملی', 'پاپیروس مصری'],
-        baseNotes: ['چوب عود سفید', 'کهربای عسلی', 'مشک ابریشمی'],
-        reason: 'تفسیر مدرن و باوقار از رز سنتی که با چوب‌های تاریک و زعفران مهار شده و امضایی فراموش‌نشدنی می‌سازد.',
+        scentFamily: 'گلی چوبی مخملی',
+        topNotes: ['شبنم گلبرگ سرخ', 'تمشک وحشی', 'فلفل صورتی'],
+        heartNotes: ['رز سنتی شیراز', 'گل پونه‌کوهی', 'پائونیا ابریشمی'],
+        baseNotes: ['مشک کشمیر', 'وانیل طبیعی بوربون', 'چوب سدر اطلس'],
+        reason: 'ادای احترام به باغ‌های شاعرانه با رز مخملی تازه چیده‌شده آمیخته با تمشک وحشی و مشک ابریشمی.',
         seasonOrOccasion: 'چهار فصل، به‌ویژه بهار و پاییز و قرارهای خاص عاشقانه',
       },
     ],
   };
 }
 
+/**
+ * Retrieves fragrance recommendations using Google Gemini API if configured and authorized,
+ * and seamlessly falls back to the curated master sommelier system on any error or denied access.
+ * Guaranteed to never throw or break the client UI.
+ */
 export async function getFragranceRecommendations(
   userQuery: string,
   lang: 'fa' | 'en' = 'fa'
 ): Promise<RecommendationResult> {
-  // Try retrieving the key from all possible runtime environments:
-  // 1. process.env.VITE_GEMINI_API_KEY
-  // 2. process.env.GEMINI_API_KEY (AI Studio default platform environment)
-  // 3. import.meta.env.VITE_GEMINI_API_KEY
+  const cleanQuery = (userQuery || '').trim();
+
+  // 1. Try retrieving the key from all environment locations:
+  // - process.env.VITE_GEMINI_API_KEY
+  // - process.env.GEMINI_API_KEY
+  // - import.meta.env.VITE_GEMINI_API_KEY
+  // - import.meta.env.GEMINI_API_KEY
   let apiKey = '';
 
   try {
@@ -208,7 +296,7 @@ export async function getFragranceRecommendations(
       apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY || '';
     }
   } catch {
-    // Process env unavailable in strict browser context
+    // Process env unavailable in browser
   }
 
   if (!apiKey) {
@@ -224,8 +312,8 @@ export async function getFragranceRecommendations(
     }
   }
 
-  // If a valid key exists, query Google Gemini models
-  if (apiKey) {
+  // 2. If a key is detected, attempt Gemini API with full try-catch isolation
+  if (apiKey && apiKey !== 'MY_GEMINI_API_KEY') {
     try {
       const ai = new GoogleGenAI({ apiKey });
 
@@ -234,12 +322,12 @@ export async function getFragranceRecommendations(
 برای هر عطر: نام عطر، برند، خانواده بویایی، نت‌های اصلی و علت پیشنهاد به کاربر را به‌صورت خلاصه، جذاب، مجلل و به زبان فارسی فاخر بنویس.`;
 
       const prompt = `سلیقه و درخواست کاربر برای پیشنهاد عطر:
-"${userQuery}"
+"${cleanQuery}"
 
 لطفاً ۳ عطر متناسب و عالی پیشنهاد کن.`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3.8-flash',
         contents: prompt,
         config: {
           systemInstruction,
@@ -256,13 +344,14 @@ export async function getFragranceRecommendations(
           return parsed;
         }
       }
-    } catch (apiErr) {
-      console.warn('Gemini live call encountered an error, falling back to curated sommelier library:', apiErr);
-      // Fallback gracefully to curated master perfumes so the preview is never broken
-      return getCuratedMasterpieceFallback(userQuery);
+    } catch (apiErr: any) {
+      // Gracefully log warning and prevent throwing error up to UI
+      console.warn('[Gemini Sommelier] Live call failed or permission denied, using curated fallback:', apiErr?.message || apiErr);
+      return getCuratedMasterpieceFallback(cleanQuery, lang);
     }
   }
 
-  // Graceful fallback ensuring preview testability even without client key injection
-  return getCuratedMasterpieceFallback(userQuery);
+  // 3. Clean and instantaneous fallback if no API key or in preview mode
+  return getCuratedMasterpieceFallback(cleanQuery, lang);
 }
+

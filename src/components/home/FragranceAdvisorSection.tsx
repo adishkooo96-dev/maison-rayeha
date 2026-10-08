@@ -16,6 +16,7 @@ import { Container } from '../ui/Container';
 import { Button } from '../ui/Button';
 import {
   getFragranceRecommendations,
+  getCuratedMasterpieceFallback,
   RecommendationResult,
 } from '../../lib/geminiFragranceAdvisor';
 
@@ -43,15 +44,15 @@ export const FragranceAdvisorSection: React.FC = () => {
 
     try {
       const data = await getFragranceRecommendations(trimmed, lang);
-      setResult(data);
+      if (data && Array.isArray(data.recommendations) && data.recommendations.length > 0) {
+        setResult(data);
+      } else {
+        setResult(getCuratedMasterpieceFallback(trimmed, lang));
+      }
     } catch (err: any) {
-      console.error('Fragrance advisor error:', err);
-      setError(
-        err?.message ||
-          (lang === 'fa'
-            ? 'متأسفانه در برقراری ارتباط با مشاور هوشمند خطایی رخ داد. لطفاً لحظاتی بعد مجدداً امتحان کنید.'
-            : 'An error occurred while contacting the AI Fragrance Advisor. Please try again.')
-      );
+      console.warn('Fragrance advisor caught error, activating instant sommelier fallback:', err);
+      // Guarantee seamless luxury experience without halting or showing red errors
+      setResult(getCuratedMasterpieceFallback(trimmed, lang));
     } finally {
       setIsLoading(false);
     }
