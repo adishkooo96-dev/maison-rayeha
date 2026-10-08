@@ -497,6 +497,13 @@
     "accept": "Accept & Continue",
     "decline": "Essential Only"
   },
+  "advisor": {
+    "badge": "Bespoke Fragrance Sommelier",
+    "fallbackNote": "Suggestions from our curated catalog",
+    "aiNote": "Personalized AI Sommelier recommendation",
+    "curatedSelection": "Curated Sommelier Selection",
+    "aiAnalysis": "AI Olfactory Analysis"
+  },
   "seo": {
     "skipToContent": "Skip to main content",
     "siteName": "Maison Rayeha"

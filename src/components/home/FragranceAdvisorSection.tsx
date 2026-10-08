@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Sparkles,
   Compass,
   Send,
   Loader2,
-  Flame,
   Award,
   Layers,
   Calendar,
@@ -33,28 +32,51 @@ export const FragranceAdvisorSection: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<RecommendationResult | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
 
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     const trimmed = query.trim();
-    if (!trimmed) return;
+    if (!trimmed || isLoading) return;
 
-    setIsLoading(true);
+    // Cancel any previous in-flight request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    // Immediately clear previous results on new search
+    setResult(null);
     setError(null);
+    setIsLoading(true);
 
     try {
-      const data = await getFragranceRecommendations(trimmed, lang);
+      const data = await getFragranceRecommendations(trimmed, lang, controller.signal);
+      if (controller.signal.aborted) return;
       if (data && Array.isArray(data.recommendations) && data.recommendations.length > 0) {
         setResult(data);
       } else {
         setResult(getCuratedMasterpieceFallback(trimmed, lang));
       }
     } catch (err: any) {
-      console.warn('Fragrance advisor caught error, activating instant sommelier fallback:', err);
-      // Guarantee seamless luxury experience without halting or showing red errors
+      if (controller.signal.aborted || err?.name === 'AbortError') {
+        return;
+      }
+      // Seamlessly activate curated fallback without showing red error banner
       setResult(getCuratedMasterpieceFallback(trimmed, lang));
     } finally {
-      setIsLoading(false);
+      if (!controller.signal.aborted) {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -63,9 +85,13 @@ export const FragranceAdvisorSection: React.FC = () => {
   };
 
   const handleReset = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
     setQuery('');
     setResult(null);
     setError(null);
+    setIsLoading(false);
   };
 
   return (
@@ -236,12 +262,29 @@ export const FragranceAdvisorSection: React.FC = () => {
 
         {/* Recommendations Result Showcase */}
         {result && !isLoading && (
-          <div className="mt-12 sm:mt-16 space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700">
+          <div className="mt-12 sm:mt-16 space-y-6 sm:space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700">
+            {/* Honest Source Indicator Badge */}
+            <div className="flex justify-center">
+              {result.source === 'ai' ? (
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/40 bg-gold/10 text-gold text-xs font-medium shadow-xs">
+                  <Sparkles className="w-3.5 h-3.5 text-gold" />
+                  <span>{t('advisor.aiNote')}</span>
+                </div>
+              ) : (
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--border)] bg-[var(--bg-surface-raised)] text-[var(--text-secondary)] text-xs font-medium shadow-xs">
+                  <Compass className="w-3.5 h-3.5 text-gold" />
+                  <span>{t('advisor.fallbackNote')}</span>
+                </div>
+              )}
+            </div>
+
             {/* Consultant Note Intro */}
             {result.consultantNote && (
               <div className="max-w-3xl mx-auto text-center p-6 rounded-2xl bg-[var(--bg-surface)] border-s-4 border-gold shadow-md">
                 <span className="text-[11px] font-mono uppercase tracking-widest text-gold block mb-1">
-                  {lang === 'fa' ? 'یادداشت عطرساز میسون' : 'Sommelier Note'}
+                  {result.source === 'ai'
+                    ? t('advisor.aiAnalysis')
+                    : t('advisor.curatedSelection')}
                 </span>
                 <p className="text-sm sm:text-base text-[var(--text-primary)] font-serif italic leading-relaxed">
                   «{result.consultantNote}»

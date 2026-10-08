@@ -1,5 +1,3 @@
-import { GoogleGenAI, Type, Schema } from '@google/genai';
-
 export interface RecommendedPerfume {
   name: string;
   brand?: string;
@@ -14,63 +12,8 @@ export interface RecommendedPerfume {
 export interface RecommendationResult {
   consultantNote: string;
   recommendations: RecommendedPerfume[];
+  source: 'ai' | 'fallback';
 }
-
-const RECOMMENDATION_SCHEMA: Schema = {
-  type: Type.OBJECT,
-  properties: {
-    consultantNote: {
-      type: Type.STRING,
-      description: 'A brief, elegant introduction from the master perfumer in warm Persian addressing the user.',
-    },
-    recommendations: {
-      type: Type.ARRAY,
-      description: 'Exactly 3 renowned global perfumes from world-famous houses matching the user taste.',
-      items: {
-        type: Type.OBJECT,
-        properties: {
-          name: {
-            type: Type.STRING,
-            description: 'Name of the fragrance from world-renowned houses (e.g. Creed Aventus, Kilian Angels’ Share).',
-          },
-          brand: {
-            type: Type.STRING,
-            description: 'Global fragrance house brand name (e.g. Creed, Tom Ford, Parfums de Marly).',
-          },
-          scentFamily: {
-            type: Type.STRING,
-            description: 'Olfactory family or vibe in Persian (e.g. چوبی کهربایی، مرکباتی معطر، شرقی وانیلی).',
-          },
-          topNotes: {
-            type: Type.ARRAY,
-            items: { type: Type.STRING },
-            description: 'Key top olfactory notes.',
-          },
-          heartNotes: {
-            type: Type.ARRAY,
-            items: { type: Type.STRING },
-            description: 'Key heart olfactory notes.',
-          },
-          baseNotes: {
-            type: Type.ARRAY,
-            items: { type: Type.STRING },
-            description: 'Key base olfactory notes.',
-          },
-          reason: {
-            type: Type.STRING,
-            description: 'Detailed yet concise poetic reason in Persian why this matches the user input.',
-          },
-          seasonOrOccasion: {
-            type: Type.STRING,
-            description: 'Best season or occasion to wear in Persian.',
-          },
-        },
-        required: ['name', 'brand', 'scentFamily', 'reason'],
-      },
-    },
-  },
-  required: ['consultantNote', 'recommendations'],
-};
 
 interface KnowledgeFragrance {
   id: string;
@@ -866,128 +809,60 @@ export function getCuratedMasterpieceFallback(
   return {
     consultantNote,
     recommendations,
+    source: 'fallback',
   };
 }
 
 /**
- * Retrieves fragrance recommendations using Google Gemini API if configured,
- * and seamlessly falls back to the curated master sommelier system on any error or denied access.
- * Strictly recommends world-renowned global fragrances (no local store products).
+ * Retrieves fragrance recommendations via server-side Netlify function.
+ * If the function is unreachable (e.g. 404 in preview) or fails,
+ * seamlessly falls back to the curated masterpiece sommelier engine.
  */
 export async function getFragranceRecommendations(
   userQuery: string,
-  lang: 'fa' | 'en' = 'fa'
+  lang: 'fa' | 'en' = 'fa',
+  signal?: AbortSignal
 ): Promise<RecommendationResult> {
   const cleanQuery = (userQuery || '').trim();
   if (!cleanQuery) {
     return getCuratedMasterpieceFallback('', lang);
   }
 
-  // 1. Try retrieving the key from all possible environment locations:
-  let apiKey = '';
-
   try {
-    apiKey =
-      import.meta.env.VITE_GEMINI_API_KEY ||
-      import.meta.env.GEMINI_API_KEY ||
-      '';
-  } catch {
-    //
-  }
+    const res = await fetch('/.netlify/functions/perfume-advisor', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: cleanQuery,
+        lang,
+      }),
+      signal,
+    });
 
-  if (!apiKey) {
-    try {
-      if (typeof process !== 'undefined' && process.env) {
-        apiKey =
-          process.env.VITE_GEMINI_API_KEY ||
-          process.env.GEMINI_API_KEY ||
-          '';
+    if (res.ok) {
+      const data = await res.json();
+      if (
+        data &&
+        Array.isArray(data.recommendations) &&
+        data.recommendations.length > 0
+      ) {
+        return {
+          consultantNote: data.consultantNote || '',
+          recommendations: data.recommendations,
+          source: 'ai',
+        };
       }
-    } catch {
-      //
     }
+  } catch (err: any) {
+    // If request was explicitly aborted, re-throw so the caller can discard stale results
+    if (err?.name === 'AbortError' || signal?.aborted) {
+      throw err;
+    }
+    // Netlify function unavailable (404 in local dev/AI Studio preview) or network error
   }
 
-  if (!apiKey && typeof window !== 'undefined') {
-    try {
-      apiKey =
-        (window as any).__GEMINI_API_KEY__ ||
-        (window as any).GEMINI_API_KEY ||
-        localStorage.getItem('gemini_api_key') ||
-        '';
-    } catch {
-      //
-    }
-  }
-
-  // 2. If a key is present and valid, call Gemini API
-  if (apiKey && apiKey !== 'MY_GEMINI_API_KEY' && apiKey.length > 5) {
-    try {
-      const ai = new GoogleGenAI({ apiKey });
-
-      const systemInstruction = `تو یک استاد عطرساز ارشد بین‌المللی (Master Perfumer) و کارشناس دنیای عطر نیش جهان هستی.
-دستورالعمل حیاتی و الزامی:
-پیشنهادات تو باید منحصراً و ۱۰۰٪ از میان شناخته‌شده‌ترین، معتبرترین و برترین عطرهای موجود در جهان (برندهای بین‌المللی مانند Creed, Tom Ford, Parfums de Marly, Kilian, Maison Francis Kurkdjian, Amouage, Xerjoff, Nishane, Le Labo, Frederic Malle, Diptyque, Louis Vuitton, Byredo, Dior, Chanel, Hermes و ...) باشد.
-به هیچ عنوان از عطرهای ساختگی، فرضی، متفرقه یا محصولات داخلی هیچ وب‌سایتی استفاده نکن؛ بلکه دقیقاً ۳ عطر واقعی، اورجینال و سرشناس از میان عطرهای موجود در جهان را بر اساس سلیقه و نت‌های درخواستی کاربر پیشنهاد بده.
-برای هر عطر: نام عطر (Name)، برند جهانی (Brand)، خانواده بویایی (Scent Family)، نت‌های آغازین، میانی و پایه، و علت پیشنهاد (Reason) را به شکلی فاخر و جذاب بنویس.`;
-
-      const prompt = `سلیقه و درخواست بویایی کاربر:
-"${cleanQuery}"
-
-لطفاً دقیقاً ۳ عطر معروف، اصیل و برتر جهان (برندهای بین‌المللی دنیای عطر) که بیشترین همخوانی با این رایحه را دارند پیشنهاد بده.`;
-
-      // Try with gemini-2.5-flash first
-      let responseText = '';
-      try {
-        const response = await ai.models.generateContent({
-          model: 'gemini-2.5-flash',
-          contents: prompt,
-          config: {
-            systemInstruction,
-            responseMimeType: 'application/json',
-            responseSchema: RECOMMENDATION_SCHEMA,
-            temperature: 0.7,
-          },
-        });
-        responseText = response.text || '';
-      } catch (firstModelErr) {
-        // Fallback to gemini-3.8-flash if model name differs
-        try {
-          const fallbackResponse = await ai.models.generateContent({
-            model: 'gemini-3.8-flash',
-            contents: prompt,
-            config: {
-              systemInstruction,
-              responseMimeType: 'application/json',
-              responseSchema: RECOMMENDATION_SCHEMA,
-              temperature: 0.7,
-            },
-          });
-          responseText = fallbackResponse.text || '';
-        } catch {
-          throw firstModelErr;
-        }
-      }
-
-      if (responseText) {
-        const parsed = JSON.parse(responseText) as RecommendationResult;
-        if (
-          parsed &&
-          Array.isArray(parsed.recommendations) &&
-          parsed.recommendations.length > 0
-        ) {
-          return parsed;
-        }
-      }
-    } catch (apiErr: any) {
-      console.warn(
-        '[Gemini Sommelier] Live API unavailable. Seamlessly activating curated global sommelier engine:',
-        apiErr?.message || apiErr
-      );
-      return getCuratedMasterpieceFallback(cleanQuery, lang);
-    }
-  }
-
-  // 3. Fallback to curated world-renowned perfumes
+  // Graceful fallback from curated catalog
   return getCuratedMasterpieceFallback(cleanQuery, lang);
 }
