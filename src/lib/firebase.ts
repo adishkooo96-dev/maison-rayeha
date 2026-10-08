@@ -56,6 +56,9 @@ function setConnectionState(connected: boolean) {
 let lastReconnectTime = 0;
 let isReconnectingInProgress = false;
 
+// Track whether Firestore network was explicitly disabled by us
+let isFirestoreNetworkDisabled = false;
+
 export async function reconnectFirebase(forceTokenRefresh: boolean = true): Promise<{ success: boolean; error?: string }> {
   const now = Date.now();
   if (isReconnectingInProgress) {
@@ -70,11 +73,15 @@ export async function reconnectFirebase(forceTokenRefresh: boolean = true): Prom
   lastReconnectTime = now;
 
   try {
-    // 1. Re-enable Firestore network sync
-    try {
-      await enableNetwork(db);
-    } catch (fsErr) {
-      console.warn('[Firebase] enableNetwork notice:', fsErr);
+    // 1. Re-enable Firestore network sync ONLY if it was explicitly disabled
+    // Redundant enableNetwork() on an active client triggers Firestore internal assertion ca9/b815
+    if (isFirestoreNetworkDisabled) {
+      try {
+        await enableNetwork(db);
+        isFirestoreNetworkDisabled = false;
+      } catch (fsErr) {
+        console.warn('[Firebase] enableNetwork notice:', fsErr);
+      }
     }
 
     // 2. Refresh Auth user and ID token if signed in
@@ -121,6 +128,7 @@ if (typeof window !== 'undefined') {
     console.warn('[Firebase] Browser went offline');
     setConnectionState(false);
     try {
+      isFirestoreNetworkDisabled = true;
       disableNetwork(db).catch(() => {});
     } catch {
       // Ignore
@@ -130,7 +138,7 @@ if (typeof window !== 'undefined') {
   // When user returns to tab after hours of backgrounding / sleep
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
-      // Proactively refresh connection and token
+      // Proactively refresh connection and token without disturbing active Firestore watch stream
       reconnectFirebase(false);
     }
   });

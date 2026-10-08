@@ -9,9 +9,9 @@ import {
   writeBatch,
   query,
   where,
-  onSnapshot,
 } from 'firebase/firestore';
 import { db } from './firebase';
+import { safeOnSnapshotDoc, safeOnSnapshotQuery } from './safeSnapshot';
 import { ChatConversation, ChatMessage, ChatStatus } from '../types/chat';
 
 const CHATS_COLLECTION = 'chats';
@@ -229,7 +229,7 @@ export function subscribeToChat(
   onError?: (err: Error) => void
 ): () => void {
   const docRef = doc(db, CHATS_COLLECTION, chatId);
-  return onSnapshot(
+  return safeOnSnapshotDoc(
     docRef,
     (snap) => {
       if (snap.exists()) {
@@ -267,7 +267,7 @@ export function subscribeToChatMessages(
 ): () => void {
   const messagesCol = collection(db, CHATS_COLLECTION, chatId, MESSAGES_SUBCOLLECTION);
 
-  return onSnapshot(
+  return safeOnSnapshotQuery(
     messagesCol,
     (snap) => {
       const messages: ChatMessage[] = [];
@@ -455,7 +455,7 @@ export function subscribeToAllChats(
 ): () => void {
   const chatsCol = collection(db, CHATS_COLLECTION);
 
-  return onSnapshot(
+  return safeOnSnapshotQuery(
     chatsCol,
     (snap) => {
       const chats: ChatConversation[] = [];

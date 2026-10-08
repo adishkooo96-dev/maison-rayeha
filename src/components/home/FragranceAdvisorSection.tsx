@@ -161,9 +161,9 @@ export const FragranceAdvisorSection: React.FC = () => {
             </div>
 
             {/* Submit Action */}
-            <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-3">
-              <div className="text-xs text-[var(--text-secondary)] flex items-center gap-1.5 order-2 sm:order-1">
-                <Compass className="w-3.5 h-3.5 text-gold" />
+            <div className="pt-3 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="text-xs text-[var(--text-secondary)] flex items-center gap-1.5 order-2 md:order-1 text-center md:text-start">
+                <Compass className="w-3.5 h-3.5 text-gold shrink-0" />
                 <span>
                   {lang === 'fa'
                     ? 'تحلیل دقیق نت‌ها بر اساس دانش عطرسازی نیش'
@@ -171,7 +171,7 @@ export const FragranceAdvisorSection: React.FC = () => {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 w-full sm:w-auto order-1 sm:order-2">
+              <div className="flex flex-col sm:flex-row md:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto order-1 md:order-2">
                 {result && (
                   <Button
                     type="button"
@@ -179,7 +179,7 @@ export const FragranceAdvisorSection: React.FC = () => {
                     size="md"
                     onClick={handleReset}
                     disabled={isLoading}
-                    className="text-xs px-4"
+                    className="w-full sm:w-auto text-xs px-4 justify-center"
                     leftIcon={<RotateCcw className="w-3.5 h-3.5" />}
                   >
                     {lang === 'fa' ? 'جستجوی جدید' : 'New Query'}
@@ -192,7 +192,7 @@ export const FragranceAdvisorSection: React.FC = () => {
                   size="md"
                   disabled={isLoading || !query.trim()}
                   isLoading={isLoading}
-                  className="w-full sm:w-auto min-w-[200px] justify-center shadow-md font-bold text-xs sm:text-sm tracking-wide"
+                  className="w-full sm:w-auto min-w-0 sm:min-w-[200px] justify-center shadow-md font-bold text-xs sm:text-sm tracking-wide px-5"
                   rightIcon={!isLoading ? <Send className="w-4 h-4 rtl:rotate-180" /> : undefined}
                 >
                   {lang === 'fa' ? 'پیشنهاد عطر هوشمند' : 'Get Fragrance Recommendations'}

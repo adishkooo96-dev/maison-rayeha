@@ -8,9 +8,9 @@ import {
   deleteDoc,
   query,
   where,
-  onSnapshot,
 } from 'firebase/firestore';
 import { db } from './firebase';
+import { safeOnSnapshotQuery } from './safeSnapshot';
 import { Product, ProductFilters, SortOption } from '../types';
 import { products as fallbackProducts } from '../data/products';
 import { normalizeProductStock } from './inventory';
@@ -30,6 +30,51 @@ function notifySubscribers(productsList: Product[]) {
       console.error('Subscriber callback error:', e);
     }
   });
+}
+
+// Single shared Firestore onSnapshot listener for the whole application
+// Having multiple parallel listeners on the products collection causes Firestore assertion collisions (ca9 / b815)
+let globalUnsubscribeFirestore: (() => void) | null = null;
+
+function ensureGlobalFirestoreListener() {
+  if (globalUnsubscribeFirestore) return;
+
+  try {
+    const productsCol = collection(db, PRODUCTS_COLLECTION);
+    globalUnsubscribeFirestore = safeOnSnapshotQuery(
+      productsCol,
+      (snap) => {
+        if (!snap.empty) {
+          const items: Product[] = [];
+          snap.forEach((docSnap) => {
+            items.push(
+              normalizeProductStock({
+                ...(docSnap.data() as Product),
+                id: docSnap.id,
+              })
+            );
+          });
+          notifySubscribers(items);
+        }
+      },
+      (error) => {
+        console.warn('[productsApi] Snapshot error:', error);
+      }
+    );
+  } catch (error) {
+    console.warn('[productsApi] Could not establish products snapshot listener:', error);
+  }
+}
+
+function releaseGlobalFirestoreListenerIfUnused() {
+  if (localSubscribers.size === 0 && globalUnsubscribeFirestore) {
+    try {
+      globalUnsubscribeFirestore();
+    } catch {
+      // Ignore
+    }
+    globalUnsubscribeFirestore = null;
+  }
 }
 
 /**
@@ -65,64 +110,22 @@ export async function getAllProducts(): Promise<Product[]> {
 
 /**
  * Real-time listener for products (used in admin, layout, shop, and product details).
+ * Shares a single underlying Firestore snapshot across all components to eliminate assertion errors.
  */
 export function subscribeToProducts(
   callback: (products: Product[]) => void,
-  onError?: (err: Error) => void
+  _onError?: (err: Error) => void
 ): () => void {
   // Immediately call with current cached list
   callback(cachedProducts);
   localSubscribers.add(callback);
 
-  let unsubscribeFirestore = () => {};
-
-  function attachSnapshot() {
-    try {
-      unsubscribeFirestore();
-      const productsCol = collection(db, PRODUCTS_COLLECTION);
-      unsubscribeFirestore = onSnapshot(
-        productsCol,
-        (snap) => {
-          if (!snap.empty) {
-            const items: Product[] = [];
-            snap.forEach((docSnap) => {
-              items.push(
-                normalizeProductStock({
-                  ...(docSnap.data() as Product),
-                  id: docSnap.id,
-                })
-              );
-            });
-            notifySubscribers(items);
-          }
-        },
-        (error) => {
-          console.warn('onSnapshot error in subscribeToProducts:', error);
-          if (onError) onError(error);
-        }
-      );
-    } catch (error: any) {
-      console.warn('Could not establish products snapshot listener:', error);
-    }
-  }
-
-  attachSnapshot();
-
-  // Re-establish listener upon Firebase reconnection
-  const handleReconnect = () => {
-    attachSnapshot();
-  };
-
-  if (typeof window !== 'undefined') {
-    window.addEventListener('maison:firebase:reconnected', handleReconnect);
-  }
+  // Ensure the shared Firestore subscription is active
+  ensureGlobalFirestoreListener();
 
   return () => {
     localSubscribers.delete(callback);
-    unsubscribeFirestore();
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('maison:firebase:reconnected', handleReconnect);
-    }
+    releaseGlobalFirestoreListenerIfUnused();
   };
 }
 

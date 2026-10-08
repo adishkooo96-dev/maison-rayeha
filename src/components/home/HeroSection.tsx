@@ -65,15 +65,6 @@ export const HeroSection: React.FC = () => {
           >
             {t('hero.ctaExplore')}
           </Button>
-
-          <Button
-            variant="outline-ivory"
-            size="lg"
-            className="w-full sm:w-auto min-w-[180px]"
-            onClick={() => handleScrollToSection('brand-story-section')}
-          >
-            {t('hero.ctaStory')}
-          </Button>
         </div>
 
         {/* Micro Credential Marks */}

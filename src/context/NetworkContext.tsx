@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { reconnectFirebase } from '../lib/firebase';
+import { isFirestoreInternalAssertion } from '../lib/safeSnapshot';
 
 interface NetworkContextType {
   isOnline: boolean;
@@ -118,6 +119,13 @@ export const NetworkProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
     // Catch-All for unhandled promise rejections (APIs, network, fetch, dynamic chunk import errors)
     const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      // Suppress known Firestore SDK assertion bugs so they do not crash or show network alerts
+      if (isFirestoreInternalAssertion(event.reason)) {
+        console.warn('[Maison Catch-All] Suppressed unhandled Firestore SDK assertion rejection:', event.reason);
+        event.preventDefault();
+        return;
+      }
+
       if (isLikelyNetworkError(event.reason)) {
         console.warn('[Maison Catch-All] Caught unhandled network rejection:', event.reason);
         // Prevent white-screen crash
@@ -129,6 +137,13 @@ export const NetworkProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
     // Catch-All for global resource loading errors
     const handleGlobalError = (event: ErrorEvent) => {
+      // Suppress known Firestore SDK assertion bugs
+      if (isFirestoreInternalAssertion(event.error) || isFirestoreInternalAssertion(event.message)) {
+        console.warn('[Maison Catch-All] Suppressed unhandled Firestore SDK assertion error:', event.message);
+        event.preventDefault();
+        return;
+      }
+
       if (isLikelyNetworkError(event.error) || isLikelyNetworkError(event.message)) {
         console.warn('[Maison Catch-All] Caught global network error:', event.message);
         event.preventDefault();

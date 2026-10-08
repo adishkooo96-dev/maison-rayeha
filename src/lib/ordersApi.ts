@@ -8,9 +8,9 @@ import {
   query,
   where,
   orderBy,
-  onSnapshot,
 } from 'firebase/firestore';
 import { db } from './firebase';
+import { safeOnSnapshotQuery } from './safeSnapshot';
 import { FirestoreOrder, OrderStatus } from '../types/auth';
 
 const ORDERS_COLLECTION = 'orders';
@@ -94,7 +94,7 @@ export function subscribeToOrders(
 ): () => void {
   try {
     const ordersCol = collection(db, ORDERS_COLLECTION);
-    const unsubscribe = onSnapshot(
+    const unsubscribe = safeOnSnapshotQuery(
       ordersCol,
       (snap) => {
         const orders: FirestoreOrder[] = [];
@@ -108,7 +108,7 @@ export function subscribeToOrders(
         callback(orders);
       },
       (error) => {
-        console.warn('onSnapshot error in subscribeToOrders:', error);
+        console.warn('[ordersApi] Snapshot error:', error);
         if (onError) onError(error);
       }
     );
