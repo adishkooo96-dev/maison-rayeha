@@ -50,45 +50,37 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
         to={`/shop/${product.slug}`}
         className="relative aspect-square overflow-hidden bg-[var(--bg-surface-raised)] block rounded-t-[7px] sm:rounded-t-[8px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
       >
-        {/* Badges */}
-        <div className="absolute top-2 start-2 z-10 flex flex-col gap-1 pointer-events-none">
-          {!product.inStock && (
-            <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider rtl:tracking-normal bg-rose-950/90 backdrop-blur-xs text-rose-200 border border-rose-500/50 rounded-xs shadow-xs">
-              {t('product.outOfStock')}
-            </span>
-          )}
-          {product.inStock && hasDiscount && (
-            <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold tracking-wider rtl:tracking-normal bg-rose-700 text-white border border-rose-600 rounded-xs shadow-xs">
+        {/* Discount Badge on the Top-Left of perfume image */}
+        {product.inStock && hasDiscount && (
+          <div className="absolute top-3 left-3 z-10 pointer-events-none flex items-center">
+            <span className="h-5 sm:h-5.5 px-2 flex items-center justify-center text-[10px] sm:text-[11px] font-bold tracking-wider rtl:tracking-normal bg-rose-700 text-white border border-rose-600 rounded-xs shadow-xs leading-none">
               {t('product.discountBadge', { percent: `${product.discountPercent}%` })}
             </span>
-          )}
+          </div>
+        )}
+
+        {/* Other Badges on the Top-Right of perfume image (Bestseller, Limited Stock, New) */}
+        <div className="absolute top-3 right-3 z-10 flex flex-col gap-1.5 pointer-events-none items-end">
           {product.inStock && typeof product.stockQuantity === 'number' && product.stockQuantity > 0 && product.stockQuantity <= 5 && (
-            <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-semibold tracking-wider rtl:tracking-normal bg-amber-950/90 backdrop-blur-xs text-amber-200 border border-amber-500/50 rounded-xs shadow-xs">
+            <span className="h-5 sm:h-5.5 px-2 flex items-center justify-center text-[10px] sm:text-[11px] font-semibold tracking-wider rtl:tracking-normal bg-amber-950/90 backdrop-blur-xs text-amber-200 border border-amber-500/50 rounded-xs shadow-xs leading-none">
               {t('product.limitedStock')}
             </span>
           )}
           {product.inStock && product.isBestseller && (
-            <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider rtl:tracking-normal bg-gold text-[#111111] rounded-xs shadow-xs">
+            <span className="h-5 sm:h-5.5 px-2 flex items-center justify-center text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider rtl:tracking-normal bg-gold text-[#111111] border border-gold rounded-xs shadow-xs leading-none">
               {t('product.bestseller')}
             </span>
           )}
           {product.inStock && product.isNew && (
-            <span className="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider rtl:tracking-normal bg-[var(--badge-bg)] text-[var(--badge-text)] rounded-xs shadow-xs">
+            <span className="h-5 sm:h-5.5 px-2 flex items-center justify-center text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider rtl:tracking-normal bg-[var(--badge-bg)] text-[var(--badge-text)] border border-[var(--border)] rounded-xs shadow-xs leading-none">
               {t('product.new')}
             </span>
           )}
         </div>
 
-        {/* Dim overlay for out-of-stock */}
+        {/* Subtle dim overlay for out-of-stock without text */}
         {!product.inStock && (
-          <>
-            <div className="absolute inset-0 z-[5] bg-black/50 backdrop-grayscale-[35%] pointer-events-none" />
-            <div className="absolute inset-0 z-[6] flex items-center justify-center p-2 pointer-events-none">
-              <span className="px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-semibold uppercase tracking-wider rtl:tracking-normal bg-[#0F0F10]/95 backdrop-blur-xs text-rose-300 border border-rose-500/60 rounded-xs shadow-md">
-                {t('product.outOfStock')}
-              </span>
-            </div>
-          </>
+          <div className="absolute inset-0 z-[5] bg-black/20 pointer-events-none" />
         )}
 
         {/* Primary Image */}
@@ -101,7 +93,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
           referrerPolicy="no-referrer"
           decoding="async"
           className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-out motion-reduce:transition-none ${
-            !product.inStock ? 'opacity-50' : isHovered ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
+            !product.inStock ? 'opacity-60 grayscale-[45%]' : isHovered ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
           }`}
         />
 
@@ -119,15 +111,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onQuickView }
           }`}
         />
 
-        {/* Quick action overlay - visible on touch/mobile, hover-activated on sm+ */}
-        <div className="absolute inset-x-1.5 sm:inset-x-2.5 bottom-1.5 sm:bottom-2.5 z-10 flex gap-1 sm:gap-1.5 opacity-100 sm:opacity-0 sm:translate-y-2 sm:group-hover:opacity-100 sm:group-hover:translate-y-0 transition-all duration-300 motion-reduce:transition-none">
+        {/* Quick action overlay - always visible if out of stock, hover-activated on sm+ if in stock */}
+        <div
+          className={`absolute inset-x-1.5 sm:inset-x-2.5 bottom-1.5 sm:bottom-2.5 z-10 flex gap-1 sm:gap-1.5 ${
+            !product.inStock
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-100 sm:opacity-0 sm:translate-y-2 sm:group-hover:opacity-100 sm:group-hover:translate-y-0'
+          } transition-all duration-300 motion-reduce:transition-none`}
+        >
           {!product.inStock ? (
-            <div
-              className="flex-1 min-h-[34px] sm:min-h-[38px] py-1 px-1.5 sm:px-2 flex items-center justify-center gap-1 text-[10px] sm:text-xs font-semibold tracking-wide rtl:tracking-normal uppercase rounded-xs bg-[#0F0F10]/90 backdrop-blur-xs text-white/60 border border-white/15 cursor-not-allowed select-none"
+            <button
+              type="button"
+              disabled
               aria-disabled="true"
+              className="flex-1 min-h-[34px] sm:min-h-[38px] py-1 px-1.5 sm:px-2 flex items-center justify-center gap-1 text-[10px] sm:text-xs font-semibold tracking-wide rtl:tracking-normal uppercase rounded-xs bg-[#0F0F10]/90 backdrop-blur-xs text-white/70 border border-white/20 cursor-not-allowed select-none"
             >
               <span className="truncate">{t('product.outOfStock')}</span>
-            </div>
+            </button>
           ) : (
             <button
               type="button"
