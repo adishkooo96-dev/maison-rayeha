@@ -1,11 +1,10 @@
 import React from 'react';
-import { ArrowRight, ArrowLeft, Sparkles, ChevronDown } from 'lucide-react';
+import { Sparkles, ChevronDown } from 'lucide-react';
 import { useI18n } from '../../hooks/useI18n';
-import { Button } from '../ui/Button';
 import { HERO_BACKGROUND_IMAGE } from '../../data/images';
 
 export const HeroSection: React.FC = () => {
-  const { lang, isRTL, t, formatPercent, formatNumber } = useI18n();
+  const { lang, t, formatPercent, formatNumber } = useI18n();
 
   const handleScrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -13,8 +12,6 @@ export const HeroSection: React.FC = () => {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   return (
     <section
@@ -54,21 +51,8 @@ export const HeroSection: React.FC = () => {
           {t('hero.subtitle')}
         </p>
 
-        {/* Action Buttons */}
-        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto animate-in fade-in slide-in-from-bottom-6 duration-1000 motion-reduce:animate-none">
-          <Button
-            variant="gold"
-            size="lg"
-            className="w-full sm:w-auto min-w-[200px]"
-            rightIcon={<ArrowIcon className="w-4 h-4 stroke-[1.5]" />}
-            onClick={() => handleScrollToSection('bestsellers-section')}
-          >
-            {t('hero.ctaExplore')}
-          </Button>
-        </div>
-
         {/* Micro Credential Marks */}
-        <div className="mt-14 sm:mt-16 pt-8 border-t border-[var(--border)] grid grid-cols-3 gap-6 sm:gap-12 text-center text-xs text-[var(--text-on-image)] w-full max-w-xl">
+        <div className="mt-10 sm:mt-14 pt-8 border-t border-[var(--border)] grid grid-cols-3 gap-6 sm:gap-12 text-center text-xs text-[var(--text-on-image)] w-full max-w-xl">
           <div>
             <span className="block text-sm sm:text-base font-bold text-gold drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)]">
               {formatPercent(30)}

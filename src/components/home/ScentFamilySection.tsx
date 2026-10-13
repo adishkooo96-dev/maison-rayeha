@@ -1,31 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, ArrowLeft, Wind, Flower2, TreePine, Flame, Citrus } from 'lucide-react';
 import { scentFamilies } from '../../data/scentFamilies';
-import { products as initialProducts } from '../../data/products';
-import { subscribeToProducts } from '../../lib/productsApi';
-import { ScentFamilyId, Product } from '../../types';
+import { ScentFamilyId } from '../../types';
 import { useI18n } from '../../hooks/useI18n';
 import { Container } from '../ui/Container';
 import { SectionHeading } from '../ui/SectionHeading';
-import { ProductCard } from '../product/ProductCard';
 import { LocaleLink } from '../navigation/LocaleLink';
 
 export const ScentFamilySection: React.FC = () => {
   const { lang, isRTL, t, getLocalized, formatNumber } = useI18n();
   const [activeFamilyId, setActiveFamilyId] = useState<ScentFamilyId>('oriental');
-  const [productList, setProductList] = useState<Product[]>(initialProducts);
-
-  useEffect(() => {
-    const unsub = subscribeToProducts((data) => {
-      if (data && data.length > 0) {
-        setProductList(data);
-      }
-    });
-    return () => unsub();
-  }, []);
 
   const activeFamily = scentFamilies.find((f) => f.id === activeFamilyId) || scentFamilies[0];
-  const familyProducts = productList.filter((p) => p.scentFamily === activeFamilyId).slice(0, 4);
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   const familyIcons: Record<ScentFamilyId, React.ReactNode> = {
@@ -151,32 +137,6 @@ export const ScentFamilySection: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Active Family Products Grid: 2-col mobile, 3-col tablet, 4-col desktop */}
-        {familyProducts.length > 0 && (
-          <div className="mt-12 sm:mt-16">
-            <div className="flex items-center justify-between mb-6 pb-2 border-b border-[var(--border)]">
-              <span className="text-xs uppercase tracking-widest rtl:tracking-normal text-gold font-medium">
-                {lang === 'fa'
-                  ? `شاهکارهای منتخب خانواده ${getLocalized(activeFamily.name, lang)}`
-                  : `Curated ${getLocalized(activeFamily.name, lang)} Creations`}
-              </span>
-              <LocaleLink
-                to={`/shop?scentFamily=${activeFamily.id}`}
-                className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider text-[var(--text-primary)] hover:text-gold font-medium transition-colors group"
-              >
-                <span>{lang === 'fa' ? 'مشاهده همه' : 'View all'}</span>
-                <ArrowIcon className="w-3.5 h-3.5 stroke-[1.5] transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
-              </LocaleLink>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-              {familyProducts.map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
-          </div>
-        )}
       </Container>
     </section>
   );

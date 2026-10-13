@@ -7,7 +7,6 @@ import { useI18n } from '../../hooks/useI18n';
 import { useCartStore } from '../../store/cartStore';
 import { getSizePrice } from '../../lib/products';
 import { Container } from '../ui/Container';
-import { SectionHeading } from '../ui/SectionHeading';
 import { ProductCard } from '../product/ProductCard';
 import { ProductCardSkeleton } from '../ui/Skeleton';
 import { Button } from '../ui/Button';
@@ -31,12 +30,18 @@ export const BestsellersSection: React.FC = () => {
     return () => unsub();
   }, []);
 
-  const filteredProducts = productList.filter((p) => {
-    if (filter === 'bestseller') return p.isBestseller;
-    if (filter === 'new') return p.isNew;
-    if (filter === 'unisex') return p.gender === 'unisex';
-    return true;
-  });
+  const filteredProducts = productList
+    .filter((p) => {
+      if (filter === 'bestseller') return p.isBestseller;
+      if (filter === 'new') return p.isNew;
+      if (filter === 'unisex') return p.gender === 'unisex';
+      return true;
+    })
+    .sort((a, b) => {
+      if (a.isBestseller && !b.isBestseller) return -1;
+      if (!a.isBestseller && b.isBestseller) return 1;
+      return (b.popularity || 0) - (a.popularity || 0);
+    });
 
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
@@ -60,16 +65,10 @@ export const BestsellersSection: React.FC = () => {
   return (
     <section
       id="bestsellers-section"
-      className="py-16 sm:py-24 bg-[var(--bg-page)] text-[var(--text-primary)]"
-      aria-labelledby="bestsellers-heading"
+      className="py-10 sm:py-16 bg-[var(--bg-page)] text-[var(--text-primary)]"
+      aria-label={t('bestsellers.tabBestseller')}
     >
       <Container size="lg">
-        <SectionHeading
-          eyebrow={t('bestsellers.eyebrow')}
-          title={t('bestsellers.title')}
-          subtitle={t('bestsellers.subtitle')}
-        />
-
         {/* Filter Pills - single-line horizontally scrollable on mobile, centered on desktop */}
         <div className="flex items-center justify-start sm:justify-center overflow-x-auto flex-nowrap gap-2.5 mb-10 sm:mb-12 pb-2 sm:pb-0 px-4 sm:px-0 -mx-4 sm:mx-0 scrollbar-none">
           {[
@@ -93,9 +92,13 @@ export const BestsellersSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Products Grid: 2-col on mobile (<640px), 3-col on tablet (640-1024px), 4-col on desktop (1024px+) */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-          {filteredProducts.map((product) => (
+        {/* Products Grid: 2 most popular / bestseller masterpiece cards horizontally side-by-side */}
+        <div
+          className="grid grid-cols-2 gap-3 sm:gap-6 max-w-4xl mx-auto"
+          role="region"
+          aria-label={t('bestsellers.title')}
+        >
+          {filteredProducts.slice(0, 2).map((product) => (
             <ProductCard
               key={product.id}
               product={product}
