@@ -15,7 +15,7 @@ export const SectionDivider: React.FC<SectionDividerProps> = ({ className = '' }
 
       {/* Center luxury ornament / diamond */}
       <div className="relative flex items-center justify-center shrink-0">
-        <div className="w-4 h-4 rotate-45 border-[2px] border-gold bg-ivory shadow-[0_0_10px_rgba(184,155,94,0.35)] flex items-center justify-center">
+        <div className="w-4 h-4 rotate-45 border-[2px] border-gold bg-[var(--bg-page)] shadow-[0_0_10px_rgba(184,155,94,0.35)] flex items-center justify-center">
           <div className="w-1.5 h-1.5 bg-gold-dark rotate-45" />
         </div>
       </div>

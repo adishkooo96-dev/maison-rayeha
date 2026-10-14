@@ -60,47 +60,47 @@ export const Footer: React.FC = () => {
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   return (
-    <footer className="bg-near-black text-ivory border-t border-gold/20 pt-16 pb-[max(3rem,env(safe-area-inset-bottom))]">
+    <footer className="bg-[#0A0A0B] text-[#F5F0E8] border-t border-gold/20 pt-16 pb-[max(3rem,env(safe-area-inset-bottom))]">
       <Container size="lg">
         {/* Brand Promise Ribbon */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pb-12 mb-12 border-b border-ivory/10 text-center sm:text-start">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pb-12 mb-12 border-b border-[#F5F0E8]/10 text-center sm:text-start">
           <div className="flex items-center justify-center sm:justify-start gap-3.5">
-            <div className="w-10 h-10 rounded-full border border-gold/40 flex items-center justify-center text-gold-light shrink-0">
+            <div className="w-10 h-10 rounded-full border border-gold/40 bg-gold/10 flex items-center justify-center text-gold-light shrink-0">
               <Award className="w-5 h-5 stroke-[1.5]" />
             </div>
             <div>
-              <h4 className="text-sm font-medium text-ivory">
+              <h4 className="text-sm font-medium text-[#F5F0E8]">
                 {t('footer.naturalExtractsTitle')}
               </h4>
-              <p className="text-xs text-ivory/60 mt-0.5">
+              <p className="text-xs text-[#F5F0E8]/60 mt-0.5">
                 {t('footer.naturalExtractsSubtitle')}
               </p>
             </div>
           </div>
 
           <div className="flex items-center justify-center sm:justify-start gap-3.5">
-            <div className="w-10 h-10 rounded-full border border-gold/40 flex items-center justify-center text-gold-light shrink-0">
+            <div className="w-10 h-10 rounded-full border border-gold/40 bg-gold/10 flex items-center justify-center text-gold-light shrink-0">
               <Sparkles className="w-5 h-5 stroke-[1.5]" />
             </div>
             <div>
-              <h4 className="text-sm font-medium text-ivory">
+              <h4 className="text-sm font-medium text-[#F5F0E8]">
                 {t('footer.packagingTitle')}
               </h4>
-              <p className="text-xs text-ivory/60 mt-0.5">
+              <p className="text-xs text-[#F5F0E8]/60 mt-0.5">
                 {t('footer.packagingSubtitle')}
               </p>
             </div>
           </div>
 
           <div className="flex items-center justify-center sm:justify-start gap-3.5">
-            <div className="w-10 h-10 rounded-full border border-gold/40 flex items-center justify-center text-gold-light shrink-0">
+            <div className="w-10 h-10 rounded-full border border-gold/40 bg-gold/10 flex items-center justify-center text-gold-light shrink-0">
               <ShieldCheck className="w-5 h-5 stroke-[1.5]" />
             </div>
             <div>
-              <h4 className="text-sm font-medium text-ivory">
+              <h4 className="text-sm font-medium text-[#F5F0E8]">
                 {t('footer.courierTitle')}
               </h4>
-              <p className="text-xs text-ivory/60 mt-0.5">
+              <p className="text-xs text-[#F5F0E8]/60 mt-0.5">
                 {t('footer.courierSubtitle')}
               </p>
             </div>
@@ -108,18 +108,18 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Main Footer Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 xl:gap-16 pb-14 border-b border-ivory/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 xl:gap-16 pb-14 border-b border-[#F5F0E8]/10">
           {/* Brand Intro & Newsletter */}
           <div className="lg:col-span-2 flex flex-col justify-between">
             <div>
-              <span className="text-2xl tracking-[0.2em] font-light font-display uppercase text-ivory block">
+              <span className="text-2xl tracking-[0.2em] font-light font-display uppercase text-[#F5F0E8] block">
                 Maison Rayeha
               </span>
               <span className="text-xs tracking-[0.25em] rtl:tracking-normal text-gold-light uppercase block mt-1 font-medium">
                 {t('footer.tagline')}
               </span>
 
-              <p className="mt-4 text-xs text-ivory/70 leading-relaxed rtl:leading-loose max-w-sm font-light">
+              <p className="mt-4 text-xs text-[#F5F0E8]/70 leading-relaxed rtl:leading-loose max-w-sm font-light">
                 {t('footer.brandDescription')}
               </p>
 
@@ -134,7 +134,7 @@ export const Footer: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t('footer.instagramLabel')}
-                    className="w-9 h-9 rounded-full border border-ivory/20 hover:border-gold bg-near-black/60 hover:bg-gold/15 flex items-center justify-center text-ivory/80 hover:text-gold-light transition-all duration-200 transform hover:scale-110 active:scale-95 shadow-2xs hover:shadow-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
+                    className="w-9 h-9 rounded-full border border-[#F5F0E8]/20 hover:border-gold bg-[#151518] hover:bg-gold/20 flex items-center justify-center text-[#F5F0E8]/80 hover:text-gold-light transition-all duration-200 transform hover:scale-110 active:scale-95 shadow-2xs hover:shadow-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
                   >
                     <InstagramIcon className="w-4 h-4" />
                   </a>
@@ -143,7 +143,7 @@ export const Footer: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t('footer.telegramLabel')}
-                    className="w-9 h-9 rounded-full border border-ivory/20 hover:border-gold bg-near-black/60 hover:bg-gold/15 flex items-center justify-center text-ivory/80 hover:text-gold-light transition-all duration-200 transform hover:scale-110 active:scale-95 shadow-2xs hover:shadow-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
+                    className="w-9 h-9 rounded-full border border-[#F5F0E8]/20 hover:border-gold bg-[#151518] hover:bg-gold/20 flex items-center justify-center text-[#F5F0E8]/80 hover:text-gold-light transition-all duration-200 transform hover:scale-110 active:scale-95 shadow-2xs hover:shadow-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
                   >
                     <TelegramIcon className="w-4 h-4" />
                   </a>
@@ -152,7 +152,7 @@ export const Footer: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t('footer.whatsappLabel')}
-                    className="w-9 h-9 rounded-full border border-ivory/20 hover:border-gold bg-near-black/60 hover:bg-gold/15 flex items-center justify-center text-ivory/80 hover:text-gold-light transition-all duration-200 transform hover:scale-110 active:scale-95 shadow-2xs hover:shadow-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
+                    className="w-9 h-9 rounded-full border border-[#F5F0E8]/20 hover:border-gold bg-[#151518] hover:bg-gold/20 flex items-center justify-center text-[#F5F0E8]/80 hover:text-gold-light transition-all duration-200 transform hover:scale-110 active:scale-95 shadow-2xs hover:shadow-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
                   >
                     <WhatsAppIcon className="w-4 h-4" />
                   </a>
@@ -174,7 +174,7 @@ export const Footer: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setIsSubscribed(false)}
-                    className="text-[11px] text-ivory/60 hover:text-gold-light underline mt-2 block cursor-pointer transition-colors"
+                    className="text-[11px] text-[#F5F0E8]/60 hover:text-gold-light underline mt-2 block cursor-pointer transition-colors"
                   >
                     {t('footer.newsletterRegisterAnother')}
                   </button>
@@ -193,17 +193,17 @@ export const Footer: React.FC = () => {
                         placeholder={t('footer.newsletterPlaceholder')}
                         required
                         aria-label={t('footer.newsletterPlaceholder')}
-                        className="w-full bg-near-black/80 border border-ivory/20 px-3.5 py-2.5 text-base sm:text-xs min-h-[44px] text-ivory placeholder:text-ivory/40 focus:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold rounded-s-[8px]"
+                        className="w-full bg-[#151518] border border-[#F5F0E8]/20 px-3.5 py-2.5 text-base sm:text-xs min-h-[44px] text-[#F5F0E8] placeholder:text-[#F5F0E8]/40 focus:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold rounded-s-[8px]"
                       />
                     </div>
                     <button
                       type="submit"
                       disabled={isLoading}
                       aria-label={t('footer.newsletterButton')}
-                      className="bg-gold text-near-black px-4 min-h-[44px] min-w-[48px] hover:bg-gold-light transition-colors flex items-center justify-center cursor-pointer shrink-0 rounded-e-[8px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold disabled:opacity-60"
+                      className="bg-gold text-[#111111] px-4 min-h-[44px] min-w-[48px] hover:bg-gold-light transition-colors flex items-center justify-center cursor-pointer shrink-0 rounded-e-[8px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold disabled:opacity-60"
                     >
                       {isLoading ? (
-                        <Loader2 className="w-4 h-4 animate-spin text-near-black" />
+                        <Loader2 className="w-4 h-4 animate-spin text-[#111111]" />
                       ) : (
                         <ArrowIcon className="w-4 h-4 stroke-[1.75]" />
                       )}
@@ -214,7 +214,7 @@ export const Footer: React.FC = () => {
                       {errorMessage}
                     </p>
                   )}
-                  <div className="mt-2.5 flex items-center gap-1.5 text-[11px] text-ivory/50">
+                  <div className="mt-2.5 flex items-center gap-1.5 text-[11px] text-[#F5F0E8]/50">
                     <ShieldCheck className="w-3.5 h-3.5 stroke-[1.5] text-gold/70 shrink-0" />
                     <span>{t('footer.newsletterPrivacy')}</span>
                   </div>
@@ -228,7 +228,7 @@ export const Footer: React.FC = () => {
             <h4 className="text-xs uppercase tracking-widest rtl:tracking-normal text-gold font-medium mb-4">
               {t('footer.navigation')}
             </h4>
-            <ul className="space-y-2.5 text-xs text-ivory/70 font-light">
+            <ul className="space-y-2.5 text-xs text-[#F5F0E8]/70 font-light">
               <li>
                 <LocaleLink to="/" className="hover:text-gold transition-colors">
                   {t('nav.home')}
@@ -267,7 +267,7 @@ export const Footer: React.FC = () => {
             <h4 className="text-xs uppercase tracking-widest rtl:tracking-normal text-gold font-medium mb-4">
               {t('footer.customerCare')}
             </h4>
-            <ul className="space-y-2.5 text-xs text-ivory/70 font-light">
+            <ul className="space-y-2.5 text-xs text-[#F5F0E8]/70 font-light">
               <li>
                 <span className="hover:text-gold transition-colors cursor-pointer">
                   {t('footer.consultation')}
@@ -298,39 +298,8 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom copyright and legal */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-ivory/50">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#F5F0E8]/50">
           <p>{t('footer.copyright', { year: formatNumber(2026, { useGrouping: false }) })}</p>
-
-          {/* Social Icons in Bottom Bar */}
-          <div className="flex items-center gap-2">
-            <a
-              href={SOCIAL_LINKS.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t('footer.instagramLabel')}
-              className="w-7 h-7 rounded-full border border-ivory/20 hover:border-gold bg-near-black/60 hover:bg-gold/15 flex items-center justify-center text-ivory/70 hover:text-gold-light transition-all duration-200 transform hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
-            >
-              <InstagramIcon className="w-3.5 h-3.5" />
-            </a>
-            <a
-              href={SOCIAL_LINKS.telegram}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t('footer.telegramLabel')}
-              className="w-7 h-7 rounded-full border border-ivory/20 hover:border-gold bg-near-black/60 hover:bg-gold/15 flex items-center justify-center text-ivory/70 hover:text-gold-light transition-all duration-200 transform hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
-            >
-              <TelegramIcon className="w-3.5 h-3.5" />
-            </a>
-            <a
-              href={SOCIAL_LINKS.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t('footer.whatsappLabel')}
-              className="w-7 h-7 rounded-full border border-ivory/20 hover:border-gold bg-near-black/60 hover:bg-gold/15 flex items-center justify-center text-ivory/70 hover:text-gold-light transition-all duration-200 transform hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold cursor-pointer"
-            >
-              <WhatsAppIcon className="w-3.5 h-3.5" />
-            </a>
-          </div>
 
           <div className="flex items-center gap-6">
             <span className="hover:text-gold transition-colors cursor-pointer">

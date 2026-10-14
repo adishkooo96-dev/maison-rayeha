@@ -3,7 +3,129 @@ import { PRODUCT_IMAGES } from './images';
 
 /* Real brand asset placeholder: Replace unsplash image URLs with high-resolution studio bottle photography */
 export const products: Product[] = [
-  // 1. Oud Nocturne (Maison Rayeha - Oriental - Unisex)
+  // 1. Creed Silver Mountain Water (Creed - Fresh - Unisex)
+  {
+    id: 'silver-mountain-water',
+    slug: 'silver-mountain-water',
+    brand: 'Creed',
+    name: {
+      fa: 'کرید سیلور مانتین واتر',
+      en: 'Creed Silver Mountain Water',
+    },
+    subtitle: {
+      fa: 'او د پرفیوم کریستالی - نسیم خنک چشمه‌های آلپ',
+      en: 'Haute Eau de Parfum – Crisp Alpine Snowmelt & Green Tea',
+    },
+    description: {
+      fa: 'شاهکار افسانه‌ای برند سلطنتی کرید؛ الهام‌گرفته از زلالی چشمه‌های جاری از یخچال‌های طبیعی آلپ سوئیس با درخشش چای سبز، ترنج سیسیلی و مشک پاکیزه برفی.',
+      en: 'The iconic masterpiece inspired by the pure freshness of sparkling mountain streams in the Swiss Alps, fusing crisp green tea, bergamot, and frosted white musk.',
+    },
+    price: {
+      fa: 18500000,
+      en: 345,
+    },
+    sizes: [
+      { ml: 30, price: { fa: 18500000, en: 345 } },
+      { ml: 50, price: { fa: 24500000, en: 440 } },
+      { ml: 100, price: { fa: 36800000, en: 590 } },
+    ],
+    scentFamily: 'fresh',
+    gender: 'unisex',
+    concentration: {
+      fa: 'او د پرفیوم سلطنتی (Millésime)',
+      en: 'Royal Eau de Parfum (Millésime)',
+    },
+    notes: {
+      top: {
+        fa: ['ترنج کالابریا', 'نارنگی ماندارین سیسیلی'],
+        en: ['Calabrian Bergamot', 'Sicilian Mandarin'],
+      },
+      heart: {
+        fa: ['چای سبز آلپ', 'شکوفه مویز سیاه'],
+        en: ['Alpine Green Tea', 'Blackcurrant Bud'],
+      },
+      base: {
+        fa: ['مشک سفید برفی', 'صندل چوب کهن', 'پتی‌گرین', 'صمغ گالبانوم'],
+        en: ['Snow White Musk', 'Aged Sandalwood', 'Petitgrain', 'Galbanum'],
+      },
+    },
+    images: PRODUCT_IMAGES['silver-mountain-water'],
+    isBestseller: true,
+    isNew: false,
+    inStock: true,
+    stockQuantity: 15,
+    discountPercent: 10,
+    popularity: 28900,
+    salesCount: 2150,
+    createdAt: '2025-10-01',
+    rating: 4.98,
+    reviewCount: 142,
+    longevity: 4.8,
+    sillage: 4.7,
+  },
+
+  // 2. Baccarat Rouge 540 Extrait (Maison Francis Kurkdjian - Oriental - Unisex)
+  {
+    id: 'baccarat-rouge-540',
+    slug: 'baccarat-rouge-540',
+    brand: 'Maison Francis Kurkdjian',
+    name: {
+      fa: 'باکارات رژ ۵۴۰ اکستریت',
+      en: 'Baccarat Rouge 540 Extrait',
+    },
+    subtitle: {
+      fa: 'اکستریت د پرفیوم کیمیاگری - درخشش یاقوت سرخ و کهربا',
+      en: 'Extrait de Parfum – Poetic Alchemy of Saffron, Amber & Bitter Almond',
+    },
+    description: {
+      fa: 'کیمیاگری مدرن با سیلاژ افسانه‌ای و ردبوی تسخیرکننده؛ همنشینی شگفت‌انگیز زعفران سرخ، بادام تلخ مراکشی و کریستال‌های درخشان عنبر سائل معدنی.',
+      en: 'A luminous, intense olfactory poem fusing Moroccan bitter almond, fiery red saffron, Egyptian grandiflorum jasmine, and crystalline woody ambergris.',
+    },
+    price: {
+      fa: 21900000,
+      en: 395,
+    },
+    sizes: [
+      { ml: 30, price: { fa: 21900000, en: 395 } },
+      { ml: 50, price: { fa: 29800000, en: 510 } },
+      { ml: 100, price: { fa: 44500000, en: 720 } },
+    ],
+    scentFamily: 'oriental',
+    gender: 'unisex',
+    concentration: {
+      fa: 'اکستریت د پرفیوم فوق‌خالص (۴۰٪ غلظت)',
+      en: 'Pure Extrait de Parfum (40% concentrate)',
+    },
+    notes: {
+      top: {
+        fa: ['زعفران سرخ قائنات', 'بادام تلخ مراکشی'],
+        en: ['Persian Red Saffron', 'Bitter Moroccan Almond'],
+      },
+      heart: {
+        fa: ['گل یاس بزرگ گل مصری', 'چوب سدر ویرجینیا'],
+        en: ['Egyptian Grandiflorum Jasmine', 'Virginian Cedar'],
+      },
+      base: {
+        fa: ['عنبر سائل معدنی (امبروکسان)', 'مشک چوبی گرم'],
+        en: ['Mineral Ambergris', 'Warm Woody Musk'],
+      },
+    },
+    images: PRODUCT_IMAGES['baccarat-rouge-540'],
+    isBestseller: true,
+    isNew: false,
+    inStock: true,
+    stockQuantity: 12,
+    discountPercent: 15,
+    popularity: 31200,
+    salesCount: 2480,
+    createdAt: '2025-10-01',
+    rating: 4.99,
+    reviewCount: 198,
+    longevity: 5.0,
+    sillage: 5.0,
+  },
+
+  // 3. Oud Nocturne (Maison Rayeha - Oriental - Unisex)
   {
     id: 'oud-nocturne',
     slug: 'oud-nocturne',

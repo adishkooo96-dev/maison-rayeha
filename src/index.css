@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
+
 :root {
   color-scheme: light;
 
@@ -103,8 +105,8 @@ html[data-theme="dark"],
   --danger: #FF7A7A;
   --success: #6FD3A0;
 
-  /* Backward Compatibility Aliases (Never invert text vs background!) */
-  --color-near-black: var(--text-primary);
+  /* Backward Compatibility Aliases: Near-black MUST remain obsidian dark in dark mode */
+  --color-near-black: #0F0F10;
   --color-ivory: var(--bg-page);
   --color-ivory-surface: var(--bg-surface);
   --color-ivory-subtle: var(--bg-surface-raised);
@@ -193,49 +195,93 @@ html[data-theme="dark"] {
   color-scheme: dark;
 }
 
-html[data-theme="dark"] body:not(.admin-scope) {
+html[data-theme="dark"] body:not(.admin-scope),
+html.dark body:not(.admin-scope),
+.dark body:not(.admin-scope) {
   background-color: var(--bg-page) !important;
   color: var(--text-primary) !important;
 }
 
-/* Never allow text-ivory or text-near-black to be dark in dark mode */
+/* Ensure near-black elements stay pitch-dark in dark mode */
+html[data-theme="dark"] .bg-near-black:not(button):not(a):not(input):not(.admin-scope *),
+html.dark .bg-near-black:not(button):not(a):not(input):not(.admin-scope *),
+.dark .bg-near-black:not(button):not(a):not(input):not(.admin-scope *) {
+  background-color: #0F0F10 !important;
+  color: #F5F0E8 !important;
+}
+
+/* Ensure footer stays pitch-black in dark mode */
+html[data-theme="dark"] footer,
+html.dark footer,
+.dark footer {
+  background-color: #0B0B0C !important;
+  color: #F5F0E8 !important;
+}
+
+/* Never allow text-ivory or text-near-black to have low contrast */
 html[data-theme="dark"] .text-near-black:not(.admin-scope *),
-html[data-theme="dark"] .text-black:not(.admin-scope *) {
+html.dark .text-near-black:not(.admin-scope *),
+.dark .text-near-black:not(.admin-scope *),
+html[data-theme="dark"] .text-black:not(.admin-scope *),
+html.dark .text-black:not(.admin-scope *),
+.dark .text-black:not(.admin-scope *) {
   color: var(--text-primary) !important;
 }
 
-html[data-theme="dark"] .text-ivory:not(.admin-scope *) {
-  color: var(--text-primary) !important;
+html[data-theme="dark"] .text-ivory:not(.admin-scope *),
+html.dark .text-ivory:not(.admin-scope *),
+.dark .text-ivory:not(.admin-scope *) {
+  color: #F5F0E8 !important;
 }
 
-html[data-theme="dark"] .bg-ivory:not(.admin-scope *) {
+html[data-theme="dark"] .bg-ivory:not(.admin-scope *),
+html.dark .bg-ivory:not(.admin-scope *),
+.dark .bg-ivory:not(.admin-scope *) {
   background-color: var(--bg-page) !important;
 }
 
 html[data-theme="dark"] .bg-ivory-surface:not(.admin-scope *),
-html[data-theme="dark"] .bg-white:not(.admin-scope *) {
+html.dark .bg-ivory-surface:not(.admin-scope *),
+.dark .bg-ivory-surface:not(.admin-scope *),
+html[data-theme="dark"] .bg-white:not(.admin-scope *),
+html.dark .bg-white:not(.admin-scope *),
+.dark .bg-white:not(.admin-scope *) {
   background-color: var(--bg-surface) !important;
 }
 
-html[data-theme="dark"] .bg-ivory-subtle:not(.admin-scope *) {
+html[data-theme="dark"] .bg-ivory-subtle:not(.admin-scope *),
+html.dark .bg-ivory-subtle:not(.admin-scope *),
+.dark .bg-ivory-subtle:not(.admin-scope *) {
   background-color: var(--bg-surface-raised) !important;
 }
 
-html[data-theme="dark"] .border-border:not(.admin-scope *) {
+html[data-theme="dark"] .border-border:not(.admin-scope *),
+html.dark .border-border:not(.admin-scope *),
+.dark .border-border:not(.admin-scope *) {
   border-color: var(--border) !important;
 }
 
 /* In dark mode, if any button or action link uses bg-near-black, guarantee gold background with dark text */
 html[data-theme="dark"] button.bg-near-black:not(.admin-scope *),
+html.dark button.bg-near-black:not(.admin-scope *),
+.dark button.bg-near-black:not(.admin-scope *),
 html[data-theme="dark"] a.bg-near-black:not(.admin-scope *),
-html[data-theme="dark"] input[type="submit"]:not(.admin-scope *) {
+html.dark a.bg-near-black:not(.admin-scope *),
+.dark a.bg-near-black:not(.admin-scope *),
+html[data-theme="dark"] input[type="submit"]:not(.admin-scope *),
+html.dark input[type="submit"]:not(.admin-scope *),
+.dark input[type="submit"]:not(.admin-scope *) {
   background-color: var(--btn-primary-bg) !important;
   color: var(--btn-primary-text) !important;
   border-color: var(--btn-primary-bg) !important;
 }
 
 html[data-theme="dark"] button.bg-near-black:hover:not(.admin-scope *),
-html[data-theme="dark"] a.bg-near-black:hover:not(.admin-scope *) {
+html.dark button.bg-near-black:hover:not(.admin-scope *),
+.dark button.bg-near-black:hover:not(.admin-scope *),
+html[data-theme="dark"] a.bg-near-black:hover:not(.admin-scope *),
+html.dark a.bg-near-black:hover:not(.admin-scope *),
+.dark a.bg-near-black:hover:not(.admin-scope *) {
   background-color: var(--btn-primary-hover-bg) !important;
   border-color: var(--btn-primary-hover-bg) !important;
   color: var(--btn-primary-text) !important;

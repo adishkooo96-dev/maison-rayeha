@@ -52,7 +52,7 @@ export const HomePage: React.FC = () => {
         jsonLd={[organizationSchema, webSiteSchema]}
       />
 
-      <div className="bg-ivory">
+      <div className="bg-[var(--bg-page)] text-[var(--text-primary)]">
         {/* 1. Hero Section */}
         <HeroSection />
 

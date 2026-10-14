@@ -76,6 +76,18 @@ export const SCENT_FAMILY_IMAGES = {
  * All images are strictly luxury fine fragrance flacons with no third-party branding or skincare tubes.
  */
 export const PRODUCT_IMAGES: Record<string, string[]> = {
+  'creed-silver-mountain-water': [
+    'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1000&q=80',
+    'https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?auto=format&fit=crop&w=1000&q=80',
+  ],
+  'baccarat-rouge-540': [
+    'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=1000&q=80',
+    'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=1000&q=80',
+  ],
+  'silver-mountain-water': [
+    'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1000&q=80',
+    'https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?auto=format&fit=crop&w=1000&q=80',
+  ],
   'oud-nocturne': [
     'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=1000&q=80',
     'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1000&q=80',
